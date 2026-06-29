@@ -5,53 +5,193 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ryan Javaheri</title>
 <style>
-body { font-family: -apple-system, Helvetica, Arial, sans-serif; margin: 0; color: #1a1a1a; background: #fafafa; line-height: 1.6; }
-.container { max-width: 760px; margin: 0 auto; padding: 60px 24px; }
-header h1 { font-size: 2.4rem; margin-bottom: 4px; }
-header p { color: #666; margin-top: 0; }
-.section { background: #fff; border: 1px solid #e5e5e5; border-radius: 12px; padding: 32px; margin-top: 32px; }
-.section h2 { margin-top: 0; font-size: 1.5rem; }
-.tag { display: inline-block; background: #eef2ff; color: #3743d6; font-size: 0.85rem; font-weight: 600; padding: 4px 12px; border-radius: 999px; margin-bottom: 12px; }
-ul { padding-left: 20px; }
-.cta { display: inline-block; margin-top: 20px; background: #3743d6; color: #fff; text-decoration: none; font-weight: 600; padding: 12px 24px; border-radius: 8px; }
-.cta:hover { background: #2a34b0; }
-footer { text-align: center; color: #999; font-size: 0.85rem; margin-top: 40px; }
+:root {
+  --black: #1d1d1f;
+  --gray: #86868b;
+  --light: #f5f5f7;
+  --blue: #0071e3;
+  --blue-hover: #0077ed;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  color: var(--black);
+  background: #fff;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.47;
+}
+nav {
+  position: sticky; top: 0; z-index: 100;
+  background: rgba(255,255,255,0.8);
+  backdrop-filter: saturate(180%) blur(20px);
+  -webkit-backdrop-filter: saturate(180%) blur(20px);
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.nav-inner {
+  max-width: 1024px; margin: 0 auto; padding: 0 22px;
+  height: 48px; display: flex; align-items: center; justify-content: space-between;
+}
+.nav-inner .brand { font-size: 17px; font-weight: 600; }
+.nav-links a {
+  color: var(--black); text-decoration: none; font-size: 13px;
+  margin-left: 28px; opacity: 0.85; transition: opacity 0.2s;
+}
+.nav-links a:hover { opacity: 1; }
+.hero {
+  text-align: center; padding: 120px 22px 100px;
+  background: var(--light);
+}
+.hero h1 {
+  font-size: 56px; font-weight: 600; letter-spacing: -0.015em;
+  line-height: 1.05;
+}
+.hero .sub {
+  font-size: 28px; color: var(--gray); font-weight: 400; margin-top: 8px;
+}
+.hero .cta {
+  display: inline-block; margin-top: 32px;
+  background: var(--blue); color: #fff; text-decoration: none;
+  font-size: 17px; padding: 12px 28px; border-radius: 980px;
+  transition: background 0.2s;
+}
+.hero .cta:hover { background: var(--blue-hover); }
+section.block { padding: 100px 22px; }
+section.block.alt { background: var(--light); }
+.inner { max-width: 980px; margin: 0 auto; }
+.eyebrow {
+  color: var(--blue); font-size: 19px; font-weight: 600; margin-bottom: 8px;
+}
+.block h2 {
+  font-size: 40px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 20px;
+}
+.block p { font-size: 19px; color: #333; max-width: 700px; margin-bottom: 16px; }
+.block ul { list-style: none; max-width: 700px; }
+.block ul li {
+  font-size: 19px; color: #333; padding: 10px 0 10px 28px; position: relative;
+  border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.block ul li:before {
+  content: '+'; position: absolute; left: 0; color: var(--blue); font-weight: 600;
+}
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 32px; }
+.card {
+  background: #fff; border-radius: 18px; padding: 32px;
+  box-shadow: 0 4px 24px rgba(0,0,0,0.06); transition: transform 0.3s, box-shadow 0.3s;
+}
+.card:hover { transform: translateY(-6px); box-shadow: 0 12px 40px rgba(0,0,0,0.12); }
+.card h3 { font-size: 24px; font-weight: 600; margin-bottom: 10px; }
+.card p { font-size: 16px; color: var(--gray); margin: 0; }
+.cta-secondary {
+  display: inline-block; margin-top: 24px; color: var(--blue);
+  text-decoration: none; font-size: 19px;
+}
+.cta-secondary:hover { text-decoration: underline; }
+footer { background: var(--light); padding: 40px 22px; text-align: center; color: var(--gray); font-size: 12px; }
+.reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+@media (max-width: 600px) {
+  .hero h1 { font-size: 40px; }
+  .hero .sub { font-size: 21px; }
+  .block h2 { font-size: 30px; }
+  .nav-links a { margin-left: 16px; }
+}
 </style>
 </head>
 <body>
-<div class="container">
-<header>
-<h1>Ryan Javaheri</h1>
-<p>Public Relations &amp; Marketing Professional</p>
+<nav>
+  <div class="nav-inner">
+    <span class="brand">Ryan Javaheri</span>
+    <div class="nav-links">
+      <a href="#mosaic">Mosaic</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero">
+  <h1>Ryan Javaheri</h1>
+  <p class="sub">Public Relations &amp; Marketing. Reimagined.</p>
+  <a class="cta" href="#contact">Get in touch</a>
 </header>
 
-<section class="section">
-<span class="tag">Now</span>
-<h2>Marketing Specialist at Mosaic</h2>
-<p>I am currently working as a Marketing Specialist at <strong>Mosaic</strong>, a premier legal recruiting firm. Mosaic specializes in legal recruitment for law firms and attorneys, pairing lateral attorney placement with original market data, candid intelligence, and programs that invest in the next generation of legal talent. Its services span lateral placement, market intelligence on firm culture and compensation, and recruitment and retention advisory for law firms.</p>
+<section class="block reveal" id="mosaic">
+  <div class="inner">
+    <p class="eyebrow">Now</p>
+    <h2>Marketing Specialist at Mosaic.</h2>
+    <p>I am currently working as a Marketing Specialist at Mosaic, a premier legal recruiting firm. Mosaic specializes in legal recruitment for law firms and attorneys, pairing lateral attorney placement with original market data, candid intelligence, and programs that invest in the next generation of legal talent.</p>
+    <p>Its services span lateral placement, market intelligence on firm culture and compensation, and recruitment and retention advisory for law firms.</p>
+  </div>
 </section>
 
-<section class="section">
-<h2>What I Can Do for a Law Firm</h2>
-<p>Through Mosaic, I help law firms strengthen their recruiting, brand, and growth. For your firm, I can:</p>
-<ul>
-<li>Support lateral attorney recruitment and help you connect with top legal talent</li>
-<li>Provide market intelligence on firm culture, compensation, and growth trajectories</li>
-<li>Advise on recruitment and retention strategies to build lasting talent pipelines</li>
-<li>Position and market your firm to attract the right candidates and clients</li>
-<li>Help cultivate early talent and relationships with promising law students</li>
-</ul>
+<section class="block alt reveal">
+  <div class="inner">
+    <p class="eyebrow">For law firms</p>
+    <h2>What I can do for your firm.</h2>
+    <ul>
+      <li>Support lateral attorney recruitment and help you connect with top legal talent</li>
+      <li>Provide market intelligence on firm culture, compensation, and growth trajectories</li>
+      <li>Advise on recruitment and retention strategies to build lasting talent pipelines</li>
+      <li>Position and market your firm to attract the right candidates and clients</li>
+      <li>Help cultivate early talent and relationships with promising law students</li>
+    </ul>
+  </div>
 </section>
 
-<section class="section">
-<h2>Interested in Mosaic? Get in Touch</h2>
-<p>If you would like to learn how Mosaic can help your firm grow, reach out and I will follow up with more information.</p>
-<a class="cta" href="mailto:ryan@ryanjavaheri.com?subject=Interested%20in%20Mosaic&body=Hello%2C%20I%20am%20interested%20in%20Mosaic%2C%20please%20get%20back%20to%20me%20with%20more%20information.%20We%20may%20move%20forward.">Contact me about Mosaic</a>
+<section class="block reveal" id="portfolio">
+  <div class="inner">
+    <p class="eyebrow">Portfolio</p>
+    <h2>Projects &amp; experience.</h2>
+    <p>A USC student focused on public relations, law, and building products. Here is some of what I am working on.</p>
+    <div class="cards">
+      <div class="card">
+        <h3>ClassRoutes</h3>
+        <p>A student class-planning platform for community college and university students, supporting major and minor planning, transfer planning, and professor and course lookup.</p>
+      </div>
+      <div class="card">
+        <h3>MajorMap</h3>
+        <p>A transfer-planning web app helping community college students map their path to a four-year degree, with a Los Angeles community college launch strategy.</p>
+      </div>
+      <div class="card">
+        <h3>Head of Media Relations</h3>
+        <p>Leading media relations and PR strategy, crafting messaging and managing communications across digital platforms.</p>
+      </div>
+      <div class="card">
+        <h3>USC &mdash; PR &amp; Pre-Law</h3>
+        <p>Studying public relations with a minor in Business Law, with coursework in contracts, business organizations, and advocacy.</p>
+      </div>
+      <div class="card">
+        <h3>Payman Fabric Inc.</h3>
+        <p>Hands-on small-business and retail operations experience, including marketing and client-facing work.</p>
+      </div>
+      <div class="card">
+        <h3>Kol Torah Center</h3>
+        <p>Founded and led youth programs, developing community-based initiatives and leadership for high school students.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="block alt reveal" id="contact">
+  <div class="inner">
+    <p class="eyebrow">Interested in Mosaic?</p>
+    <h2>Let's talk.</h2>
+    <p>If you would like to learn how Mosaic can help your firm grow, reach out and I will follow up with more information.</p>
+    <a class="cta-secondary" href="mailto:ryan@ryanjavaheri.com?subject=Interested%20in%20Mosaic&body=Hello%2C%20I%20am%20interested%20in%20Mosaic%2C%20please%20get%20back%20to%20me%20with%20more%20information.%20We%20may%20move%20forward.">Contact me about Mosaic &rsaquo;</a>
+  </div>
 </section>
 
 <footer>
-<p>&copy; 2026 Ryan Javaheri</p>
+  <p>&copy; 2026 Ryan Javaheri. All rights reserved.</p>
 </footer>
-</div>
+
+<script>
+  const els = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  els.forEach(el => obs.observe(el));
+</script>
 </body>
 </html>
