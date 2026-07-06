@@ -1,508 +1,502 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ryan Javaheri</title> <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230071e3'/%3E%3Ctext x='50' y='50' font-family='Snell Roundhand,Brush Script MT,Segoe Script,cursive' font-size='56' font-style='italic' font-weight='700' fill='white' text-anchor='middle' dominant-baseline='central'%3ERJ%3C/text%3E%3C/svg%3E">
-  <style>
-    :root {
-      --black: #1d1d1f;
-      --gray: #86868b;
-      --light: #f5f5f7;
-      --blue: #000000;
-      --blue-hover: #0077ed;
-      --ease: cubic-bezier(0.25, 0.1, 0.25, 1);
-      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
-    }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
-      color: var(--black);
-      background: #fff;
-      -webkit-font-smoothing: antialiased;
-      line-height: 1.47;
-      overflow-x: hidden;
-    }
-    nav {
-      position: sticky; top: 0; z-index: 100;
-      background: rgba(255,255,255,0.72);
-      backdrop-filter: saturate(180%) blur(20px);
-      -webkit-backdrop-filter: saturate(180%) blur(20px);
-      border-bottom: 1px solid rgba(0,0,0,0);
-      transition: border-color 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
-    }
-    nav.scrolled {
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      background: rgba(255,255,255,0.85);
-      box-shadow: 0 1px 20px rgba(0,0,0,0.04);
-    }
-    .nav-inner {
-      max-width: 1024px; margin: 0 auto; padding: 0 22px;
-      height: 48px; display: flex; align-items: center; justify-content: space-between;
-    }
-    .nav-inner .brand { font-size: 17px; font-weight: 600; }
-    .nav-links a {
-      color: var(--black); text-decoration: none; font-size: 13px;
-      margin-left: 28px; opacity: 0.85; position: relative;
-      transition: opacity 0.2s;
-    }
-    .nav-links a::after {
-      content: ''; position: absolute; left: 0; bottom: -4px;
-      width: 100%; height: 1px; background: var(--black);
-      transform: scaleX(0); transform-origin: right;
-      transition: transform 0.35s var(--ease-out);
-    }
-    .nav-links a:hover { opacity: 1; }
-    .nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ryan Javaheri</title> <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%230071e3'/%3E%3Ctext x='50' y='50' font-family='Snell Roundhand,Brush Script MT,Segoe Script,cursive' font-size='56' font-style='italic' font-weight='700' fill='white' text-anchor='middle' dominant-baseline='central'%3ERJ%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+--black: #1d1d1f;
+--gray: #86868b;
+--light: #f5f5f7;
+--blue: #000000;
+--blue-hover: #0077ed;
+--ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+color: var(--black);
+background: #fff;
+-webkit-font-smoothing: antialiased;
+line-height: 1.47;
+overflow-x: hidden;
+}
+nav {
+position: sticky; top: 0; z-index: 100;
+background: rgba(255,255,255,0.72);
+backdrop-filter: saturate(180%) blur(20px);
+-webkit-backdrop-filter: saturate(180%) blur(20px);
+border-bottom: 1px solid rgba(0,0,0,0);
+transition: border-color 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+nav.scrolled {
+border-bottom: 1px solid rgba(0,0,0,0.08);
+background: rgba(255,255,255,0.85);
+box-shadow: 0 1px 20px rgba(0,0,0,0.04);
+}
+.nav-inner {
+max-width: 1024px; margin: 0 auto; padding: 0 22px;
+height: 48px; display: flex; align-items: center; justify-content: space-between;
+}
+.nav-inner .brand { font-size: 17px; font-weight: 600; }
+.nav-links a {
+color: var(--black); text-decoration: none; font-size: 13px;
+margin-left: 28px; opacity: 0.85; position: relative;
+transition: opacity 0.2s;
+}
+.nav-links a::after {
+content: ''; position: absolute; left: 0; bottom: -4px;
+width: 100%; height: 1px; background: var(--black);
+transform: scaleX(0); transform-origin: right;
+transition: transform 0.35s var(--ease-out);
+}
+.nav-links a:hover { opacity: 1; }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
 
-    /* ---- Hero with scroll-driven parallax ---- */
-    .hero-wrap { position: relative; background: var(--light); }
-    .hero {
-      text-align: center; padding: 130px 22px 110px;
-      position: relative; overflow: hidden;
-    }
-    .hero-content { will-change: transform, opacity; }
-    .hero h1 {
-      font-size: 64px; font-weight: 600; letter-spacing: -0.015em;
-      line-height: 1.05;
-    }
-    .hero h1 .ch {
-      display: inline-block; opacity: 0;
-      transform: translateY(46px) rotate(3deg) scale(0.9);
-      filter: blur(6px);
-      animation: chIn 0.7s var(--ease-out) forwards;
-    }
-    @keyframes chIn {
-      to { opacity: 1; transform: translateY(0) rotate(0) scale(1); filter: blur(0); }
-    }
-    .hero .sub {
-      font-size: 28px; font-weight: 400; margin-top: 10px;
-      opacity: 0; transform: translateY(24px);
-      background: linear-gradient(100deg, var(--gray) 40%, #c7c7cc 50%, var(--gray) 60%);
-      background-size: 200% 100%;
-      -webkit-background-clip: text; background-clip: text;
-      -webkit-text-fill-color: transparent; color: transparent;
-      animation: heroIn 1s var(--ease-out) 0.55s forwards, shimmer 3.5s linear 1.6s infinite;
-    }
-    @keyframes shimmer {
-      0% { background-position: 120% 0; }
-      100% { background-position: -80% 0; }
-    }
-    .scroll-cue {
-      position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%);
-      width: 22px; height: 22px; pointer-events: none;
-      opacity: 0; animation: heroIn 1s var(--ease-out) 1.2s forwards;
-    }
-    .scroll-cue::after {
-      content: ''; position: absolute; left: 50%; top: 0;
-      width: 12px; height: 12px; border-right: 2px solid var(--gray); border-bottom: 2px solid var(--gray);
-      transform: translateX(-50%) rotate(45deg);
-      animation: cueBounce 1.8s var(--ease) infinite;
-    }
-    @keyframes cueBounce {
-      0%, 100% { transform: translateX(-50%) rotate(45deg) translate(0, 0); opacity: 0.9; }
-      50% { transform: translateX(-50%) rotate(45deg) translate(5px, 5px); opacity: 0.4; }
-    }
-    .hero .cta {
-      display: inline-block; margin-top: 34px;
-      background: var(--blue); color: #fff; text-decoration: none;
-      font-size: 17px; padding: 12px 28px; border-radius: 980px;
-      transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background 0.2s;
-      opacity: 0; transform: translateY(20px);
-      animation: heroIn 1s var(--ease-out) 0.5s forwards;
-    }
-    .hero .cta:hover { background: #2b2b2e; transform: scale(1.045); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
-    .hero .cta:active { transform: scale(0.97); }
-    @keyframes heroIn {
-      to { opacity: 1; transform: translateY(0) scale(1); }
-    }
-    /* floating ambient shapes behind hero */
-    .hero .orb {
-      position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.5;
-      pointer-events: none; will-change: transform;
-    }
-    .orb-1 { width: 380px; height: 380px; background: #dfe4ec; top: -80px; left: -100px; animation: drift1 11s ease-in-out infinite alternate; }
-    .orb-2 { width: 300px; height: 300px; background: #e8e2d9; bottom: -120px; right: -60px; animation: drift2 13s ease-in-out infinite alternate; }
-    @keyframes drift1 {
-      from { margin-left: 0; margin-top: 0; opacity: 0.5; }
-      to { margin-left: 90px; margin-top: 50px; opacity: 0.75; }
-    }
-    @keyframes drift2 {
-      from { margin-right: 0; margin-bottom: 0; opacity: 0.5; }
-      to { margin-right: 110px; margin-bottom: 60px; opacity: 0.7; }
-    }
+/* ---- Hero with scroll-driven parallax ---- */
+.hero-wrap { position: relative; background: var(--light); }
+.hero {
+text-align: center; padding: 130px 22px 110px;
+position: relative; overflow: hidden;
+}
+.hero-content { will-change: transform, opacity; }
+.hero h1 {
+font-size: 64px; font-weight: 600; letter-spacing: -0.015em;
+line-height: 1.05;
+}
+.hero h1 .ch {
+display: inline-block; opacity: 0;
+transform: translateY(46px) rotate(3deg) scale(0.9);
+filter: blur(6px);
+animation: chIn 0.7s var(--ease-out) forwards;
+}
+@keyframes chIn {
+to { opacity: 1; transform: translateY(0) rotate(0) scale(1); filter: blur(0); }
+}
+.hero .sub {
+font-size: 28px; font-weight: 400; margin-top: 10px;
+opacity: 0; transform: translateY(24px);
+background: linear-gradient(100deg, var(--gray) 40%, #c7c7cc 50%, var(--gray) 60%);
+background-size: 200% 100%;
+-webkit-background-clip: text; background-clip: text;
+-webkit-text-fill-color: transparent; color: transparent;
+animation: heroIn 1s var(--ease-out) 0.55s forwards, shimmer 3.5s linear 1.6s infinite;
+}
+@keyframes shimmer {
+0% { background-position: 120% 0; }
+100% { background-position: -80% 0; }
+}
+.scroll-cue {
+position: absolute; left: 50%; bottom: 26px; transform: translateX(-50%);
+width: 22px; height: 22px; pointer-events: none;
+opacity: 0; animation: heroIn 1s var(--ease-out) 1.2s forwards;
+}
+.scroll-cue::after {
+content: ''; position: absolute; left: 50%; top: 0;
+width: 12px; height: 12px; border-right: 2px solid var(--gray); border-bottom: 2px solid var(--gray);
+transform: translateX(-50%) rotate(45deg);
+animation: cueBounce 1.8s var(--ease) infinite;
+}
+@keyframes cueBounce {
+0%, 100% { transform: translateX(-50%) rotate(45deg) translate(0, 0); opacity: 0.9; }
+50% { transform: translateX(-50%) rotate(45deg) translate(5px, 5px); opacity: 0.4; }
+}
+.hero .cta {
+display: inline-block; margin-top: 34px;
+background: var(--blue); color: #fff; text-decoration: none;
+font-size: 17px; padding: 12px 28px; border-radius: 980px;
+transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background 0.2s;
+opacity: 0; transform: translateY(20px);
+animation: heroIn 1s var(--ease-out) 0.5s forwards;
+}
+.hero .cta:hover { background: #2b2b2e; transform: scale(1.045); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+.hero .cta:active { transform: scale(0.97); }
+@keyframes heroIn {
+to { opacity: 1; transform: translateY(0) scale(1); }
+}
+/* floating ambient shapes behind hero */
+.hero .orb {
+position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.5;
+pointer-events: none; will-change: transform;
+}
+.orb-1 { width: 380px; height: 380px; background: #dfe4ec; top: -80px; left: -100px; animation: drift1 11s ease-in-out infinite alternate; }
+.orb-2 { width: 300px; height: 300px; background: #e8e2d9; bottom: -120px; right: -60px; animation: drift2 13s ease-in-out infinite alternate; }
+@keyframes drift1 {
+from { margin-left: 0; margin-top: 0; opacity: 0.5; }
+to { margin-left: 90px; margin-top: 50px; opacity: 0.75; }
+}
+@keyframes drift2 {
+from { margin-right: 0; margin-bottom: 0; opacity: 0.5; }
+to { margin-right: 110px; margin-bottom: 60px; opacity: 0.7; }
+}
 
-    section.block { padding: 100px 22px; position: relative; }
-    section.block.alt { background: var(--light); }
-    .inner { max-width: 980px; margin: 0 auto; }
-    .eyebrow {
-      color: var(--blue); font-size: 19px; font-weight: 600; margin-bottom: 8px;
-    }
-    .block h2 {
-      font-size: 44px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 20px;
-    }
-    .block p { font-size: 19px; color: #333; max-width: 700px; margin-bottom: 16px; }
-    .block ul { list-style: none; max-width: 700px; }
-    .block ul li {
-      font-size: 21px; font-weight: 500; color: #333; padding: 14px 0 14px 30px; position: relative;
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-    }
-    .block ul li:before {
-      content: '+'; position: absolute; left: 0; color: var(--blue); font-weight: 600;
-    }
-    .block ul li .w { transition: opacity 0.25s linear; }
+section.block { padding: 100px 22px; position: relative; }
+section.block.alt { background: var(--light); }
+.inner { max-width: 980px; margin: 0 auto; }
+.eyebrow {
+color: var(--blue); font-size: 19px; font-weight: 600; margin-bottom: 8px;
+}
+.block h2 {
+font-size: 44px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 20px;
+}
+.block p { font-size: 19px; color: #333; max-width: 700px; margin-bottom: 16px; }
+.block ul { list-style: none; max-width: 700px; }
+.block ul li {
+font-size: 21px; font-weight: 500; color: #333; padding: 14px 0 14px 30px; position: relative;
+border-bottom: 1px solid rgba(0,0,0,0.08);
+}
+.block ul li:before {
+content: '+'; position: absolute; left: 0; color: var(--blue); font-weight: 600;
+}
+.block ul li .w { transition: opacity 0.25s linear; }
 
-    .cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 32px; perspective: 1200px; }
-    .card {
-      background: #fff; border-radius: 18px; padding: 32px;
-      box-shadow: 0 4px 24px rgba(0,0,0,0.06);
-      transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
-      transform-style: preserve-3d; will-change: transform;
-      position: relative; overflow: hidden;
-    }
-    .card::after {
-      content: ''; position: absolute; top: 0; left: -80%;
-      width: 50%; height: 100%; pointer-events: none;
-      background: linear-gradient(105deg, transparent, rgba(255,255,255,0.7), transparent);
-      transform: skewX(-20deg);
-      transition: left 0.7s var(--ease-out);
-    }
-    .card:hover::after { left: 130%; }
-    .card:hover { transform: translateY(-8px) scale(1.015); box-shadow: 0 18px 50px rgba(0,0,0,0.14); }
-    .card h3 { font-size: 24px; font-weight: 600; margin-bottom: 10px; }
-    .card p { font-size: 16px; color: var(--gray); margin: 0; }
-    .cta-secondary {
-      display: inline-block; margin-top: 24px; color: var(--blue);
-      text-decoration: none; font-size: 19px;
-      transition: transform 0.3s var(--ease-out);
-    }
-    .cta-secondary:hover { text-decoration: underline; transform: translateX(4px); }
-    footer { background: var(--light); padding: 40px 22px; text-align: center; color: var(--gray); font-size: 12px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 32px; perspective: 1200px; }
+.card {
+background: #fff; border-radius: 18px; padding: 32px;
+box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+transform-style: preserve-3d; will-change: transform;
+position: relative; overflow: hidden;
+}
+.card::after {
+content: ''; position: absolute; top: 0; left: -80%;
+width: 50%; height: 100%; pointer-events: none;
+background: linear-gradient(105deg, transparent, rgba(255,255,255,0.7), transparent);
+transform: skewX(-20deg);
+transition: left 0.7s var(--ease-out);
+}
+.card:hover::after { left: 130%; }
+.card:hover { transform: translateY(-8px) scale(1.015); box-shadow: 0 18px 50px rgba(0,0,0,0.14); }
+.card h3 { font-size: 24px; font-weight: 600; margin-bottom: 10px; }
+.card p { font-size: 16px; color: var(--gray); margin: 0; }
+.cta-secondary {
+display: inline-block; margin-top: 24px; color: var(--blue);
+text-decoration: none; font-size: 19px;
+transition: transform 0.3s var(--ease-out);
+}
+.cta-secondary:hover { text-decoration: underline; transform: translateX(4px); }
+footer { background: var(--light); padding: 40px 22px; text-align: center; color: var(--gray); font-size: 12px; }
 
-    /* ---- Scroll reveal system (rise + focus-in blur) ---- */
-    .reveal {
-      opacity: 0; transform: translateY(50px); filter: blur(10px);
-      transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out), filter 0.9s var(--ease-out);
-    }
-    .reveal.visible { opacity: 1; transform: translateY(0); filter: blur(0); }
-    /* staggered children */
-    .stagger > * {
-      opacity: 0; transform: translateY(36px); filter: blur(8px);
-      transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out), filter 0.8s var(--ease-out);
-    }
-    .stagger.visible > * { opacity: 1; transform: translateY(0); filter: blur(0); }
-    /* list items sweep in from the left, one by one */
-    .reveal .block-list li, section.reveal ul li {
-      opacity: 0; transform: translateX(-32px);
-      transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
-    }
-    section.reveal.visible ul li { opacity: 1; transform: translateX(0); }
-    section.reveal.visible ul li:nth-child(1) { transition-delay: 0.1s; }
-    section.reveal.visible ul li:nth-child(2) { transition-delay: 0.22s; }
-    section.reveal.visible ul li:nth-child(3) { transition-delay: 0.34s; }
-    section.reveal.visible ul li:nth-child(4) { transition-delay: 0.46s; }
-    section.reveal.visible ul li:nth-child(5) { transition-delay: 0.58s; }
-    .stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
-    .stagger.visible > *:nth-child(2) { transition-delay: 0.15s; }
-    .stagger.visible > *:nth-child(3) { transition-delay: 0.25s; }
-    .stagger.visible > *:nth-child(4) { transition-delay: 0.35s; }
-    .stagger.visible > *:nth-child(5) { transition-delay: 0.45s; }
-    .stagger.visible > *:nth-child(6) { transition-delay: 0.55s; }
-    /* cards scale-in */
-    .cards.stagger > * { transform: translateY(44px) scale(0.94); }
-    .cards.stagger.visible > * { transform: translateY(0) scale(1); }
+/* ---- Scroll reveal system (rise + focus-in blur) ---- */
+.reveal {
+opacity: 0; transform: translateY(50px); filter: blur(10px);
+transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out), filter 0.9s var(--ease-out);
+}
+.reveal.visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+/* staggered children */
+.stagger > * {
+opacity: 0; transform: translateY(36px); filter: blur(8px);
+transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out), filter 0.8s var(--ease-out);
+}
+.stagger.visible > * { opacity: 1; transform: translateY(0); filter: blur(0); }
+/* list items sweep in from the left, one by one */
+.reveal .block-list li, section.reveal ul li {
+opacity: 0; transform: translateX(-32px);
+transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+}
+section.reveal.visible ul li { opacity: 1; transform: translateX(0); }
+section.reveal.visible ul li:nth-child(1) { transition-delay: 0.1s; }
+section.reveal.visible ul li:nth-child(2) { transition-delay: 0.22s; }
+section.reveal.visible ul li:nth-child(3) { transition-delay: 0.34s; }
+section.reveal.visible ul li:nth-child(4) { transition-delay: 0.46s; }
+section.reveal.visible ul li:nth-child(5) { transition-delay: 0.58s; }
+.stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger.visible > *:nth-child(2) { transition-delay: 0.15s; }
+.stagger.visible > *:nth-child(3) { transition-delay: 0.25s; }
+.stagger.visible > *:nth-child(4) { transition-delay: 0.35s; }
+.stagger.visible > *:nth-child(5) { transition-delay: 0.45s; }
+.stagger.visible > *:nth-child(6) { transition-delay: 0.55s; }
+/* cards scale-in */
+.cards.stagger > * { transform: translateY(44px) scale(0.94); }
+.cards.stagger.visible > * { transform: translateY(0) scale(1); }
 
-    /* ---- Scroll slideshow (pinned section, slides scrub with scroll) ---- */
-    .slideshow-track { position: relative; height: 340vh; }
-    .slideshow-sticky {
-      position: sticky; top: 0; height: 100vh; overflow: hidden;
-      display: flex; flex-direction: column; justify-content: center;
-      padding: 70px 22px 40px;
-    }
-    .slideshow-head { max-width: 980px; margin: 0 auto; width: 100%; }
-    .slideshow-stage {
-      position: relative; max-width: 980px; margin: 36px auto 0; width: 100%;
-      flex: 0 0 auto; height: 340px; perspective: 1400px;
-    }
-    .slide {
-      position: absolute; inset: 0;
-      background: #fff; border-radius: 24px; padding: 48px;
-      box-shadow: 0 10px 50px rgba(0,0,0,0.10);
-      display: flex; flex-direction: column; justify-content: center;
-      will-change: transform, opacity;
-    }
-    .slide .slide-num { font-size: 15px; font-weight: 600; color: var(--gray); margin-bottom: 14px; letter-spacing: 0.06em; }
-    .slide h3 { font-size: 36px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 14px; }
-    .slide p { font-size: 19px; color: #555; max-width: 640px; margin: 0; }
-    .slide-dots { display: flex; gap: 10px; justify-content: center; margin-top: 30px; }
-    .slide-dots span {
-      width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.2);
-      transition: background 0.3s, transform 0.3s;
-    }
-    .slide-dots span.on { background: var(--black); transform: scale(1.25); }
-    .slideshow-hint { text-align: center; color: var(--gray); font-size: 13px; margin-top: 14px; }
-    @media (max-width: 700px), (prefers-reduced-motion: reduce) {
-      .slideshow-track { height: auto; }
-      .slideshow-sticky { position: static; height: auto; overflow: visible; display: block; padding: 100px 22px; }
-      .slideshow-stage { height: auto; margin-top: 32px; display: grid; gap: 22px; }
-      .slide { position: static; opacity: 1 !important; transform: none !important; padding: 32px; }
-      .slide h3 { font-size: 26px; }
-      .slide-dots, .slideshow-hint { display: none; }
-    }
+/* ---- Scroll slideshow (pinned section, slides scrub with scroll) ---- */
+.slideshow-track { position: relative; height: 340vh; }
+.slideshow-sticky {
+position: sticky; top: 0; height: 100vh; overflow: hidden;
+display: flex; flex-direction: column; justify-content: center;
+padding: 70px 22px 40px;
+}
+.slideshow-head { max-width: 980px; margin: 0 auto; width: 100%; }
+.slideshow-stage {
+position: relative; max-width: 980px; margin: 36px auto 0; width: 100%;
+flex: 0 0 auto; height: 340px; perspective: 1400px;
+}
+.slide {
+position: absolute; inset: 0;
+background: #fff; border-radius: 24px; padding: 48px;
+box-shadow: 0 10px 50px rgba(0,0,0,0.10);
+display: flex; flex-direction: column; justify-content: center;
+will-change: transform, opacity;
+}
+.slide .slide-num { font-size: 15px; font-weight: 600; color: var(--gray); margin-bottom: 14px; letter-spacing: 0.06em; }
+.slide h3 { font-size: 36px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 14px; }
+.slide p { font-size: 19px; color: #555; max-width: 640px; margin: 0; }
+.slide-dots { display: flex; gap: 10px; justify-content: center; margin-top: 30px; }
+.slide-dots span {
+width: 8px; height: 8px; border-radius: 50%; background: rgba(0,0,0,0.2);
+transition: background 0.3s, transform 0.3s;
+}
+.slide-dots span.on { background: var(--black); transform: scale(1.25); }
+.slideshow-hint { text-align: center; color: var(--gray); font-size: 13px; margin-top: 14px; }
+@media (max-width: 700px), (prefers-reduced-motion: reduce) {
+.slideshow-track { height: auto; }
+.slideshow-sticky { position: static; height: auto; overflow: visible; display: block; padding: 100px 22px; }
+.slideshow-stage { height: auto; margin-top: 32px; display: grid; gap: 22px; }
+.slide { position: static; opacity: 1 !important; transform: none !important; padding: 32px; }
+.slide h3 { font-size: 26px; }
+.slide-dots, .slideshow-hint { display: none; }
+}
 
-    /* scroll progress bar */
-    .progress {
-      position: fixed; top: 0; left: 0; height: 2px; width: 100%;
-      background: var(--black); transform-origin: left;
-      transform: scaleX(0); z-index: 200; pointer-events: none;
-    }
+/* scroll progress bar */
+.progress {
+position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+background: var(--black); transform-origin: left;
+transform: scaleX(0); z-index: 200; pointer-events: none;
+}
 
-    @media (prefers-reduced-motion: reduce) {
-      .hero h1, .hero .sub, .hero .cta, .hero h1 .ch, .scroll-cue, .orb { animation: none !important; opacity: 1; transform: none; filter: none; }
-      .hero .sub { -webkit-text-fill-color: var(--gray); color: var(--gray); background: none; }
-      .reveal, .stagger > *, section.reveal ul li { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
-      .block ul li .w { opacity: 1 !important; }
-      .card::after { display: none; }
-      html { scroll-behavior: auto; }
-    }
-    @media (max-width: 600px) {
-      .hero h1 { font-size: 42px; }
-      .hero .sub { font-size: 21px; }
-      .block h2 { font-size: 30px; }
-      .nav-links a { margin-left: 16px; }
-    }
-    </style>
-  </head>
-  <body>
-    <div class="progress" id="progress"></div>div>
-    <nav id="nav">
-      <div class="nav-inner">
-        <span class="brand">Ryan Javaheri</span>span>
-        <div class="nav-links">
-          <a href="#mosaic">Mosaic</a>a>
-          <a href="#portfolio">Portfolio</a>a>
-          <a href="#education">Education</a>a>
-          <a href="#contact">Contact</a>a>
-        </div>div>
-      </div>div>
-    </nav>nav>
+@media (prefers-reduced-motion: reduce) {
+.hero h1, .hero .sub, .hero .cta, .hero h1 .ch, .scroll-cue, .orb { animation: none !important; opacity: 1; transform: none; filter: none; }
+.hero .sub { -webkit-text-fill-color: var(--gray); color: var(--gray); background: none; }
+.reveal, .stagger > *, section.reveal ul li { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
+.block ul li .w { opacity: 1 !important; }
+.card::after { display: none; }
+html { scroll-behavior: auto; }
+}
+@media (max-width: 600px) {
+.hero h1 { font-size: 42px; }
+.hero .sub { font-size: 21px; }
+.block h2 { font-size: 30px; }
+.nav-links a { margin-left: 16px; }
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav id="nav">
+<div class="nav-inner">
+<span class="brand">Ryan Javaheri</span>
+<div class="nav-links">
+<a href="#mosaic">Mosaic</a>
+<a href="#portfolio">Portfolio</a>
+<a href="#education">Education</a>
+<a href="#contact">Contact</a>
+</div>
+</div>
+</nav>
 
-    <div class="hero-wrap">
-      <header class="hero">
-        <div class="orb orb-1" data-speed="0.25"></div>div>
-        <div class="orb orb-2" data-speed="0.45"></div>div>
-        <div class="hero-content" id="heroContent">
-          <h1>Ryan Javaheri</h1>
-        <p class="sub">future lawyer.</p>p>
-        <a class="cta" href="#contact">Get in touch</a>a>
-        </div>div>
-      <div class="scroll-cue" id="scrollCue"></div>div>
-      </header>header>
-    </div>div>
-  
-  <section class="block reveal" id="mosaic">
-  <div class="inner stagger">
-  <p class="eyebrow">Now</p>p>
-  <h2>Marketing Specialist at Mosaic.</h2>
-  <p>I am currently working as a Marketing Specialist at Mosaic, a premier legal recruiting firm. Mosaic specializes in legal recruitment for law firms and attorneys, pairing lateral attorney placement with original market data, candid intelligence, and programs that invest in the next generation of legal talent.</p>
-  <p>Its services span lateral placement, market intelligence on firm culture and compensation, and recruitment and retention advisory for law firms.</p>
-  </div>div>
-  </section>section>
-  
-  <section class="block alt reveal">
-  <div class="inner">
-  <p class="eyebrow">For law firms</p>
-  <h2>What I can do for your firm.</h2>
-  <ul id="scrubList">
-  <li>Support lateral attorney recruitment and help you connect with top legal talent</li>
-  <li>Provide market intelligence on firm culture, compensation, and growth trajectories</li>
-  <li>Advise on recruitment and retention strategies to build lasting talent pipelines</li>
-  <li>Position and market your firm to attract the right candidates and clients</li>
-  <li>Help cultivate early talent and relationships with promising law students</li>
-  </ul>ul>
-  </div>div>
-  </section>section>
-  
-  <section id="portfolio">
-  <div class="slideshow-track" id="slideshowTrack">
-  <div class="slideshow-sticky">
-  <div class="slideshow-head">
-  <p class="eyebrow">Portfolio</p>
-  <h2>Projects &amp; experience.</h2>
-  <p style="font-size:19px;color:#333;max-width:700px;">A USC student focused on public relations, law, and building products. Here is some of what I am working on.</p>
-  </div>div>
-  <div class="slideshow-stage" id="slideshowStage">
-  <div class="slide">
-  <p class="slide-num">01 / 03</p>
-  <h3>ClassRoutes</h3>
-  <p>A student class-planning platform for community college and university students, supporting major and minor planning, transfer planning, and professor and course lookup.</p>
-  </div>div>
-  <div class="slide">
-  <p class="slide-num">02 / 03</p>
-  <h3>Head of Media Relations</h3>
-  <p>Leading media relations and PR strategy, crafting messaging and managing communications across digital platforms.</p>
-  </div>div>
-  <div class="slide">
-  <p class="slide-num">03 / 03</p>
-  <h3>Payman Fabric Inc.</h3>
-  <p>Hands-on small-business and retail operations experience, including marketing and client-facing work.</p>
-  </div>div>
-  </div>div>
-  <div class="slide-dots" id="slideDots"><span class="on"></span>span><span></span><span></span></div>div>
-  <p class="slideshow-hint">Keep scrolling</p>
-  </div>div>
-  </div>div>
-  </section>section>
-  
-  <section class="block alt reveal" id="education">
-  <div class="inner">
-  <p class="eyebrow">Education</p>
-  <h2>University of Southern California.</h2>
-  <div class="cards stagger">
-  <div class="card">
-  <h3>USC &mdash; PR &amp; Pre-Law</h3>
-  <p>Studying public relations with a minor in Business Law, with coursework in contracts, business organizations, and advocacy.</p>
-  </div>div>
-  </div>div>
-  </div>div>
-  </section>section>
-  
-  <section class="block reveal" id="contact">
-  <div class="inner stagger">
-  <p class="eyebrow">Interested in Mosaic?</p>
-  <h2>Let's talk.</h2>
-  <p>If you would like to learn how Mosaic can help your firm grow, reach out and I will follow up with more information.</p>
-  <div>
-    <a class="cta-secondary" href="mailto:ryanjavaheri21@gmail.com?subject=Interested%20in%20Mosaic&body=Hello%2C%20I%20am%20interested%20in%20Mosaic%2C%20please%20get%20back%20to%20me%20with%20more%20information.%20We%20may%20move%20forward.">Contact me about Mosaic &rsaquo;</a>a> <br> <a class="cta-secondary" href="mailto:ryanjavaheri21@gmail.com">Or email me about anything &rsaquo;</a>a>
-  </div>
-  </div>
-  </section>section>
+<div class="hero-wrap">
+<header class="hero">
+<div class="orb orb-1" data-speed="0.25"></div>
+<div class="orb orb-2" data-speed="0.45"></div>
+<div class="hero-content" id="heroContent">
+<h1>Ryan Javaheri</h1>
+<p class="sub">future lawyer.</p>
+<a class="cta" href="#contact">Get in touch</a>
+</div>
+<div class="scroll-cue" id="scrollCue"></div>
+</header>
+</div>
 
-    <footer>
-      <p>&copy; 2026 Ryan Javaheri. All rights reserved.</p>
-    </footer>
-  
-  <script>
-    (function () {
-      var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+<section class="block reveal" id="mosaic">
+<div class="inner stagger">
+<p class="eyebrow">Now</p>
+<h2>Marketing Specialist at Mosaic.</h2>
+<p>I am currently working as a Marketing Specialist at Mosaic, a premier legal recruiting firm. Mosaic specializes in legal recruitment for law firms and attorneys, pairing lateral attorney placement with original market data, candid intelligence, and programs that invest in the next generation of legal talent.</p>
+<p>Its services span lateral placement, market intelligence on firm culture and compensation, and recruitment and retention advisory for law firms.</p>
+</div>
+</section>
 
-      /* Section + stagger reveals */
-      var els = document.querySelectorAll('.reveal, .stagger');
-      var obs = new IntersectionObserver(function (entries) {
-        entries.forEach(function (e) {
-          if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
-        });
-      }, { threshold: 0.15 });
-      els.forEach(function (el) { obs.observe(el); });
+<section class="block alt reveal">
+<div class="inner">
+<p class="eyebrow">For law firms</p>
+<h2>What I can do for your firm.</h2>
+<ul id="scrubList">
+<li>Support lateral attorney recruitment and help you connect with top legal talent</li>
+<li>Provide market intelligence on firm culture, compensation, and growth trajectories</li>
+<li>Advise on recruitment and retention strategies to build lasting talent pipelines</li>
+<li>Position and market your firm to attract the right candidates and clients</li>
+<li>Help cultivate early talent and relationships with promising law students</li>
+</ul>
+</div>
+</section>
 
-      if (reduced) return;
+<section id="portfolio">
+<div class="slideshow-track" id="slideshowTrack">
+<div class="slideshow-sticky">
+<div class="slideshow-head">
+<p class="eyebrow">Portfolio</p>
+<h2>Projects &amp; experience.</h2>
+<p style="font-size:19px;color:#333;max-width:700px;">A USC student focused on public relations, law, and building products. Here is some of what I am working on.</p>
+</div>
+<div class="slideshow-stage" id="slideshowStage">
+<div class="slide">
+<p class="slide-num">01 / 03</p>
+<h3>ClassRoutes</h3>
+<p>A student class-planning platform for community college and university students, supporting major and minor planning, transfer planning, and professor and course lookup.</p>
+</div>
+<div class="slide">
+<p class="slide-num">02 / 03</p>
+<h3>Head of Media Relations</h3>
+<p>Leading media relations and PR strategy, crafting messaging and managing communications across digital platforms.</p>
+</div>
+<div class="slide">
+<p class="slide-num">03 / 03</p>
+<h3>Payman Fabric Inc.</h3>
+<p>Hands-on small-business and retail operations experience, including marketing and client-facing work.</p>
+</div>
+</div>
+<div class="slide-dots" id="slideDots"><span class="on"></span><span></span><span></span></div>
+<p class="slideshow-hint">Keep scrolling</p>
+</div>
+</div>
+</section>
 
-      /* split hero title into characters for staggered entrance */
-      var h1 = document.querySelector('.hero h1');
-      var text = h1.textContent;
-      h1.textContent = '';
-      text.split('').forEach(function (c, i) {
-        var s = document.createElement('span');
-        s.className = 'ch';
-        s.innerHTML = c === ' ' ? '&nbsp;' : c;
-        s.style.animationDelay = (0.08 + i * 0.035) + 's';
-        h1.appendChild(s);
-      });
+<section class="block alt reveal" id="education">
+<div class="inner">
+<p class="eyebrow">Education</p>
+<h2>University of Southern California.</h2>
+<div class="cards stagger">
+<div class="card">
+<h3>USC &mdash; PR &amp; Pre-Law</h3>
+<p>Studying public relations with a minor in Business Law, with coursework in contracts, business organizations, and advocacy.</p>
+</div>
+</div>
+</div>
+</section>
 
-      /* Apple-style word-by-word brighten on the list */
-      var list = document.getElementById('scrubList');
-      list.querySelectorAll('li').forEach(function (li) {
-        li.innerHTML = li.textContent.split(' ').map(function (w) {
-          return '<span class="w" style="opacity:0.18">' + w + '</span>';
-        }).join(' ');
-      });
-      var words = list.querySelectorAll('.w');
+<section class="block reveal" id="contact">
+<div class="inner stagger">
+<p class="eyebrow">Interested in Mosaic?</p>
+<h2>Let's talk.</h2>
+<p>If you would like to learn how Mosaic can help your firm grow, reach out and I will follow up with more information.</p>
+<div>
+<a class="cta-secondary" href="mailto:ryanjavaheri21@gmail.com?subject=Interested%20in%20Mosaic&body=Hello%2C%20I%20am%20interested%20in%20Mosaic%2C%20please%20get%20back%20to%20me%20with%20more%20information.%20We%20may%20move%20forward.">Contact me about Mosaic &rsaquo;</a> <br> <a class="cta-secondary" href="mailto:ryanjavaheri21@gmail.com">Or email me about anything &rsaquo;</a>
+</div>
+</div>
+</section>
 
-      var nav = document.getElementById('nav');
-      var progress = document.getElementById('progress');
-      var track = document.getElementById('slideshowTrack');
-      var slides = document.getElementById('slideshowStage').children;
-      var dots = document.getElementById('slideDots').children;
-      var cue = document.getElementById('scrollCue');
-      var heroContent = document.getElementById('heroContent');
-      var orbs = document.querySelectorAll('.orb');
-      var ticking = false;
+<footer>
+<p>&copy; 2026 Ryan Javaheri. All rights reserved.</p>
+</footer>
 
-      function update() {
-        ticking = false;
-        var y = window.scrollY;
+<script>
+(function () {
+var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        /* nav state */
-        nav.classList.toggle('scrolled', y > 10);
+/* Section + stagger reveals */
+var els = document.querySelectorAll('.reveal, .stagger');
+var obs = new IntersectionObserver(function (entries) {
+entries.forEach(function (e) {
+if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+});
+}, { threshold: 0.15 });
+els.forEach(function (el) { obs.observe(el); });
 
-        /* page scroll progress */
-        var max = document.documentElement.scrollHeight - window.innerHeight;
-        progress.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+if (reduced) return;
 
-        /* hero parallax: drift up slower, fade + soften as it leaves */
-        var h = Math.min(y / 520, 1);
-        heroContent.style.transform = 'translateY(' + y * 0.35 + 'px) scale(' + (1 - h * 0.06) + ')';
-        heroContent.style.opacity = 1 - h * 0.9;
-        cue.style.opacity = Math.max(0, 1 - y / 180);
-        orbs.forEach(function (o) {
-          o.style.transform = 'translateY(' + y * parseFloat(o.dataset.speed) + 'px)';
-        });
+/* split hero title into characters for staggered entrance */
+var h1 = document.querySelector('.hero h1');
+var text = h1.textContent;
+h1.textContent = '';
+text.split('').forEach(function (c, i) {
+var s = document.createElement('span');
+s.className = 'ch';
+s.innerHTML = c === ' ' ? '&nbsp;' : c;
+s.style.animationDelay = (0.08 + i * 0.035) + 's';
+h1.appendChild(s);
+});
 
-        /* word scrub: brighten words as the list travels up the viewport */
-        var r = list.getBoundingClientRect();
-        var vh = window.innerHeight;
-        var p = (vh * 0.85 - r.top) / (r.height + vh * 0.35);
-        p = Math.max(0, Math.min(1, p));
-        var lit = Math.floor(p * words.length);
-        for (var i = 0; i < words.length; i++) {
-          words[i].style.opacity = i < lit ? 1 : 0.18;
-        }
+/* Apple-style word-by-word brighten on the list */
+var list = document.getElementById('scrubList');
+list.querySelectorAll('li').forEach(function (li) {
+li.innerHTML = li.textContent.split(' ').map(function (w) {
+return '<span class="w" style="opacity:0.18">' + w + '</span>';
+}).join(' ');
+});
+var words = list.querySelectorAll('.w');
 
-        /* slideshow: pin the portfolio and scrub slides with scroll */
-        if (!window.matchMedia('(max-width: 700px)').matches) {
-          var tr = track.getBoundingClientRect();
-          var total = track.offsetHeight - vh;
-          var sp = Math.max(0, Math.min(1, -tr.top / total));
-          var pos = sp * (slides.length - 1);
-          for (var j = 0; j < slides.length; j++) {
-            var d = pos - j;
-            var a = Math.abs(d);
-            slides[j].style.opacity = Math.max(0, 1 - a * 1.15);
-            slides[j].style.transform = 'translateX(' + (-d * 110) + 'px) translateY(' + (Math.min(a, 1) * 18) + 'px) scale(' + (1 - Math.min(a, 1) * 0.07) + ') rotateY(' + (-d * 7) + 'deg)';
-            slides[j].style.zIndex = 10 - Math.round(a);
-          }
-          var active = Math.round(pos);
-          for (var k = 0; k < dots.length; k++) {
-            dots[k].classList.toggle('on', k === active);
-          }
-        }
-      }
+var nav = document.getElementById('nav');
+var progress = document.getElementById('progress');
+var track = document.getElementById('slideshowTrack');
+var slides = document.getElementById('slideshowStage').children;
+var dots = document.getElementById('slideDots').children;
+var cue = document.getElementById('scrollCue');
+var heroContent = document.getElementById('heroContent');
+var orbs = document.querySelectorAll('.orb');
+var ticking = false;
 
-      window.addEventListener('scroll', function () {
-        if (!ticking) { ticking = true; requestAnimationFrame(update); }
-      }, { passive: true });
-      update();
+function update() {
+ticking = false;
+var y = window.scrollY;
 
-      /* subtle 3D tilt on cards */
-      document.querySelectorAll('.card').forEach(function (card) {
-        card.addEventListener('mousemove', function (e) {
-          var b = card.getBoundingClientRect();
-          var rx = ((e.clientY - b.top) / b.height - 0.5) * -5;
-          var ry = ((e.clientX - b.left) / b.width - 0.5) * 5;
-          card.style.transform = 'translateY(-8px) scale(1.015) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
-        });
-        card.addEventListener('mouseleave', function () {
-          card.style.transform = '';
-        });
-      });
-    })();
-  </script>
-  </body>
-</html>html>
-  </script></p>
-    </footer>
-  </div></p></p></span></span></p></p></li></li></p></p></h2></h1>
-  </body>
-  </style></title>
-  </head>
+/* nav state */
+nav.classList.toggle('scrolled', y > 10);
+
+/* page scroll progress */
+var max = document.documentElement.scrollHeight - window.innerHeight;
+progress.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+
+/* hero parallax: drift up slower, fade + soften as it leaves */
+var h = Math.min(y / 520, 1);
+heroContent.style.transform = 'translateY(' + y * 0.35 + 'px) scale(' + (1 - h * 0.06) + ')';
+heroContent.style.opacity = 1 - h * 0.9;
+cue.style.opacity = Math.max(0, 1 - y / 180);
+orbs.forEach(function (o) {
+o.style.transform = 'translateY(' + y * parseFloat(o.dataset.speed) + 'px)';
+});
+
+/* word scrub: brighten words as the list travels up the viewport */
+var r = list.getBoundingClientRect();
+var vh = window.innerHeight;
+var p = (vh * 0.85 - r.top) / (r.height + vh * 0.35);
+p = Math.max(0, Math.min(1, p));
+var lit = Math.floor(p * words.length);
+for (var i = 0; i < words.length; i++) {
+words[i].style.opacity = i < lit ? 1 : 0.18;
+}
+
+/* slideshow: pin the portfolio and scrub slides with scroll */
+if (!window.matchMedia('(max-width: 700px)').matches) {
+var tr = track.getBoundingClientRect();
+var total = track.offsetHeight - vh;
+var sp = Math.max(0, Math.min(1, -tr.top / total));
+var pos = sp * (slides.length - 1);
+for (var j = 0; j < slides.length; j++) {
+var d = pos - j;
+var a = Math.abs(d);
+slides[j].style.opacity = Math.max(0, 1 - a * 1.15);
+slides[j].style.transform = 'translateX(' + (-d * 110) + 'px) translateY(' + (Math.min(a, 1) * 18) + 'px) scale(' + (1 - Math.min(a, 1) * 0.07) + ') rotateY(' + (-d * 7) + 'deg)';
+slides[j].style.zIndex = 10 - Math.round(a);
+}
+var active = Math.round(pos);
+for (var k = 0; k < dots.length; k++) {
+dots[k].classList.toggle('on', k === active);
+}
+}
+}
+
+window.addEventListener('scroll', function () {
+if (!ticking) { ticking = true; requestAnimationFrame(update); }
+}, { passive: true });
+update();
+
+/* subtle 3D tilt on cards */
+document.querySelectorAll('.card').forEach(function (card) {
+card.addEventListener('mousemove', function (e) {
+var b = card.getBoundingClientRect();
+var rx = ((e.clientY - b.top) / b.height - 0.5) * -5;
+var ry = ((e.clientX - b.left) / b.width - 0.5) * 5;
+card.style.transform = 'translateY(-8px) scale(1.015) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+});
+card.addEventListener('mouseleave', function () {
+card.style.transform = '';
+});
+});
+})();
+</script>
+</body>
+</html>
