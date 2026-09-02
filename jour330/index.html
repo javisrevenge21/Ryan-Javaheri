@@ -1,0 +1,300 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JOUR 330: Photojournalism &mdash; Ryan Javaheri</title>
+<meta name="description" content="Photo essays, assignments, and visual storytelling from JOUR 330: Photojournalism at USC Annenberg.">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='22' fill='%23000000'/%3E%3Ctext x='50' y='50' font-family='Snell Roundhand,Brush Script MT,Segoe Script,cursive' font-size='56' font-style='italic' font-weight='700' fill='white' text-anchor='middle' dominant-baseline='central'%3ERJ%3C/text%3E%3C/svg%3E">
+<style>
+:root {
+--black: #1d1d1f;
+--gray: #86868b;
+--light: #f5f5f7;
+--blue: #000000;
+--ease: cubic-bezier(0.25, 0.1, 0.25, 1);
+--ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+color: var(--black);
+background: #fff;
+-webkit-font-smoothing: antialiased;
+line-height: 1.47;
+overflow-x: hidden;
+}
+.progress {
+position: fixed; top: 0; left: 0; height: 2px; width: 100%;
+background: var(--black); transform-origin: left;
+transform: scaleX(0); z-index: 200; pointer-events: none;
+}
+nav {
+position: sticky; top: 0; z-index: 100;
+background: rgba(255,255,255,0.72);
+backdrop-filter: saturate(180%) blur(20px);
+-webkit-backdrop-filter: saturate(180%) blur(20px);
+border-bottom: 1px solid rgba(0,0,0,0);
+transition: border-color 0.4s var(--ease), background 0.4s var(--ease), box-shadow 0.4s var(--ease);
+}
+nav.scrolled {
+border-bottom: 1px solid rgba(0,0,0,0.08);
+background: rgba(255,255,255,0.85);
+box-shadow: 0 1px 20px rgba(0,0,0,0.04);
+}
+.nav-inner {
+max-width: 1024px; margin: 0 auto; padding: 0 22px;
+height: 48px; display: flex; align-items: center; justify-content: space-between;
+}
+.nav-inner .brand { font-size: 17px; font-weight: 600; text-decoration: none; color: var(--black); }
+.nav-links a {
+color: var(--black); text-decoration: none; font-size: 13px;
+margin-left: 28px; opacity: 0.85; position: relative;
+transition: opacity 0.2s;
+}
+.nav-links a::after {
+content: ''; position: absolute; left: 0; bottom: -4px;
+width: 100%; height: 1px; background: var(--black);
+transform: scaleX(0); transform-origin: right;
+transition: transform 0.35s var(--ease-out);
+}
+.nav-links a:hover { opacity: 1; }
+.nav-links a:hover::after { transform: scaleX(1); transform-origin: left; }
+
+.hero-wrap { position: relative; background: var(--light); }
+.hero { text-align: center; padding: 120px 22px 100px; position: relative; overflow: hidden; }
+.hero .orb { position: absolute; border-radius: 50%; filter: blur(70px); opacity: 0.5; pointer-events: none; will-change: transform; }
+.orb-1 { width: 380px; height: 380px; background: #dfe4ec; top: -80px; left: -100px; animation: drift1 11s ease-in-out infinite alternate; }
+.orb-2 { width: 300px; height: 300px; background: #e8e2d9; bottom: -120px; right: -60px; animation: drift2 13s ease-in-out infinite alternate; }
+@keyframes drift1 { from { margin-left: 0; margin-top: 0; opacity: 0.5; } to { margin-left: 90px; margin-top: 50px; opacity: 0.75; } }
+@keyframes drift2 { from { margin-right: 0; margin-bottom: 0; opacity: 0.5; } to { margin-right: 110px; margin-bottom: 60px; opacity: 0.7; } }
+.hero-content { position: relative; will-change: transform, opacity; }
+.hero .eyebrow-top { font-size: 15px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase; color: var(--gray); margin-bottom: 14px; opacity: 0; transform: translateY(20px); animation: heroIn 0.9s var(--ease-out) 0.15s forwards; }
+.hero h1 {
+font-size: 60px; font-weight: 600; letter-spacing: -0.015em; line-height: 1.06;
+opacity: 0; transform: translateY(28px); animation: heroIn 1s var(--ease-out) 0.3s forwards;
+}
+.hero .sub {
+font-size: 25px; font-weight: 400; margin-top: 12px; color: var(--gray);
+max-width: 640px; margin-left: auto; margin-right: auto;
+opacity: 0; transform: translateY(24px); animation: heroIn 1s var(--ease-out) 0.5s forwards;
+}
+.hero .btn-row { margin-top: 32px; opacity: 0; transform: translateY(20px); animation: heroIn 1s var(--ease-out) 0.65s forwards; }
+.hero .cta {
+display: inline-block; margin: 6px 6px 0;
+background: var(--blue); color: #fff; text-decoration: none;
+font-size: 17px; padding: 12px 28px; border-radius: 980px;
+transition: transform 0.3s var(--ease-out), box-shadow 0.3s var(--ease-out), background 0.2s;
+}
+.hero .cta:hover { background: #2b2b2e; transform: scale(1.045); box-shadow: 0 8px 30px rgba(0,0,0,0.25); }
+.hero .cta:active { transform: scale(0.97); }
+.hero .cta.ghost { background: transparent; color: var(--black); border: 1px solid rgba(0,0,0,0.22); }
+.hero .cta.ghost:hover { background: rgba(0,0,0,0.05); box-shadow: none; }
+@keyframes heroIn { to { opacity: 1; transform: translateY(0) scale(1); } }
+
+section.block { padding: 96px 22px; position: relative; }
+section.block.alt { background: var(--light); }
+.inner { max-width: 980px; margin: 0 auto; }
+.eyebrow { color: var(--blue); font-size: 19px; font-weight: 600; margin-bottom: 8px; }
+.block h2 { font-size: 42px; font-weight: 600; letter-spacing: -0.01em; margin-bottom: 20px; }
+.block p { font-size: 19px; color: #333; max-width: 700px; margin-bottom: 16px; }
+.meta { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 26px; }
+.pill { font-size: 14px; color: #333; background: #fff; border: 1px solid rgba(0,0,0,0.1); padding: 8px 16px; border-radius: 980px; }
+section.block.alt .pill { background: #fff; }
+
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 22px; margin-top: 34px; perspective: 1200px; }
+.card {
+background: #fff; border-radius: 18px; padding: 32px;
+box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+transition: transform 0.45s var(--ease-out), box-shadow 0.45s var(--ease-out);
+transform-style: preserve-3d; will-change: transform;
+position: relative; overflow: hidden;
+}
+.card::after {
+content: ''; position: absolute; top: 0; left: -80%;
+width: 50%; height: 100%; pointer-events: none;
+background: linear-gradient(105deg, transparent, rgba(255,255,255,0.7), transparent);
+transform: skewX(-20deg); transition: left 0.7s var(--ease-out);
+}
+.card:hover::after { left: 130%; }
+.card:hover { transform: translateY(-8px) scale(1.015); box-shadow: 0 18px 50px rgba(0,0,0,0.14); }
+.card .num { font-size: 13px; font-weight: 600; letter-spacing: 0.08em; color: var(--gray); margin-bottom: 12px; }
+.card h3 { font-size: 23px; font-weight: 600; margin-bottom: 10px; letter-spacing: -0.005em; }
+.card p { font-size: 16px; color: var(--gray); margin: 0; }
+.card .status { display: inline-block; margin-top: 16px; font-size: 13px; font-weight: 500; color: #333; background: var(--light); padding: 5px 12px; border-radius: 980px; }
+.cta-secondary { display: inline-block; margin-top: 24px; color: var(--blue); text-decoration: none; font-size: 19px; transition: transform 0.3s var(--ease-out); }
+.cta-secondary:hover { text-decoration: underline; transform: translateX(4px); }
+footer { background: var(--light); padding: 40px 22px; text-align: center; color: var(--gray); font-size: 12px; }
+footer a { color: var(--gray); }
+
+.reveal { opacity: 0; transform: translateY(50px); filter: blur(10px); transition: opacity 0.9s var(--ease-out), transform 0.9s var(--ease-out), filter 0.9s var(--ease-out); }
+.reveal.visible { opacity: 1; transform: translateY(0); filter: blur(0); }
+.stagger > * { opacity: 0; transform: translateY(36px); filter: blur(8px); transition: opacity 0.8s var(--ease-out), transform 0.8s var(--ease-out), filter 0.8s var(--ease-out); }
+.stagger.visible > * { opacity: 1; transform: translateY(0); filter: blur(0); }
+.cards.stagger > * { transform: translateY(44px) scale(0.94); }
+.cards.stagger.visible > * { transform: translateY(0) scale(1); }
+.stagger.visible > *:nth-child(1) { transition-delay: 0.05s; }
+.stagger.visible > *:nth-child(2) { transition-delay: 0.15s; }
+.stagger.visible > *:nth-child(3) { transition-delay: 0.25s; }
+.stagger.visible > *:nth-child(4) { transition-delay: 0.35s; }
+.stagger.visible > *:nth-child(5) { transition-delay: 0.45s; }
+
+@media (prefers-reduced-motion: reduce) {
+.hero .eyebrow-top, .hero h1, .hero .sub, .hero .btn-row, .orb { animation: none !important; opacity: 1; transform: none; filter: none; }
+.reveal, .stagger > * { opacity: 1 !important; transform: none !important; filter: none !important; transition: none !important; }
+.card::after { display: none; }
+html { scroll-behavior: auto; }
+}
+@media (max-width: 600px) {
+.hero { padding: 90px 22px 76px; }
+.hero h1 { font-size: 38px; }
+.hero .sub { font-size: 19px; }
+.block h2 { font-size: 29px; }
+.nav-links a { margin-left: 16px; }
+}
+</style>
+</head>
+<body>
+<div class="progress" id="progress"></div>
+<nav id="nav">
+<div class="nav-inner">
+<a class="brand" href="/">Ryan Javaheri</a>
+<div class="nav-links">
+<a href="/">Home</a>
+<a href="#assignments">Assignments</a>
+<a href="#about">About</a>
+</div>
+</div>
+</nav>
+
+<div class="hero-wrap">
+<header class="hero">
+<div class="orb orb-1" data-speed="0.25"></div>
+<div class="orb orb-2" data-speed="0.45"></div>
+<div class="hero-content" id="heroContent">
+<p class="eyebrow-top">USC Annenberg &middot; Fall 2026</p>
+<h1>JOUR 330: Photojournalism</h1>
+<p class="sub">Photo essays, assignments, and visual storytelling.</p>
+<div class="btn-row">
+<a class="cta" href="#assignments">View coursework</a>
+<a class="cta ghost" href="https://new.express.adobe.com/webpage/evQuI4njfy7OZ" target="_blank" rel="noopener">Photo gallery &rsaquo;</a>
+</div>
+</div>
+</header>
+</div>
+
+<section class="block alt reveal" id="course">
+<div class="inner">
+<p class="eyebrow">About this course</p>
+<h2>Learning to tell stories with a camera.</h2>
+<p>JOUR 330: Photojournalism at USC Annenberg is a hands-on course in camera technique, visual storytelling, photo editing, and critique. This page collects my assignments and photo essays from Fall 2026 with Professor Miki Turner.</p>
+<div class="meta">
+<span class="pill">USC Annenberg</span>
+<span class="pill">4 units</span>
+<span class="pill">Fall 2026</span>
+<span class="pill">Prof. Miki Turner</span>
+</div>
+</div>
+</section>
+
+<section class="block reveal" id="assignments">
+<div class="inner">
+<p class="eyebrow">Coursework</p>
+<h2>Assignments &amp; photo essays.</h2>
+<p>Work is published here as the semester progresses. Full-size images live in the companion photo gallery.</p>
+<div class="cards stagger">
+<div class="card">
+<p class="num">01</p>
+<h3>Camera Basics</h3>
+<p>Exposure, aperture, shutter speed, and composition fundamentals shot on manual.</p>
+<span class="status">Coming soon</span>
+</div>
+<div class="card">
+<p class="num">02</p>
+<h3>Portraiture</h3>
+<p>Environmental and studio portraits, working with subjects, light, and consent.</p>
+<span class="status">Coming soon</span>
+</div>
+<div class="card">
+<p class="num">03</p>
+<h3>Photo Essay</h3>
+<p>A sequenced visual narrative with reporting, captions, and AP-style accuracy.</p>
+<span class="status">Coming soon</span>
+</div>
+<div class="card">
+<p class="num">04</p>
+<h3>Final Project</h3>
+<p>A self-directed documentary series built around a story I report from the ground up.</p>
+<span class="status">Coming soon</span>
+</div>
+</div>
+<a class="cta-secondary" href="https://new.express.adobe.com/webpage/evQuI4njfy7OZ" target="_blank" rel="noopener">Open the full photo gallery &rsaquo;</a>
+</div>
+</section>
+
+<section class="block alt reveal" id="about">
+<div class="inner stagger">
+<p class="eyebrow">About me</p>
+<h2>Ryan Javaheri.</h2>
+<p>Ryan Javaheri is a Public Relations and Pre-Law student at USC Annenberg (Class of 2027) focused on media, visual storytelling, and strategic communication.</p>
+<div>
+<a class="cta-secondary" href="mailto:ryanjavaheri21@gmail.com">Email me &rsaquo;</a>
+</div>
+</div>
+</section>
+
+<footer>
+<p>&copy; 2026 Ryan Javaheri. All rights reserved. &middot; <a href="/">ryanjavaheri.com</a></p>
+</footer>
+
+<script>
+(function () {
+var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+var els = document.querySelectorAll('.reveal, .stagger');
+var obs = new IntersectionObserver(function (entries) {
+entries.forEach(function (e) {
+if (e.isIntersecting) { e.target.classList.add('visible'); obs.unobserve(e.target); }
+});
+}, { threshold: 0.15 });
+els.forEach(function (el) { obs.observe(el); });
+
+if (reduced) return;
+
+var nav = document.getElementById('nav');
+var progress = document.getElementById('progress');
+var heroContent = document.getElementById('heroContent');
+var orbs = document.querySelectorAll('.orb');
+var ticking = false;
+
+function update() {
+ticking = false;
+var y = window.scrollY;
+nav.classList.toggle('scrolled', y > 10);
+var max = document.documentElement.scrollHeight - window.innerHeight;
+progress.style.transform = 'scaleX(' + (max > 0 ? y / max : 0) + ')';
+var h = Math.min(y / 520, 1);
+heroContent.style.transform = 'translateY(' + y * 0.3 + 'px) scale(' + (1 - h * 0.05) + ')';
+heroContent.style.opacity = 1 - h * 0.9;
+orbs.forEach(function (o) {
+o.style.transform = 'translateY(' + y * parseFloat(o.dataset.speed) + 'px)';
+});
+}
+window.addEventListener('scroll', function () {
+if (!ticking) { ticking = true; requestAnimationFrame(update); }
+}, { passive: true });
+update();
+
+document.querySelectorAll('.card').forEach(function (card) {
+card.addEventListener('mousemove', function (e) {
+var b = card.getBoundingClientRect();
+var rx = ((e.clientY - b.top) / b.height - 0.5) * -5;
+var ry = ((e.clientX - b.left) / b.width - 0.5) * 5;
+card.style.transform = 'translateY(-8px) scale(1.015) rotateX(' + rx + 'deg) rotateY(' + ry + 'deg)';
+});
+card.addEventListener('mouseleave', function () { card.style.transform = ''; });
+});
+})();
+</script>
+</body>
+</html>
