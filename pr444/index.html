@@ -23,9 +23,17 @@
     </a>
     <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav id="site-nav" aria-label="Primary navigation">
-      <a href="#feature">Post 1</a>
-      <a href="#post-02">Post 2</a>
-      <a href="#post-03">Post 3</a>
+      <div class="nav-dropdown">
+        <button type="button" class="nav-dropdown-toggle" aria-expanded="false" aria-controls="posts-menu">
+          Posts <span class="chevron" aria-hidden="true">▾</span>
+        </button>
+        <div class="nav-dropdown-menu" id="posts-menu">
+          <a href="#feature">Post 1</a>
+          <a href="#post-02">Post 2</a>
+          <a href="#post-03">Post 3</a>
+          <a href="#post-04">Post 4</a>
+        </div>
+      </div>
       <a href="#about">About</a>
       <a href="#series">The series</a>
       <a href="#sources">Sources</a>
@@ -318,7 +326,7 @@
           <div><p class="post-tag">Endorsements • Published</p><h3><a href="#post-03">The Sponsored Self</a></h3><p>Clothing, drinks, supplements, skin care and household goods can turn a familiar routine into an advertisement. Credibility depends on fit, evidence and disclosure.</p></div>
           <a class="post-arrow" href="#post-03" aria-label="Read The Sponsored Self">↗</a>
         </li>
-        <li>
+        <li id="post-04">
           <span class="post-number">04</span>
           <div><p class="post-tag">Social strategy</p><h3>The Feed Is a Stage</h3><p>Every caption, backstage clip, platform choice, and reply helps tell a story. This post will explore how a social feed becomes a reputation channel that never really switches off.</p></div>
           <span class="post-arrow" aria-hidden="true">↗</span>
