@@ -23,11 +23,19 @@
     </a>
     <button class="menu-button" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
     <nav id="site-nav" aria-label="Primary navigation">
-      <a href="#feature">Post 1</a>
-      <a href="#post-02">Post 2</a>
-      <a href="#post-03">Post 3</a>
-      <a href="#post-04">Post 4</a>
-      <a href="#post-05">Post 5</a>
+      <div class="posts-menu">
+        <button class="posts-toggle" type="button" aria-expanded="false" aria-controls="posts-panel">Posts <span aria-hidden="true">↓</span></button>
+        <div class="posts-panel" id="posts-panel">
+          <a href="#feature">Post 1 <span>Fame Is a Communications Job</span></a>
+          <a href="#post-02">Post 2 <span>The Athlete Is the Brand</span></a>
+          <a href="#post-03">Post 3 <span>The Sponsored Self</span></a>
+          <a href="#post-04">Post 4 <span>The Feed Is a Stage</span></a>
+          <a href="#post-05">Post 5 <span>On the Record</span></a>
+          <a href="#post-06">Post 6 <span>Giving Back—or Polishing the Image?</span></a>
+          <a href="#series">Post 7 <span>Anatomy of a Public Apology</span></a>
+          <a href="#series">Post 8 <span>After the Headlines Fade</span></a>
+        </div>
+      </div>
       <a href="#about">About</a>
       <a href="#series">The series</a>
       <a href="#sources">Sources</a>
@@ -116,6 +124,7 @@
         </div>
       </div>
     </article>
+
 
     <article class="article" id="post-02">
       <header class="article-header">
@@ -375,6 +384,31 @@
       </div>
     </article>
 
+    <article class="article" id="post-06">
+      <header class="article-header"><div><p class="eyebrow coral">Post 06 • Philanthropy</p><h2>Giving Back—or Polishing the Image?</h2></div><div class="article-meta"><span>6 min read</span><span>Posted: Oct. 1, 2026</span></div></header>
+      <div class="article-grid">
+        <aside class="article-aside" aria-label="Article summary"><p class="pullquote">“A charitable announcement gets attention. A visible commitment is what gives that attention a reason to last.”</p><div class="signal-card"><span class="signal-number">06</span><p>three signs of credible public service: connection, continuity and clarity</p></div></aside>
+        <div class="article-body">
+          <p class="lead">A celebrity opens a community center, funds a scholarship, visits after a disaster or posts a donation link. The public reaction can be generous and skeptical at the same time. People may be grateful for the attention a famous name brings while still asking whether the cause is being used as a backdrop.</p>
+          <p>That tension is not a reason to dismiss celebrity philanthropy. Visibility can move money, volunteers and media coverage toward organizations that need all three. The more useful question is what happens after the cameras leave. Is the public figure connected to the work? Does the organization lead the story? Can people see what the support actually accomplishes?</p>
+          <h3><span>01</span> Attention is useful, but it is not the outcome</h3>
+          <p>Fame can put a local issue in front of an audience that may never have encountered it otherwise. A post can introduce a nonprofit to new donors. A benefit can create resources quickly. Those are real contributions. But awareness is only the beginning. A campaign should make it easy for people to learn, give or act after the initial announcement.</p>
+          <p>Research on celebrity charitable giving found that it can improve public perceptions of the celebrity involved.<sup><a href="#source-5" aria-label="See source 5">5</a></sup> That does not prove a donation is insincere. It simply explains why the public may examine the relationship carefully: good work and reputational benefit can exist at the same time.</p>
+          <h3><span>02</span> The cause should not disappear behind the donor</h3>
+          <p>A strong partnership puts the expertise of the organization at the center. The public figure can draw a crowd, but community leaders know the need, the constraints and what success looks like. When a campaign makes the celebrity the whole story, it may produce a memorable image without teaching the audience anything useful about the problem.</p>
+          <div class="focus-box"><p class="eyebrow">The credibility test</p><h4>Can people follow the work?</h4><p>One-time giving is not automatically performative. Emergencies often require immediate help. Still, recurring involvement makes a different statement. Clear goals, updates from the organization and a willingness to share credit show that the partnership is about more than a single post.</p></div>
+          <h3><span>03</span> Transparency protects everyone involved</h3>
+          <p>People deserve to know what a fundraiser supports and who is responsible for handling it. That means using direct links to established organizations, describing the purpose of the campaign and avoiding vague promises about where money will go. If a brand is connected to the effort, that relationship should be clear too.</p>
+          <p>Transparency also keeps the message proportional. A public figure does not need to claim they solved a large social problem. They can say what they are contributing, explain why the issue matters and direct attention to the people doing the sustained work.</p>
+          <blockquote><p>The most credible act of public generosity makes the cause more visible than the person promoting it.</p></blockquote>
+          <h3>Service has to outlive the photo</h3>
+          <p>Public service can be part of a person’s reputation, but it should not become a shortcut around accountability or a substitute for genuine action. The difference is usually visible over time. A relationship rooted in listening, continuity and honest reporting gives an audience something better than a polished gesture: a reason to participate.</p>
+          <h3>Suggested artwork</h3><p>A split image of a fundraising camera line on one side and a community organization’s everyday work on the other, connected by a simple pathway labeled attention, resources and follow-through.</p>
+          <h3>AI use disclosure</h3><p>I used OpenAI’s Codex to research, outline and draft this post. I reviewed the final version, checked the cited claims and remained responsible for the selection, accuracy and interpretation of the material.</p>
+        </div>
+      </div>
+    </article>
+
     <section class="about" id="about" aria-labelledby="about-title">
       <div class="section-index" aria-hidden="true">ABOUT / 01</div>
       <div class="about-copy">
@@ -426,8 +460,8 @@
         </li>
         <li>
           <span class="post-number">06</span>
-          <div><p class="post-tag">Philanthropy</p><h3>Giving Back—or Polishing the Image?</h3><p>Celebrity charity can make a real difference and still raise real suspicion. This post will look at how long-term commitment, transparency, and focus on the cause affect credibility.</p></div>
-          <span class="post-arrow" aria-hidden="true">↗</span>
+          <div><p class="post-tag">Philanthropy • Published</p><h3><a href="#post-06">Giving Back—or Polishing the Image?</a></h3><p>Celebrity charity can make a real difference and still raise real suspicion. Credibility depends on connection, continuity and transparency.</p></div>
+          <a class="post-arrow" href="#post-06" aria-label="Read Giving Back—or Polishing the Image?">↗</a>
         </li>
         <li>
           <span class="post-number">07</span>
