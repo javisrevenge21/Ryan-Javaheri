@@ -247,6 +247,7 @@ section.block:not(.alt):not(.dark) .card { background: var(--light); box-shadow:
 .slideshow-stage { position: relative; max-width: 1080px; margin: 36px auto 0; width: 100%; flex: 0 0 auto; height: 340px; perspective: 1400px; }
 .slide { position: absolute; inset: 0; background: #fff; border-radius: 24px; padding: 48px; box-shadow: 0 10px 50px rgba(0,0,0,.10); display: flex; flex-direction: column; justify-content: center; will-change: transform, opacity; }
 .slide .slide-num { font-size: 15px; font-weight: 600; color: var(--gray); margin-bottom: 14px; letter-spacing: .06em; }
+.slide .slide-org { font-size: 17px; font-weight: 600; color: var(--black); margin: -6px 0 12px; }
 .slide h3 { font-size: 36px; font-weight: 600; letter-spacing: -.01em; margin-bottom: 14px; }
 .slide p { font-size: 19px; color: #555; max-width: 680px; margin: 0; }
 .slide-dots { display: flex; gap: 10px; justify-content: center; margin-top: 30px; }
@@ -254,7 +255,7 @@ section.block:not(.alt):not(.dark) .card { background: var(--light); box-shadow:
 .slide-dots span.on { background: var(--black); transform: scale(1.25); }
 .slideshow-hint { text-align: center; color: var(--gray); font-size: 13px; margin-top: 14px; }
 @media (max-width: 700px), (prefers-reduced-motion: reduce) {
-  .slideshow-track { height: auto; }
+  .slideshow-track { height: auto !important; }
   .slideshow-sticky { position: static; height: auto; overflow: visible; display: block; padding: 100px 22px; }
   .slideshow-stage { height: auto; margin-top: 32px; display: grid; gap: 22px; }
   .slide { position: static; opacity: 1 !important; transform: none !important; padding: 32px; }

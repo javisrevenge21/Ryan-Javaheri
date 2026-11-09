@@ -12,6 +12,7 @@ Fields:
   label link text shown on the card
   kind  "Website", "AI agent", "App", "Course project", ...
   date  when it was built or launched (YYYY-MM or YYYY)
+  home  optional; set home=False to list it only on /portfolio/ and not on the homepages
 """
 
 PORTFOLIO = [
@@ -26,17 +27,25 @@ PORTFOLIO = [
          url="https://javisrevenge.com/", label="javisrevenge.com ›"),
     dict(tag="Coming soon", name="ClassRoutes", kind="App", date="2026",
          desc="A class-planning platform for community college and university students: major and minor planning, transfer planning, and professor and course lookup.",
-         url="https://classroutes.com/", label="classroutes.com ›"),
+         url="https://classroutes.com/", label="classroutes.com ›", home=False),
     dict(tag="PR 444", name="Beyond the Spotlight", kind="Course project", date="2026",
          desc="A long-form feature on how athletes and celebrities build, protect, and repair their public image.",
          url="/pr444/", label="ryanjavaheri.com/pr444 ›"),
     dict(tag="PR 351A", name="Public Relations Portfolio", kind="Course project", date="2026",
-         desc="My public relations writing and campaign work from USC Annenberg.",
+         desc="My public relations writing and campaign work from USC Annenberg, on a site I designed with WordPress.",
          url="/pr351a/", label="ryanjavaheri.com/pr351a ›"),
     dict(tag="JOUR 330", name="Photojournalism", kind="Course project", date="2026",
          desc="Photo essays, assignments, and visual storytelling from JOUR 330 at USC Annenberg.",
          url="/jour330/", label="ryanjavaheri.com/jour330 ›"),
 ]
+
+
+def home_items():
+    return [p for p in PORTFOLIO if p.get("home", True)]
+
+
+def site_count():
+    return sum(1 for p in PORTFOLIO if p["kind"] != "AI agent")
 
 
 def card(p):

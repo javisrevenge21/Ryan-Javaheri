@@ -37,6 +37,12 @@ are not separate projects and don't get portfolio cards.
 The first screen of the homepage is the original intro: "Ryan Javaheri" with "future lawyer."
 and a "Get in touch" button. Everything else comes after it as you scroll. Keep it that way.
 
+## About Ryan
+Ryan's background (experience, education, About text) comes from his LinkedIn profile,
+linkedin.com/in/ryanjavaheri. It lives in `tools/me.py` (homepage Experience and Education)
+and `lib/profile.js` (what the AI advisor knows). Keep both in sync with LinkedIn.
+ClassRoutes stays off the homepages (`home=False` in tools/portfolio.py) but is on /portfolio/.
+
 ## Languages
 Languages live in `LANGS` (tools/pages.py), page text in `tools/i18n.py`, and the AI advisor's
 widget text in `assets/agent.js`. Farsi and Hebrew must always stay (Ryan's community reads them).

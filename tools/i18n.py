@@ -372,7 +372,7 @@ def build(lang, html_lang):
 <section class="block alt" id="services"><div class="inner"><div class="reveal"><p class="eyebrow">{t["s_eye"]}</p><h2>{t["s_h"]}</h2></div><div class="cards stagger">{cards}</div></div></section>
 <section class="block reveal" id="method"><div class="inner"><p class="eyebrow">{t["m_eye"]}</p><h2><bdi dir="ltr">B.U.I.L.D.</bdi></h2><div class="steps stagger">{steps}</div></div></section>
 <section class="block alt reveal" id="about"><div class="inner"><p class="eyebrow">{t["a_eye"]}</p><p class="lede">{t["a_p"]}</p></div></section>
-<section class="block reveal" id="portfolio"><div class="inner"><p class="eyebrow">{t["p_eye"]}</p><div class="cards stagger" dir="ltr" lang="en">{portfolio.cards()}</div>
+<section class="block reveal" id="portfolio"><div class="inner"><p class="eyebrow">{t["p_eye"]}</p><div class="cards stagger" dir="ltr" lang="en">{portfolio.cards(portfolio.home_items())}</div>
 <a class="btn btn-light" href="/portfolio/" style="margin-top:30px">{t["port"]}</a></div></section>
 <section class="block alt reveal" id="faq"><div class="inner"><h2>{t["faq_h"]}</h2><div class="faq">{faq_html(t["faq"])}</div></div></section>
 <section class="block reveal" id="contact"><div class="inner scan-grid"><div><p class="eyebrow">{t["c_eye"]}</p><h2>{t["c_h"]}</h2><p class="lede">{t["c_p"]}</p><p class="lede"><a href="mailto:{EMAIL}">{EMAIL}</a></p></div>

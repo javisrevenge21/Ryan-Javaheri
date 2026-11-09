@@ -1,4 +1,6 @@
 import portfolio
+import me
+from me import LINKEDIN
 from pages import head, nav, tail, PERSON, SITE, EMAIL, faq_schema, faq_html
 
 FAQ = [
@@ -65,6 +67,7 @@ def build():
         schema=schema,
     )
     html += nav("en")
+    SITES = portfolio.site_count()
     html += f"""
 <main id="main">
 <div class="intro-wrap">
@@ -86,16 +89,16 @@ def build():
 <span class="kicker"><i></i>AI advisor online 24/7, in any language</span>
 <h2 class="h1" data-split>Be the name<br><span class="grad">AI recommends.</span></h2>
 <p class="sub">I build AI-ready websites, AI intake agents and AI visibility strategy, so when customers ask ChatGPT, Gemini or Perplexity who to hire, the answer is you.</p>
-<p class="who">Ryan Javaheri · AI consultant &amp; web builder · USC · Los Angeles</p>
+<p class="who">Ryan Javaheri · USC Annenberg ’27 · PR &amp; Pre-Law · AI &amp; web development · English &amp; Farsi</p>
 <div class="ctas">
 <a class="btn btn-dark" href="#scan">Run your free AI scan</a>
 <a class="btn btn-light" href="#" data-open-agent="">Talk to my AI advisor →</a>
 </div>
 <div class="stats">
-<div><b>5</b><span>sites shipped</span></div>
+<div><b>{SITES}</b><span>sites built</span></div>
 <div><b>24/7</b><span>AI intake</span></div>
 <div><b>13</b><span>languages</span></div>
-<div><b>USC</b><span>PR &amp; business law</span></div>
+<div><b>USC ’27</b><span>PR &amp; Pre-Law</span></div>
 </div>
 </div>
 <div class="answer" aria-label="Illustrative AI answer">
@@ -197,33 +200,35 @@ def build():
 <section class="block alt reveal" id="about">
 <div class="inner">
 <p class="eyebrow">About</p>
-<h2>Learning from the best, building for the next era.</h2>
+<h2>Hi, I'm Ryan.</h2>
 <div class="mentor">
 <div class="mono" aria-hidden="true">RJ</div>
 <div>
-<blockquote>I build the websites and AI tools I advise on. I'm learning LLMO and AI consulting directly from Siamak Kalhor, and growing into the work of running it end to end.</blockquote>
-<p class="lede">I work with <a href="https://siamakconsulting.com/" target="_blank" rel="noopener">Siamak Consulting</a>, where Siamak Kalhor, a Los Angeles AI marketing consultant and creator of the S.C.A.L.E.™ framework, is teaching me his approach to LLMO and AI strategy. I build websites and AI agents for client projects. I study public relations and business law at USC Annenberg, which is why I care as much about the message as the code.</p>
-<a class="btn btn-light" href="#" data-open-agent="Tell me about Ryan's background" style="margin-top:8px">Ask my AI about me</a>
+<blockquote>I enjoy turning a concept into something valuable that people actually use, whether that's a website, a video, or a store's online sales.</blockquote>
+<p class="lede">I'm a PR major at USC Annenberg (Class of 2027) on the pre-law path. For over two years I worked in sales, retail and marketing at Payman Fabric and Spandex Palace in Los Angeles, selling in-store and online through Shopify, so I know how a small business runs from the inside and how much it matters to really listen to a customer.</p>
+<p class="lede">I've been creating content since 2021, building audiences and systems for steady production. I build websites with HTML, CSS and JavaScript, and I now create and promote AI products. I'm learning LLMO and AI strategy directly from <a href="https://siamakconsulting.com/" target="_blank" rel="noopener">Siamak Kalhor</a> at Siamak Consulting. I'm fluent in English and Farsi.</p>
+<p class="lede">Open to internships and roles in law, PR, marketing and tech.</p>
+<div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
+<a class="btn btn-light" href="#" data-open-agent="Tell me about Ryan's background">Ask my AI about me</a>
+<a class="btn btn-light" href="{LINKEDIN}" target="_blank" rel="noopener">LinkedIn ›</a>
+</div>
 </div>
 </div>
 </div>
 </section>
 
 <section id="experience">
-<div class="slideshow-track" id="slideshowTrack">
+<div class="slideshow-track" id="slideshowTrack" style="height:{me.track_height()}">
 <div class="slideshow-sticky">
 <div class="slideshow-head">
 <p class="eyebrow">Experience</p>
-<h2>Projects &amp; experience.</h2>
-<p style="font-size:19px;color:#333;max-width:700px;">AI consulting, product building, PR and real business operations.</p>
+<h2>Experience.</h2>
+<p style="font-size:19px;color:#333;max-width:700px;">AI and web work, content creation, and years of real sales and small-business experience.</p>
 </div>
 <div class="slideshow-stage" id="slideshowStage">
-<div class="slide"><p class="slide-num">01 / 04</p><h3>Siamak Consulting</h3><p>AI consultant and website builder: building client websites and AI agents while learning LLMO strategy and the consulting business from Siamak Kalhor.</p></div>
-<div class="slide"><p class="slide-num">02 / 04</p><h3>ClassRoutes</h3><p>A student class-planning platform for community college and university students, supporting major and minor planning, transfer planning, and professor and course lookup.</p></div>
-<div class="slide"><p class="slide-num">03 / 04</p><h3>Head of Media Relations</h3><p>Leading media relations and PR strategy, crafting messaging and managing communications across digital platforms.</p></div>
-<div class="slide"><p class="slide-num">04 / 04</p><h3>Payman Fabric Inc.</h3><p>Hands-on small-business and retail operations experience, including marketing and client-facing work.</p></div>
+{me.slides()}
 </div>
-<div class="slide-dots" id="slideDots"><span class="on"></span><span></span><span></span><span></span></div>
+<div class="slide-dots" id="slideDots">{me.dots()}</div>
 <p class="slideshow-hint">Keep scrolling</p>
 </div>
 </div>
@@ -236,7 +241,7 @@ def build():
 <p>Every site and AI project I have built, in one place.</p>
 <div class="cards stagger">
 <!-- PORTFOLIO: generated from tools/portfolio.py. Add new projects there, newest first. -->
-{portfolio.cards()}
+{portfolio.cards(portfolio.home_items())}
 </div>
 <a class="btn btn-light" href="/portfolio/" style="margin-top:30px">Full portfolio ›</a>
 </div>
@@ -294,10 +299,9 @@ def build():
 <section class="block alt reveal" id="education">
 <div class="inner">
 <p class="eyebrow">Education</p>
-<h2>University of Southern California.</h2>
+<h2>Education.</h2>
 <div class="cards stagger">
-<div class="card"><h3>USC — PR &amp; Pre-Law</h3><p>Studying public relations at USC Annenberg with a minor in Business Law, with coursework in contracts, business organizations and advocacy.</p></div>
-<div class="card"><h3>Siamak Consulting — Apprenticeship</h3><p>Learning LLMO, AI strategy and client work hands-on from AI consultant Siamak Kalhor.</p></div>
+{me.education_cards()}
 </div>
 </div>
 </section>

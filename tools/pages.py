@@ -92,9 +92,9 @@ def footer(lang="en"):
 <div class="fcols">
 <div><h4>Ryan Javaheri</h4><p>AI consultant and website builder in Los Angeles. AI visibility, AI intake agents and AI-ready websites, plus recruiting and PR support for law firms.</p></div>
 <div><h4>Services</h4>{''.join(f'<a href="{u}">{t}</a>' for u, t, d in SERVICES)}<a href="/#scan">Free AI visibility scan</a></div>
-<div><h4>Work</h4><a href="/portfolio/">Portfolio</a><a href="/pr444/">Beyond the Spotlight</a><a href="https://classroutes.com/">ClassRoutes</a></div>
+<div><h4>Work</h4><a href="/portfolio/">Portfolio</a><a href="/pr444/">Beyond the Spotlight</a><a href="/pr351a/">PR 351A</a><a href="/jour330/">Photojournalism</a></div>
 <div><h4>Learn</h4><a href="/insights/">Insights</a><a href="/glossary/">Glossary</a><a href="/#faq">FAQ</a><a href="/llms.txt">llms.txt</a></div>
-<div><h4>Contact</h4><a href="mailto:{EMAIL}">{EMAIL}</a><a href="#" data-open-agent="">Talk to my AI advisor</a><a href="/#contact">Start a project</a></div>
+<div><h4>Contact</h4><a href="mailto:{EMAIL}">{EMAIL}</a><a href="https://www.linkedin.com/in/ryanjavaheri" target="_blank" rel="noopener">LinkedIn</a><a href="#" data-open-agent="">Talk to my AI advisor</a><a href="/#contact">Start a project</a></div>
 <div><h4>Languages</h4>{"".join(f'<a href="{"/" if c == "en" else "/" + c + "/"}" lang="{h}">{n}</a>' for c, h, n in LANGS)}</div>
 </div>
 <div class="fbottom"><span>&copy; {YEAR} Ryan Javaheri. Los Angeles, California. Serving clients everywhere.</span><span><a href="/privacy/">Privacy</a><a href="/portfolio/">Portfolio</a></span></div>
@@ -164,13 +164,22 @@ PERSON = {
     "url": SITE + "/",
     "image": SITE + "/og-image.png",
     "email": "mailto:" + EMAIL,
-    "jobTitle": "AI Consultant & Website Builder",
-    "description": "Los Angeles AI consultant and website builder. AI visibility (LLMO), AI intake agents and AI-ready websites, plus recruiting and PR support for law firms.",
+    "sameAs": ["https://www.linkedin.com/in/ryanjavaheri"],
+    "jobTitle": "AI Business Strategy Developer & Website Builder",
+    "description": "USC Annenberg PR and pre-law student (Class of 2027) in Los Angeles. Builds websites and AI products, creates content, and brings years of sales and small-business experience. Fluent in English and Farsi.",
     "address": {"@type": "PostalAddress", "addressLocality": "Los Angeles", "addressRegion": "CA", "addressCountry": "US"},
-    "alumniOf": {"@type": "CollegeOrUniversity", "name": "University of Southern California", "url": "https://www.usc.edu/"},
+    "alumniOf": [
+        {"@type": "CollegeOrUniversity", "name": "University of Southern California", "url": "https://www.usc.edu/"},
+        {"@type": "CollegeOrUniversity", "name": "Santa Monica College"},
+        {"@type": "CollegeOrUniversity", "name": "Citrus College"},
+        {"@type": "HighSchool", "name": "Palisades Charter High School"},
+    ],
     "knowsLanguage": ["English", "Persian"],
-    "knowsAbout": ["Large Language Model Optimization (LLMO)", "Generative Engine Optimization (GEO)", "Answer Engine Optimization (AEO)", "AI agents", "Website development", "Structured data", "Legal recruiting", "Public relations", "Business law"],
-    "worksFor": {"@type": "Organization", "name": "Siamak Consulting", "url": "https://siamakconsulting.com/"},
+    "knowsAbout": ["Public relations", "Pre-law", "Business law", "Web development", "HTML", "CSS", "JavaScript", "Content creation", "Social media", "Sales", "Customer service", "Retail", "Shopify", "Large Language Model Optimization (LLMO)", "AI agents", "Structured data"],
+    "worksFor": [
+        {"@type": "Organization", "name": "Siamak Consulting", "url": "https://siamakconsulting.com/"},
+        {"@type": "Organization", "name": "Equinox"},
+    ],
 }
 
 
