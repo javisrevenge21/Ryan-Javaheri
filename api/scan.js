@@ -1,8 +1,7 @@
 import { generateText, Output } from 'ai';
 import { z } from 'zod';
 import { saveLead, json } from '../lib/leads.js';
-
-const MODEL = process.env.AI_SCAN_MODEL || process.env.AI_GATEWAY_MODEL || 'anthropic/claude-haiku-5.5';
+import { withModel } from '../lib/ai.js';
 
 const schema = z.object({
   recognized: z
@@ -45,14 +44,14 @@ export async function POST(request) {
   if (!business) return json({ error: 'Add your business name.' }, 400);
 
   try {
-    const { output } = await generateText({
-      model: MODEL,
+    const { output } = await withModel((model) => generateText({
+      model,
       output: Output.object({ schema }),
       maxOutputTokens: 900,
       system:
         'You are an AI visibility auditor. Answer only from your own built-in knowledge (no browsing). Be honest: if you do not recognize a business, say so; that is the most useful finding. Never fabricate details, reviews or rankings about a business.',
       prompt: `Business: ${business}\nWebsite: ${website || 'not given'}\nCity/area: ${city || 'not given'}\nType of business: ${category || 'not given'}\n\nRun an AI visibility check for this business.`,
-    });
+    }));
 
     if (b.email || b.phone) {
       await saveLead({

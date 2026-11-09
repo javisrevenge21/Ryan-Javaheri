@@ -2,8 +2,7 @@ import { generateText, tool, isStepCount } from 'ai';
 import { z } from 'zod';
 import { SYSTEM_PROMPT } from '../lib/profile.js';
 import { saveLead, json } from '../lib/leads.js';
-
-const MODEL = process.env.AI_GATEWAY_MODEL || 'anthropic/claude-haiku-5.5';
+import { withModel } from '../lib/ai.js';
 
 export async function POST(request) {
   let body;
@@ -51,8 +50,8 @@ export async function POST(request) {
   });
 
   try {
-    const result = await generateText({
-      model: MODEL,
+    const result = await withModel((model) => generateText({
+      model,
       system:
         SYSTEM_PROMPT +
         (language ? `\nThe visitor's browser language is ${language}; still match the language they write in.` : ''),
@@ -60,7 +59,7 @@ export async function POST(request) {
       tools: { save_lead },
       stopWhen: isStepCount(3),
       maxOutputTokens: 400,
-    });
+    }));
     const reply = (result.text || '').trim() || 'Thanks, Ryan has your details and will be in touch.';
     return json({ reply, leadSaved });
   } catch (err) {
