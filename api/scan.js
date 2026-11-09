@@ -47,7 +47,7 @@ export async function POST(request) {
     const { output } = await withModel((model) => generateText({
       model,
       output: Output.object({ schema }),
-      maxOutputTokens: 900,
+      maxOutputTokens: 2000,
       system:
         'You are an AI visibility auditor. Answer only from your own built-in knowledge (no browsing). Be honest: if you do not recognize a business, say so; that is the most useful finding. Never fabricate details, reviews or rankings about a business.',
       prompt: `Business: ${business}\nWebsite: ${website || 'not given'}\nCity/area: ${city || 'not given'}\nType of business: ${category || 'not given'}\n\nRun an AI visibility check for this business.`,

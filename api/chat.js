@@ -58,9 +58,9 @@ export async function POST(request) {
       messages,
       tools: { save_lead },
       stopWhen: isStepCount(3),
-      maxOutputTokens: 400,
+      maxOutputTokens: 1200,
     }));
-    const reply = (result.text || '').trim() || 'Thanks, Ryan has your details and will be in touch.';
+    const reply = (result.text || '').trim() || (leadSaved ? 'Thanks, Ryan has your details and will be in touch.' : 'Could you tell me a bit more about what you need?');
     return json({ reply, leadSaved });
   } catch (err) {
     console.error('chat error', err?.message);
