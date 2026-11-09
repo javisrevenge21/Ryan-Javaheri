@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Leads inbox — Ryan Javaheri</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Helvetica Neue",Arial,sans-serif;background:#f5f5f7;color:#1d1d1f;-webkit-font-smoothing:antialiased}
+.wrap{max-width:900px;margin:0 auto;padding:40px 20px 80px}
+h1{font-size:34px;font-weight:600;letter-spacing:-.01em}
+.sub{color:#86868b;margin:6px 0 28px}
+form.login{display:flex;gap:10px;max-width:420px}
+input{flex:1;font-size:16px;padding:12px 16px;border:1px solid #d2d2d7;border-radius:999px;outline:none}
+button{background:#0b0b0d;color:#fff;border:0;border-radius:999px;padding:12px 22px;font-size:15px;font-weight:600;cursor:pointer}
+.err{color:#d70015;margin-top:12px}
+.bar{display:flex;gap:10px;align-items:center;margin-bottom:18px;flex-wrap:wrap}
+.bar input{max-width:320px}
+.count{color:#86868b;font-size:14px}
+.lead{background:#fff;border-radius:18px;padding:22px 24px;margin-bottom:14px;box-shadow:0 2px 14px rgba(0,0,0,.05)}
+.top{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.name{font-size:20px;font-weight:600}
+.meta{color:#86868b;font-size:13px}
+.tag{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;background:#f5f5f7;border-radius:999px;padding:3px 10px;margin-left:8px;vertical-align:middle}
+.need{font-size:16px;margin:10px 0}
+.contact a{display:inline-block;margin:4px 10px 0 0;color:#0b0b0d;font-weight:600;text-decoration:none;border:1px solid #d2d2d7;border-radius:999px;padding:6px 14px;font-size:14px}
+.contact a:hover{background:#0b0b0d;color:#fff}
+.kv{font-size:14px;color:#444;margin-top:6px}
+details{margin-top:12px}
+summary{cursor:pointer;color:#86868b;font-size:14px}
+.t{margin-top:10px;display:flex;flex-direction:column;gap:6px}
+.t div{font-size:14px;padding:8px 12px;border-radius:12px;max-width:85%;white-space:pre-wrap}
+.t .user{background:#0b0b0d;color:#fff;align-self:flex-end}
+.t .assistant{background:#f5f5f7;align-self:flex-start}
+.empty{color:#86868b;padding:40px 0;text-align:center}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Leads inbox</h1>
+<p class="sub">Everyone who left details with your AI advisor, the free scan, or the contact form.</p>
+<div id="app">
+<form class="login" id="login">
+<input type="password" id="pw" placeholder="Inbox password" autocomplete="current-password" required>
+<button type="submit">Open</button>
+</form>
+<p class="err" id="err"></p>
+</div>
+</div>
+<script>
+(function(){
+var app=document.getElementById('app');
+function esc(s){return String(s==null?'':s).replace(/[&<>"']/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]})}
+function load(pw){
+  return fetch('/api/leads',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:pw})})
+  .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||'Error');return d})});
+}
+function show(leads){
+  var html='<div class="bar"><input id="q" placeholder="Search name, email, need…"><span class="count" id="count"></span><button id="refresh" type="button">Refresh</button></div><div id="list"></div>';
+  app.innerHTML=html;
+  var list=document.getElementById('list'),q=document.getElementById('q'),count=document.getElementById('count');
+  function draw(){
+    var term=q.value.toLowerCase();
+    var f=leads.filter(function(l){return !term||JSON.stringify(l).toLowerCase().indexOf(term)>-1});
+    count.textContent=f.length+' lead'+(f.length===1?'':'s');
+    if(!f.length){list.innerHTML='<p class="empty">No leads yet. When someone talks to your AI advisor and leaves their details, they show up here.</p>';return}
+    list.innerHTML=f.map(function(l){
+      var d=new Date(l.createdAt);
+      var c='';
+      if(l.email)c+='<a href="mailto:'+esc(l.email)+'?subject='+encodeURIComponent('Following up from ryanjavaheri.com')+'">✉ '+esc(l.email)+'</a>';
+      if(l.phone)c+='<a href="tel:'+esc(l.phone.replace(/[^+\d]/g,''))+'">☎ '+esc(l.phone)+'</a>';
+      var kv=[['Company',l.company],['Website',l.website],['Timeline',l.timeline],['Language',l.language],['Details',l.details],['Page',l.page]]
+        .filter(function(p){return p[1]}).map(function(p){return '<p class="kv"><b>'+p[0]+':</b> '+esc(p[1])+'</p>'}).join('');
+      var scan=l.extra&&l.extra.scan?'<p class="kv"><b>Scan score:</b> '+Math.round(l.extra.scan.score)+'/100</p>':'';
+      var t=l.transcript&&l.transcript.length?'<details><summary>Conversation ('+l.transcript.length+' messages)</summary><div class="t">'+l.transcript.map(function(m){return '<div class="'+esc(m.role)+'">'+esc(m.content)+'</div>'}).join('')+'</div></details>':'';
+      return '<div class="lead"><div class="top"><span class="name">'+esc(l.name||'Unnamed visitor')+'<span class="tag">'+esc(l.source)+'</span></span><span class="meta">'+d.toLocaleString()+'</span></div><p class="need">'+esc(l.need)+'</p><div class="contact">'+c+'</div>'+kv+scan+t+'</div>';
+    }).join('');
+  }
+  q.oninput=draw;draw();
+  document.getElementById('refresh').onclick=function(){var pw=sessionStorage.getItem('rj-leads-pw');load(pw).then(function(d){leads=d.leads;draw()})};
+}
+var saved=null;try{saved=sessionStorage.getItem('rj-leads-pw')}catch(e){}
+if(saved)load(saved).then(function(d){show(d.leads)}).catch(function(){});
+document.getElementById('login').onsubmit=function(e){
+  e.preventDefault();
+  var pw=document.getElementById('pw').value;
+  load(pw).then(function(d){try{sessionStorage.setItem('rj-leads-pw',pw)}catch(e){}show(d.leads)})
+  .catch(function(er){document.getElementById('err').textContent=er.message});
+};
+})();
+</script>
+</body>
+</html>
