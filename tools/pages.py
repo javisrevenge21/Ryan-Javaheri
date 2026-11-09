@@ -5,6 +5,39 @@ SITE = "https://ryanjavaheri.com"
 EMAIL = "ryanjavaheri21@gmail.com"
 YEAR = "2026"
 
+# code, <html lang>, native name. Order = order in the language menu.
+LANGS = [
+    ("en", "en", "English"), ("es", "es", "Español"), ("fa", "fa", "فارسی"), ("he", "he", "עברית"),
+    ("ar", "ar", "العربية"), ("zh", "zh-Hans", "中文"), ("ko", "ko", "한국어"), ("ja", "ja", "日本語"),
+    ("fr", "fr", "Français"), ("pt", "pt", "Português"), ("ru", "ru", "Русский"), ("hy", "hy", "Հայերեն"),
+    ("hi", "hi", "हिन्दी"),
+]
+RTL = {"fa", "he", "ar"}
+NAV_T = {
+    "es": ("Servicios", "Portafolio", "Método", "Contacto", "Escaneo gratis"),
+    "fa": ("خدمات", "نمونه‌کارها", "روش کار", "تماس", "اسکن رایگان"),
+    "he": ("שירותים", "תיק עבודות", "השיטה", "צור קשר", "סריקה חינם"),
+    "ar": ("الخدمات", "الأعمال", "المنهج", "تواصل", "فحص مجاني"),
+    "zh": ("服务", "作品集", "方法", "联系", "免费扫描"),
+    "ko": ("서비스", "포트폴리오", "방법론", "연락", "무료 스캔"),
+    "ja": ("サービス", "ポートフォリオ", "メソッド", "お問い合わせ", "無料スキャン"),
+    "fr": ("Services", "Portfolio", "Méthode", "Contact", "Scan gratuit"),
+    "pt": ("Serviços", "Portfólio", "Método", "Contato", "Análise grátis"),
+    "ru": ("Услуги", "Портфолио", "Метод", "Контакты", "Бесплатный анализ"),
+    "hy": ("Ծառայություններ", "Պորտֆոլիո", "Մեթոդ", "Կապ", "Անվճար ստուգում"),
+    "hi": ("सेवाएँ", "पोर्टफ़ोलियो", "तरीका", "संपर्क", "मुफ़्त स्कैन"),
+}
+
+
+def lang_menu(cur="en"):
+    name = dict((c, n) for c, _, n in LANGS)[cur]
+    links = "".join(
+        f'<a href="{"/" if c == "en" else "/" + c + "/"}" hreflang="{h}" lang="{h}"{" aria-current=\"page\"" if c == cur else ""}>{n}</a>'
+        for c, h, n in LANGS
+    )
+    return f'<div class="dd lang-dd"><button type="button" aria-expanded="false" aria-label="Language">🌐 {name}</button><div class="dd-menu lang-menu">{links}</div></div>'
+
+
 SERVICES = [
     ("/ai-visibility/", "AI Visibility (LLMO)", "Become the business AI recommends."),
     ("/ai-agents/", "AI Intake Agents", "Chat and voice agents that answer and capture leads 24/7."),
@@ -26,32 +59,29 @@ def nav(lang="en", here=""):
 <button class="burger" aria-label="Menu" aria-expanded="false">☰</button>
 <div class="nav-links">
 <div class="dd"><button type="button" aria-expanded="false">Services</button><div class="dd-menu">{menu}<a href="/#method">The B.U.I.L.D. method<small>How every project runs</small></a></div></div>
-<a href="/#work">Work</a>
+<a href="/portfolio/">Portfolio</a>
 <div class="dd"><button type="button" aria-expanded="false">Learn</button><div class="dd-menu"><a href="/insights/">Insights<small>Articles on AI visibility</small></a><a href="/glossary/">Glossary<small>LLMO, GEO, AEO and more</small></a><a href="/#faq">FAQ<small>Quick answers</small></a></div></div>
 <a href="/#about">About</a>
 <a href="/#contact">Contact</a>
-<span class="lang"><a href="/" aria-current="page">EN</a><a href="/es/" hreflang="es">ES</a><a href="/fa/" hreflang="fa">فا</a></span>
+{lang_menu("en")}
 <a class="nav-cta" href="/#scan">Free AI scan</a>
 </div>
 </div>
 </nav>"""
-    labels = {
-        "es": ("Servicios", "Método", "Contacto", "Escaneo gratis"),
-        "fa": ("خدمات", "روش کار", "تماس", "اسکن رایگان"),
-    }[lang]
-    cur = {"es": ("", ' aria-current="page"', ""), "fa": ("", "", ' aria-current="page"')}[lang]
+    labels = NAV_T[lang]
     return f"""<a class="skip" href="#main">Skip to content</a>
 <div class="progress" id="progress"></div>
 <nav class="site" aria-label="Main">
 <div class="nav-inner">
-<a class="brand" href="/{lang}/">Ryan Javaheri <span>· AI</span></a>
+<a class="brand" href="/{lang}/" dir="ltr">Ryan Javaheri <span>· AI</span></a>
 <button class="burger" aria-label="Menu" aria-expanded="false">☰</button>
 <div class="nav-links">
 <a href="#services">{labels[0]}</a>
-<a href="#method">{labels[1]}</a>
-<a href="#contact">{labels[2]}</a>
-<span class="lang"><a href="/" hreflang="en"{cur[0]}>EN</a><a href="/es/" hreflang="es"{cur[1]}>ES</a><a href="/fa/" hreflang="fa"{cur[2]}>فا</a></span>
-<a class="nav-cta" href="/#scan">{labels[3]}</a>
+<a href="#portfolio">{labels[1]}</a>
+<a href="#method">{labels[2]}</a>
+<a href="#contact">{labels[3]}</a>
+{lang_menu(lang)}
+<a class="nav-cta" href="/#scan">{labels[4]}</a>
 </div>
 </div>
 </nav>"""
@@ -62,10 +92,12 @@ def footer(lang="en"):
 <div class="fcols">
 <div><h4>Ryan Javaheri</h4><p>AI consultant and website builder in Los Angeles. AI visibility, AI intake agents and AI-ready websites, plus recruiting and PR support for law firms.</p></div>
 <div><h4>Services</h4>{''.join(f'<a href="{u}">{t}</a>' for u, t, d in SERVICES)}<a href="/#scan">Free AI visibility scan</a></div>
+<div><h4>Work</h4><a href="/portfolio/">Portfolio</a><a href="/pr444/">Beyond the Spotlight</a><a href="https://classroutes.com/">ClassRoutes</a></div>
 <div><h4>Learn</h4><a href="/insights/">Insights</a><a href="/glossary/">Glossary</a><a href="/#faq">FAQ</a><a href="/llms.txt">llms.txt</a></div>
-<div><h4>Contact</h4><a href="mailto:{EMAIL}">{EMAIL}</a><a href="#" data-open-agent="">Talk to my AI advisor</a><a href="/#contact">Start a project</a><a href="/es/">Español</a><a href="/fa/">فارسی</a></div>
+<div><h4>Contact</h4><a href="mailto:{EMAIL}">{EMAIL}</a><a href="#" data-open-agent="">Talk to my AI advisor</a><a href="/#contact">Start a project</a></div>
+<div><h4>Languages</h4>{"".join(f'<a href="{"/" if c == "en" else "/" + c + "/"}" lang="{h}">{n}</a>' for c, h, n in LANGS)}</div>
 </div>
-<div class="fbottom"><span>&copy; {YEAR} Ryan Javaheri. Los Angeles, California. Serving clients everywhere.</span><span><a href="/privacy/">Privacy</a><a href="/#work">Portfolio</a></span></div>
+<div class="fbottom"><span>&copy; {YEAR} Ryan Javaheri. Los Angeles, California. Serving clients everywhere.</span><span><a href="/privacy/">Privacy</a><a href="/portfolio/">Portfolio</a></span></div>
 </footer>"""
 
 
@@ -74,15 +106,13 @@ FAVICON = "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox=
 
 def head(title, desc, path, lang="en", schema=None, og_type="website", extra=""):
     url = SITE + path
-    dir_attr = ' dir="rtl"' if lang == "fa" else ""
+    dir_attr = ' dir="rtl"' if lang.split("-")[0] in RTL else ""
     alts = ""
-    if path in ("/", "/es/", "/fa/"):
-        alts = (
-            f'<link rel="alternate" hreflang="en" href="{SITE}/">\n'
-            f'<link rel="alternate" hreflang="es" href="{SITE}/es/">\n'
-            f'<link rel="alternate" hreflang="fa" href="{SITE}/fa/">\n'
-            f'<link rel="alternate" hreflang="x-default" href="{SITE}/">\n'
-        )
+    if path == "/" or path.strip("/") in [c for c, _, _ in LANGS]:
+        alts = "".join(
+            f'<link rel="alternate" hreflang="{h}" href="{SITE}{"/" if c == "en" else "/" + c + "/"}">\n' for c, h, _ in LANGS
+        ) + f'<link rel="alternate" hreflang="x-default" href="{SITE}/">\n'
+
     ld = ""
     if schema:
         ld = '<script type="application/ld+json">\n' + json.dumps(schema, ensure_ascii=False, indent=1) + "\n</script>\n"

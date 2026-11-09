@@ -1,3 +1,4 @@
+import portfolio
 from pages import head, nav, tail, PERSON, SITE, EMAIL, faq_schema, faq_html
 
 FAQ = [
@@ -38,7 +39,7 @@ def build():
                 "founder": {"@id": SITE + "/#ryan"},
                 "areaServed": ["Los Angeles", "California", "United States", "Worldwide"],
                 "address": {"@type": "PostalAddress", "addressLocality": "Los Angeles", "addressRegion": "CA", "addressCountry": "US"},
-                "knowsLanguage": ["en", "es", "fa"],
+                "knowsLanguage": ["en", "es", "fa", "he", "ar", "zh", "ko", "ja", "fr", "pt", "ru", "hy", "hi"],
                 "hasOfferCatalog": {
                     "@type": "OfferCatalog",
                     "name": "Services",
@@ -53,7 +54,7 @@ def build():
                     ],
                 },
             },
-            {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/", "name": "Ryan Javaheri", "publisher": {"@id": SITE + "/#ryan"}, "inLanguage": ["en", "es", "fa"]},
+            {"@type": "WebSite", "@id": SITE + "/#website", "url": SITE + "/", "name": "Ryan Javaheri", "publisher": {"@id": SITE + "/#ryan"}, "inLanguage": ["en", "es", "fa", "he", "ar", "zh-Hans", "ko", "ja", "fr", "pt", "ru", "hy", "hi"]},
             faq_schema(FAQ),
         ],
     }
@@ -66,13 +67,24 @@ def build():
     html += nav("en")
     html += f"""
 <main id="main">
-<div class="hero-wrap">
+<div class="intro-wrap">
 <div class="orb orb-1" data-speed="0.25"></div>
 <div class="orb orb-2" data-speed="0.45"></div>
-<header class="hero">
-<div class="hero-content" id="heroContent">
+<header class="intro">
+<div class="intro-content" id="heroContent">
+<h1 data-split>Ryan Javaheri</h1>
+<p class="intro-sub">future lawyer.</p>
+<a class="intro-cta" href="#contact">Get in touch</a>
+</div>
+<div class="scroll-cue" id="scrollCue" aria-hidden="true"></div>
+</header>
+</div>
+
+<div class="hero-wrap" data-play>
+<section class="hero" aria-label="AI consulting">
+<div class="hero-content">
 <span class="kicker"><i></i>AI advisor online 24/7, in any language</span>
-<h1 data-split>Be the name<br><span class="grad">AI recommends.</span></h1>
+<h2 class="h1" data-split>Be the name<br><span class="grad">AI recommends.</span></h2>
 <p class="sub">I build AI-ready websites, AI intake agents and AI visibility strategy, so when customers ask ChatGPT, Gemini or Perplexity who to hire, the answer is you.</p>
 <p class="who">Ryan Javaheri · AI consultant &amp; web builder · USC · Los Angeles</p>
 <div class="ctas">
@@ -82,7 +94,7 @@ def build():
 <div class="stats">
 <div><b>5</b><span>sites shipped</span></div>
 <div><b>24/7</b><span>AI intake</span></div>
-<div><b>3</b><span>site languages</span></div>
+<div><b>13</b><span>languages</span></div>
 <div><b>USC</b><span>PR &amp; business law</span></div>
 </div>
 </div>
@@ -93,7 +105,7 @@ def build():
 <div class="answer-src" id="aiSources" style="opacity:0;transition:opacity .6s"><span>ryanjavaheri.com</span><span>schema.org/Person</span><span>llms.txt</span></div>
 <div class="answer-foot"><span>Illustrative answer: this is the goal for every client.</span><a href="#scan">Check yours →</a></div>
 </div>
-</header>
+</section>
 </div>
 
 <div class="ticker" aria-hidden="true"><div class="ticker-track">
@@ -221,46 +233,12 @@ def build():
 <div class="inner" id="portfolio">
 <p class="eyebrow">Portfolio</p>
 <h2>Websites I have built.</h2>
-<p>Every site I have made, in one place.</p>
+<p>Every site and AI project I have built, in one place.</p>
 <div class="cards stagger">
-<!-- PORTFOLIO: every website Ryan makes gets a card here. Copy one <a class="card site-card"> block per new site, newest first. -->
-<a class="card site-card" href="#" data-open-agent="">
-<span class="site-tag">AI agent · Live</span>
-<h3>AI Intake Advisor</h3>
-<p>The chat and voice agent on this site: answers questions 24/7 in any language and sends every lead to a private inbox.</p>
-<span class="site-url">Try it now ›</span>
-</a>
-<a class="card site-card" href="https://javisrevenge.com/" target="_blank" rel="noopener">
-<span class="site-tag">Relaunching soon</span>
-<h3>JAVISREVENGE</h3>
-<p>An independent web project, currently offline while a new version is finished.</p>
-<span class="site-url">javisrevenge.com &rsaquo;</span>
-</a>
-<a class="card site-card" href="https://classroutes.com/" target="_blank" rel="noopener">
-<span class="site-tag">Coming soon</span>
-<h3>ClassRoutes</h3>
-<p>A class-planning platform for community college and university students: major and minor planning, transfer planning, and professor and course lookup.</p>
-<span class="site-url">classroutes.com &rsaquo;</span>
-</a>
-<a class="card site-card" href="/pr444/">
-<span class="site-tag">PR 444</span>
-<h3>Beyond the Spotlight</h3>
-<p>A long-form feature on how athletes and celebrities build, protect, and repair their public image.</p>
-<span class="site-url">ryanjavaheri.com/pr444 &rsaquo;</span>
-</a>
-<a class="card site-card" href="/pr351a/">
-<span class="site-tag">PR 351A</span>
-<h3>Public Relations Portfolio</h3>
-<p>My public relations writing and campaign work from USC Annenberg.</p>
-<span class="site-url">ryanjavaheri.com/pr351a &rsaquo;</span>
-</a>
-<a class="card site-card" href="/jour330/">
-<span class="site-tag">JOUR 330</span>
-<h3>Photojournalism</h3>
-<p>Photo essays, assignments, and visual storytelling from JOUR 330 at USC Annenberg.</p>
-<span class="site-url">ryanjavaheri.com/jour330 &rsaquo;</span>
-</a>
+<!-- PORTFOLIO: generated from tools/portfolio.py. Add new projects there, newest first. -->
+{portfolio.cards()}
 </div>
+<a class="btn btn-light" href="/portfolio/" style="margin-top:30px">Full portfolio ›</a>
 </div>
 </section>
 

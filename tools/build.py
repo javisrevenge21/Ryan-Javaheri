@@ -32,10 +32,13 @@ paths.append(write("/insights/", sub.insights_index()))
 for a in sub.ARTICLES:
     paths.append(write(a["path"], sub.page(a["path"], a["title"], a["desc"], a["h1"], a["intro"], a["body"],
                                            [sub.HOME, ("Insights", "/insights/"), (a["h1"], a["path"])], article=a["date"])))
+paths.append(write("/portfolio/", sub.portfolio_page()))
 paths.append(write("/glossary/", sub.glossary()))
 paths.append(write("/privacy/", sub.privacy()))
-for lang in ("es", "fa"):
-    paths.append(write(f"/{lang}/", i18n.build(lang)))
+from pages import LANGS  # noqa: E402
+for code, html_lang, _ in LANGS:
+    if code != "en":
+        paths.append(write(f"/{code}/", i18n.build(code, html_lang)))
 
 all_urls = paths + ["/pr444/", "/pr351a/", "/jour330/"]
 with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as fh:
@@ -50,7 +53,7 @@ llms = f"""# Ryan Javaheri
 > Ryan Javaheri is a Los Angeles AI consultant and website builder. He builds AI-ready websites, 24/7 AI intake agents (chat, voice and phone) and AI visibility (LLMO / GEO / AEO) strategy so businesses get recommended by ChatGPT, Claude, Gemini and Perplexity. He also supports law firms with lateral recruiting, legal market intelligence and PR. He studies public relations and business law at USC Annenberg and works with Siamak Consulting, learning LLMO from AI consultant Siamak Kalhor.
 
 - Location: Los Angeles, California. Serves clients everywhere.
-- Languages on site: English, Spanish, Persian (Farsi). The AI advisor replies in any language.
+- Languages on site: English, Spanish, Persian (Farsi), Hebrew, Arabic, Chinese, Korean, Japanese, French, Portuguese, Russian, Armenian, Hindi. The AI advisor replies in any language.
 - Contact: {EMAIL} or the AI advisor on {SITE}/
 - Pricing: quoted per project after a short call.
 

@@ -304,3 +304,30 @@ def privacy():
 <p><i>Last updated November 9, 2026.</i></p>"""
     return page("/privacy/", "Privacy | Ryan Javaheri", "How ryanjavaheri.com handles information shared through forms and the AI advisor.",
                 "Privacy", "Short and plain: what this site collects and why.", body, [HOME, ("Privacy", "/privacy/")])
+
+
+def portfolio_page():
+    import portfolio
+    kinds = []
+    for p in portfolio.PORTFOLIO:
+        if p["kind"] not in kinds:
+            kinds.append(p["kind"])
+    schema = {"@context": "https://schema.org", "@graph": [PERSON, breadcrumb([HOME, ("Portfolio", "/portfolio/")]), {
+        "@type": "CollectionPage", "name": "Portfolio of Ryan Javaheri", "url": SITE + "/portfolio/",
+        "about": {"@id": SITE + "/#ryan"},
+        "mainEntity": {"@type": "ItemList", "itemListElement": portfolio.schema_items(SITE)}}]}
+    html = head("Portfolio — Websites, AI Agents & Projects by Ryan Javaheri",
+                "Every website, AI agent and project built by Ryan Javaheri: client sites, AI intake agents, ClassRoutes and USC Annenberg work.",
+                "/portfolio/", schema=schema)
+    html += nav("en")
+    groups = ""
+    for k in kinds:
+        items = [p for p in portfolio.PORTFOLIO if p["kind"] == k]
+        groups += f'<div class="reveal" style="margin-top:50px"><p class="eyebrow">{k}{"s" if not k.endswith("s") else ""}</p></div><div class="cards stagger" style="margin-top:10px">{portfolio.cards(items)}</div>'
+    html += f"""<main id="main">
+<header class="page-hero"><div class="inner"><p class="crumbs"><a href="/">Home</a> › Portfolio</p><h1>Everything I've built.</h1><p>{len(portfolio.PORTFOLIO)} websites, AI agents and projects, newest first. Every new build gets added here.</p></div></header>
+<section class="block alt" style="padding-top:40px"><div class="inner">{groups}</div></section>
+{cta_band("Want something built?", "Websites, AI agents and AI visibility. Tell my AI advisor what you need.")}
+</main>
+"""
+    return html + tail()
