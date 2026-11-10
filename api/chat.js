@@ -68,7 +68,8 @@ export async function POST(request) {
     }),
     execute: async (input) => {
       if (requestReported) return { reported: true, note: 'Already reported in this reply.' };
-      await saveRequest({ ...input, page, transcript: messages });
+      const saved = await saveRequest({ ...input, page, transcript: messages });
+      console.log('unmet product request saved:', saved.id);
       requestReported = true;
       return { reported: true };
     },
