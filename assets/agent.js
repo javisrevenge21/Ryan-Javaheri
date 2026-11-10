@@ -106,7 +106,14 @@
     form.onsubmit = function (e) { e.preventDefault(); ask(input.value); };
     mic.onclick = toggleVoice;
     panel.appendChild(head); panel.appendChild(log); panel.appendChild(form);
-    panel.appendChild(el('div', 'rja-note', L.note));
+    var note = el('div', 'rja-note', L.note + ' ');
+    var lg = (window.rjConsent && window.rjConsent.labels) || { terms: 'Terms', privacy: 'Privacy' };
+    [['/terms/', lg.terms], ['/privacy/', lg.privacy]].forEach(function (x, i) {
+      if (i) note.appendChild(document.createTextNode(' · '));
+      var a = el('a', null, x[1]); a.href = x[0]; a.target = '_blank'; a.rel = 'noopener'; a.style.color = 'inherit';
+      note.appendChild(a);
+    });
+    panel.appendChild(note);
     document.body.appendChild(panel);
     render();
     input.focus();

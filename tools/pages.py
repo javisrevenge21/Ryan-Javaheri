@@ -98,7 +98,7 @@ def footer(lang="en"):
 <div><h4>Contact</h4><a href="mailto:{EMAIL}">{EMAIL}</a><a href="https://www.linkedin.com/in/ryanjavaheri" target="_blank" rel="noopener">LinkedIn</a><a href="#" data-open-agent="">Talk to my AI advisor</a><a href="/#contact">Start a project</a></div>
 <div><h4>Languages</h4>{"".join(f'<a href="{"/" if c == "en" else "/" + c + "/"}" lang="{h}">{n}</a>' for c, h, n in LANGS)}</div>
 </div>
-<div class="fbottom"><span>&copy; {YEAR} Ryan Javaheri. Los Angeles, California. Serving clients everywhere.</span><span><a href="/privacy/">Privacy</a><a href="/portfolio/">Portfolio</a></span></div>
+<div class="fbottom"><span>&copy; {YEAR} Ryan Javaheri. Los Angeles, California. Serving clients everywhere.</span><span><a href="/terms/">Terms</a><a href="/privacy/">Privacy</a><a href="#cookie-preferences" data-cookie-prefs>Cookie preferences</a><a href="/portfolio/">Portfolio</a></span></div>
 </footer>"""
 
 
@@ -151,6 +151,7 @@ def head(title, desc, path, lang="en", schema=None, og_type="website", extra="")
 
 def tail(lang="en"):
     return f"""{footer(lang)}
+<script src="/assets/consent.js" defer></script>
 <script src="/assets/site.js" defer></script>
 <script src="/assets/agent.js" defer></script>
 </body>

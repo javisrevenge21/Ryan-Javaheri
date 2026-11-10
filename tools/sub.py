@@ -1,7 +1,7 @@
 from pages import head, nav, tail, PERSON, SITE, EMAIL, faq_schema, faq_html, breadcrumb, cta_band
 
 
-def page(path, title, desc, h1, intro, body, crumbs, faqs=None, article=None):
+def page(path, title, desc, h1, intro, body, crumbs, faqs=None, article=None, cta=True):
     graph = [PERSON, breadcrumb(crumbs)]
     if faqs:
         graph.append(faq_schema(faqs))
@@ -36,7 +36,7 @@ def page(path, title, desc, h1, intro, body, crumbs, faqs=None, article=None):
 {body}
 {faq_block}
 </article>
-{cta_band()}
+{cta_band() if cta else '<div style="height:60px"></div>'}
 </main>
 """
     html += tail()
@@ -290,20 +290,15 @@ def glossary():
 
 
 def privacy():
-    body = f"""<p>This site is run by Ryan Javaheri, Los Angeles, California. Contact: <a href="mailto:{EMAIL}">{EMAIL}</a>.</p>
-<h2>What I collect</h2>
-<ul><li><b>Details you choose to share</b> through the contact form, the free AI scan, or the AI advisor: such as your name, email, phone, business and what you need.</li>
-<li><b>AI advisor conversations.</b> When you leave contact details with the AI advisor, the conversation is saved with your lead so I can follow up properly.</li>
-<li><b>Basic technical logs</b> from the hosting provider (Vercel), used to keep the site running and secure.</li></ul>
-<h2>How it's used</h2>
-<p>Only to reply to you and to provide the services you asked about. I don't sell your information or use it for unrelated advertising.</p>
-<h2>Service providers</h2>
-<p>The site is hosted on Vercel, and leads are stored in private Vercel storage. AI advisor and scan messages are processed by an AI model provider through Vercel AI Gateway to generate replies. Please don't share passwords, payment details or sensitive personal information in the chat.</p>
-<h2>Your choices</h2>
-<p>Email me any time to see, correct or delete your information.</p>
-<p><i>Last updated November 9, 2026.</i></p>"""
-    return page("/privacy/", "Privacy | Ryan Javaheri", "How ryanjavaheri.com handles information shared through forms and the AI advisor.",
-                "Privacy", "Short and plain: what this site collects and why.", body, [HOME, ("Privacy", "/privacy/")])
+    import legal
+    return page("/privacy/", "Privacy Policy | Ryan Javaheri", "What ryanjavaheri.com collects through its forms, free AI scan and AI advisor, how cookies work, and your choices.",
+                "Privacy Policy", "Plain language: what this site collects, why, and how to control it.", legal.PRIVACY, [HOME, ("Privacy", "/privacy/")], cta=False)
+
+
+def terms():
+    import legal
+    return page("/terms/", "Terms of Use | Ryan Javaheri", "The terms for using ryanjavaheri.com, its free AI scan and AI advisor, including the no-legal-advice and AI disclaimers.",
+                "Terms of Use", "The rules for using this site and its AI tools.", legal.TERMS, [HOME, ("Terms", "/terms/")], cta=False)
 
 
 def portfolio_page():

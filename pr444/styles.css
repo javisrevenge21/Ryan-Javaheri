@@ -1,3 +1,7 @@
+/* Fonts are hosted on this site (no requests to Google). Licensed under the SIL Open Font License; see assets/fonts/LICENSE.txt */
+@font-face { font-family: "DM Sans"; font-style: normal; font-weight: 100 1000; font-display: swap; src: url("/pr444/assets/fonts/dm-sans-latin-wght-normal.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Serif"; font-style: normal; font-weight: 400; font-display: swap; src: url("/pr444/assets/fonts/instrument-serif-latin-400-normal.woff2") format("woff2"); }
+@font-face { font-family: "Instrument Serif"; font-style: italic; font-weight: 400; font-display: swap; src: url("/pr444/assets/fonts/instrument-serif-latin-400-italic.woff2") format("woff2"); }
 :root {
   --ink: #0a1520;
   --paper: #f6f1e8;
@@ -161,3 +165,6 @@ footer > a:last-child { justify-self: end; text-decoration: none; }
   html { scroll-behavior: auto; }
   *, *::before, *::after { transition-duration: .01ms !important; }
 }
+
+footer .legal { grid-column: 1 / -1; font-size: .78rem; }
+footer .legal a { color: inherit; }

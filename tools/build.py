@@ -36,6 +36,7 @@ paths.append(write("/portfolio/", sub.portfolio_page()))
 paths.append(write("/experience/", sub.experience_page()))
 paths.append(write("/glossary/", sub.glossary()))
 paths.append(write("/privacy/", sub.privacy()))
+paths.append(write("/terms/", sub.terms()))
 from pages import LANGS  # noqa: E402
 for code, html_lang, _ in LANGS:
     if code != "en":

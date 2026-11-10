@@ -266,7 +266,7 @@ def build():
 <div class="hp" aria-hidden="true"><input name="company_url_hp" tabindex="-1" autocomplete="off"></div>
 <button class="btn btn-light" type="submit" style="margin-top:18px;width:100%">Run my free scan</button>
 <p class="f-msg"></p>
-<p class="f-note">Free. Your details only go to Ryan. <a href="/privacy/" style="color:#a1a1a6">Privacy</a></p>
+<p class="f-note">Free. An AI model writes the result, so treat it as an estimate. Your details only go to Ryan. By running the scan you agree to the <a href="/terms/" style="color:#a1a1a6">Terms</a> and <a href="/privacy/" style="color:#a1a1a6">Privacy Policy</a>.</p>
 </form>
 <div class="result" id="scanResult" aria-live="polite"></div>
 </div>
