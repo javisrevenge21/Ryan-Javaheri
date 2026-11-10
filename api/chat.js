@@ -1,8 +1,34 @@
-import { generateText, tool, isStepCount } from 'ai';
+import { generateText, tool, isStepCount, Output } from 'ai';
+import { waitUntil } from '@vercel/functions';
 import { z } from 'zod';
 import { SYSTEM_PROMPT } from '../lib/profile.js';
 import { saveLead, saveRequest, json } from '../lib/leads.js';
 import { withModel } from '../lib/ai.js';
+import { PRODUCTS } from '../lib/catalog.js';
+
+const PRODUCT_LIST = PRODUCTS.map((p) => `- ${p.name} (${p.category}): ${p.summary.split('. ')[0]}.`).join('\n');
+
+const gapSchema = z.object({
+  unmet: z.boolean().describe('true only if the latest visitor message asks for a product or service need that none of the products covers (fully or in part)'),
+  need: z.string().describe('The uncovered need in one or two sentences, in English. Empty if unmet is false.'),
+  industry: z.string().describe('Their industry or type of business, if known, else empty'),
+  closest_product: z.string().describe('Closest product name if one partly fits, else empty'),
+});
+
+// Backstop: if the advisor didn't report a gap itself, double-check the latest message so no
+// unmet request is lost. Runs after the reply is sent.
+async function checkForGap(messages, reply) {
+  const recent = messages.slice(-5).map((m) => `${m.role === 'user' ? 'Visitor' : 'Advisor'}: ${m.content}`).join('\n');
+  const { output } = await withModel((model) => generateText({
+    model,
+    output: Output.object({ schema: gapSchema }),
+    maxOutputTokens: 300,
+    system:
+      'You check a sales chat for needs that a fixed product list does not cover. Judge only the LATEST visitor message. Questions about the person Ryan, greetings, contact details, follow-ups about a product already recommended, and needs a product clearly covers are NOT unmet. A need only partly covered (e.g. wants phone answering but the product only does social media) IS unmet for the uncovered part.',
+    prompt: `PRODUCTS:\n${PRODUCT_LIST}\n\nCONVERSATION (latest last):\n${recent}\nAdvisor reply just sent: ${reply}`,
+  }));
+  return output;
+}
 
 export async function POST(request) {
   let body;
@@ -87,6 +113,17 @@ export async function POST(request) {
       maxOutputTokens: 1200,
     }));
     const reply = (result.text || '').trim() || (leadSaved ? 'Thanks, Ryan has your details and will be in touch.' : 'Could you tell me a bit more about what you need?');
+    if (!requestReported && messages[messages.length - 1].content.length >= 15) {
+      waitUntil(
+        checkForGap(messages, reply)
+          .then(async (gap) => {
+            if (!gap?.unmet || !gap.need) return;
+            const saved = await saveRequest({ ...gap, language, page, transcript: [...messages, { role: 'assistant', content: reply }] });
+            console.log('unmet product request saved (backstop):', saved.id);
+          })
+          .catch((e) => console.error('gap check failed', e?.message)),
+      );
+    }
     return json({ reply, leadSaved, requestReported });
   } catch (err) {
     console.error('chat error', err?.message);
