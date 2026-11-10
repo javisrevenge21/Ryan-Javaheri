@@ -172,9 +172,6 @@ PERSON = {
     "address": {"@type": "PostalAddress", "addressLocality": "Los Angeles", "addressRegion": "CA", "addressCountry": "US"},
     "alumniOf": [
         {"@type": "CollegeOrUniversity", "name": "University of Southern California", "url": "https://www.usc.edu/"},
-        {"@type": "CollegeOrUniversity", "name": "Santa Monica College"},
-        {"@type": "CollegeOrUniversity", "name": "Citrus College"},
-        {"@type": "HighSchool", "name": "Palisades Charter High School"},
     ],
     "knowsLanguage": ["English", "Persian"],
     "knowsAbout": ["Public relations", "Pre-law", "Business law", "Web development", "HTML", "CSS", "JavaScript", "Content creation", "Social media", "Sales", "Customer service", "Retail", "Shopify", "Large Language Model Optimization (LLMO)", "AI agents", "Structured data"],

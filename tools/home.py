@@ -281,16 +281,6 @@ def build():
 </div>
 </section>
 
-<section class="block alt reveal" id="education">
-<div class="inner">
-<p class="eyebrow">Education</p>
-<h2>Education.</h2>
-<div class="cards stagger">
-{me.education_cards()}
-</div>
-</div>
-</section>
-
 <section class="block reveal" id="contact">
 <div class="inner scan-grid">
 <div>

@@ -1,5 +1,5 @@
 """Ryan's background, taken from his LinkedIn profile (linkedin.com/in/ryanjavaheri).
-Keep this in sync with LinkedIn. Used by the homepage Experience and Education sections."""
+Keep this in sync with LinkedIn. Used by the Experience page."""
 
 LINKEDIN = "https://www.linkedin.com/in/ryanjavaheri"
 
@@ -14,9 +14,9 @@ EXPERIENCE = [
     dict(title="Content Creator", org="Instagram & YouTube · Self-employed", when="Nov 2021 – Present",
          desc="Built and grew content channels with short- and long-form video. Audience growth, storytelling, content systems and analytics, using automation to scale production, and helping others promote their products and ideas."),
     dict(title="Market & Retail Specialist", org="Payman Fabric Inc. & Spandex Palace", when="Sep 2023 – May 2026 · Los Angeles",
-         desc="Started at 17 while still in high school. Sold in person and online through Shopify, helped design and promote the stores, and handled day-to-day customer service for two connected Los Angeles fabric businesses."),
+         desc="Sold in person and online through Shopify, helped design and promote the stores, and handled day-to-day customer service for two connected Los Angeles fabric businesses."),
     dict(title="President", org="Kol Torah Center", when="Apr 2021 – Jan 2023",
-         desc="Led a Monday Jewish club for teens from Palisades Charter, Beverly Hills High and Milken, combining Jewish learning, basketball and social time. Later led the Persian Student Union at Palisades Charter (2023–2024)."),
+         desc="Led a weekly Jewish teen club combining Jewish learning, basketball and social time."),
     dict(title="Food Delivery Driver", org="Uber · Self-employed", when="Aug 2024 – Dec 2024",
          desc="Delivered orders on a flexible schedule while taking college classes, focused on on-time, accurate delivery and friendly service."),
 ]
@@ -24,14 +24,6 @@ EXPERIENCE = [
 EDUCATION = [
     dict(school="University of Southern California", sub="USC Annenberg · Class of 2027", when="Aug 2025 – Jun 2027",
          desc="PR / Pre-Law, Public Relations & Image Management, with a minor in Business Law."),
-    dict(school="Santa Monica College & Citrus College", sub="History · 3.7 and 3.9 GPA", when="2024 – 2025",
-         desc="Took classes at both colleges at the same time, carrying a heavy course load to finish credits early before transferring to USC."),
-    dict(school="Palisades Charter High School", sub="High School Diploma", when="2020 – 2024",
-         desc="President of the Kol Torah Center Jewish club (2021–2023) and leader of the Persian Student Union (2023–2024)."),
-    dict(school="Colibri Real Estate", sub="Real estate pre-licensing", when="2024",
-         desc="Completed the three pre-licensing courses for certification, with an A."),
-    dict(school="Siamak Consulting", sub="AI consulting apprenticeship", when="2026 – Present",
-         desc="Learning LLMO, AI strategy and client work hands-on from AI consultant Siamak Kalhor."),
 ]
 
 

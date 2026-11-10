@@ -41,8 +41,11 @@ and a "Get in touch" button. Everything else comes after it as you scroll. Keep 
 
 ## About Ryan
 Ryan's background (experience, education, About text) comes from his LinkedIn profile,
-linkedin.com/in/ryanjavaheri. It lives in `tools/me.py` (Experience on its own page /experience/, Education on the homepage)
+linkedin.com/in/ryanjavaheri. It lives in `tools/me.py` (Experience on its own page /experience/)
 and `lib/profile.js` (what the AI advisor knows). Keep both in sync with LinkedIn.
+Education: the site only mentions USC (USC Annenberg, PR / Pre-Law, Business Law minor, Class of 2027).
+Ryan doesn't want any other school (community colleges, high school, other courses) named anywhere on the site
+or by the AI advisor. There is no Education section on the homepage.
 ClassRoutes stays off the homepages (`home=False` in tools/portfolio.py) but is on /portfolio/.
 
 ## Languages
