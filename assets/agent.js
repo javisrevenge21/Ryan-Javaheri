@@ -73,12 +73,29 @@
 
   function el(tag, cls, text) { var e = document.createElement(tag); if (cls) e.className = cls; if (text != null) e.textContent = text; return e; }
 
+  // Make https links in the advisor's replies clickable (text stays text; no HTML is injected).
+  function linkify(box, text) {
+    var re = /https:\/\/[^\s<>"')]+/g, last = 0, m;
+    text = String(text || '');
+    while ((m = re.exec(text))) {
+      var url = m[0].replace(/[.,;:!?]+$/, '');
+      box.appendChild(document.createTextNode(text.slice(last, m.index)));
+      var a = el('a', null, url); a.href = url; a.target = '_blank'; a.rel = 'noopener'; a.style.color = 'inherit';
+      box.appendChild(a);
+      last = m.index + url.length;
+      re.lastIndex = last;
+    }
+    box.appendChild(document.createTextNode(text.slice(last)));
+    return box;
+  }
+
   function render() {
     log.innerHTML = '';
     log.appendChild(el('div', 'rja-m rja-a', L.hello));
     state.messages.forEach(function (m) {
       if (m.role === 'system') log.appendChild(el('div', 'rja-sys', m.content));
-      else log.appendChild(el('div', 'rja-m ' + (m.role === 'user' ? 'rja-u' : 'rja-a'), m.content));
+      else if (m.role === 'user') log.appendChild(el('div', 'rja-m rja-u', m.content));
+      else log.appendChild(linkify(el('div', 'rja-m rja-a'), m.content));
     });
     log.scrollTop = log.scrollHeight;
   }

@@ -1,7 +1,7 @@
 import { generateText, tool, isStepCount } from 'ai';
 import { z } from 'zod';
 import { SYSTEM_PROMPT } from '../lib/profile.js';
-import { saveLead, json } from '../lib/leads.js';
+import { saveLead, saveRequest, json } from '../lib/leads.js';
 import { withModel } from '../lib/ai.js';
 
 export async function POST(request) {
@@ -38,14 +38,39 @@ export async function POST(request) {
       details: z.string().optional().describe('Any other useful details, in English'),
       timeline: z.string().optional().describe('Timeline or urgency, if given'),
       language: z.string().optional().describe('Language the visitor is writing in'),
+      products: z.array(z.string()).optional().describe("Names of Siamak's catalog products they are interested in, if any"),
     }),
-    execute: async (input) => {
+    execute: async ({ products, ...input }) => {
       if (!input.email && !input.phone) {
         return { saved: false, reason: 'Need an email or phone number first.' };
       }
-      await saveLead({ ...input, source: 'ai-advisor', page, transcript: messages });
+      await saveLead({
+        ...input,
+        source: 'ai-advisor',
+        page,
+        transcript: messages,
+        extra: products?.length ? { products: products.slice(0, 5).map((p) => String(p).slice(0, 80)) } : undefined,
+      });
       leadSaved = true;
       return { saved: true };
+    },
+  });
+
+  let requestReported = false;
+  const report_unmet_request = tool({
+    description:
+      "Report a need that no product in Siamak's catalog covers, so Ryan can consider building it. Call once per unmet need. Contact details are not required.",
+    inputSchema: z.object({
+      need: z.string().describe('What the visitor needs that no catalog product covers, in one or two sentences, in English'),
+      industry: z.string().optional().describe('Their industry or type of business, if known'),
+      closest_product: z.string().optional().describe('The closest catalog product, if any partly fits'),
+      language: z.string().optional().describe('Language the visitor is writing in'),
+    }),
+    execute: async (input) => {
+      if (requestReported) return { reported: true, note: 'Already reported in this reply.' };
+      await saveRequest({ ...input, page, transcript: messages });
+      requestReported = true;
+      return { reported: true };
     },
   });
 
@@ -56,12 +81,12 @@ export async function POST(request) {
         SYSTEM_PROMPT +
         (language ? `\nThe visitor's browser language is ${language}; still match the language they write in.` : ''),
       messages,
-      tools: { save_lead },
-      stopWhen: isStepCount(3),
+      tools: { save_lead, report_unmet_request },
+      stopWhen: isStepCount(4),
       maxOutputTokens: 1200,
     }));
     const reply = (result.text || '').trim() || (leadSaved ? 'Thanks, Ryan has your details and will be in touch.' : 'Could you tell me a bit more about what you need?');
-    return json({ reply, leadSaved });
+    return json({ reply, leadSaved, requestReported });
   } catch (err) {
     console.error('chat error', err?.message);
     return json(

@@ -6,7 +6,7 @@ in the same change, and bump UPDATED.
 """
 from pages import EMAIL
 
-UPDATED = "November 9, 2026"
+UPDATED = "November 10, 2026"
 MAIL = f'<a href="mailto:{EMAIL}">{EMAIL}</a>'
 
 TERMS = f"""<div class="tldr"><b>In short:</b> this is a personal and professional website. Use it lawfully, don't rely on it (or its AI tools) as legal or professional advice, and any paid work happens under a separate written agreement.</div>
@@ -98,7 +98,7 @@ PRIVACY = f"""<div class="tldr"><b>In short:</b> no ads, no analytics trackers, 
 <ul>
 <li><b>Contact form.</b> Your name, email, and what you need, plus your company and phone number if you add them.</li>
 <li><b>Free AI visibility scan.</b> The business name, website, city and type of business you enter. If you also add your name or email, the scan result is saved with those details so I can follow up. If you leave them blank, the scan isn't saved as a lead.</li>
-<li><b>AI advisor.</b> The messages you type or speak are sent to my server and to an AI model to produce a reply, along with the page you're on and your browser's language setting. If you give the advisor your contact details, it saves them together with the conversation so I can follow up properly.</li>
+<li><b>AI advisor.</b> The messages you type or speak are sent to my server and to an AI model to produce a reply, along with the page you're on and your browser's language setting. If you give the advisor your contact details, it saves them together with the conversation so I can follow up properly. If you ask for something none of the AI products it recommends can do yet, it saves a short summary of that request together with the conversation, even if you haven't given contact details, so I can consider building it. Please don't share sensitive personal details in the chat.</li>
 <li><b>Email.</b> If you email me, I receive whatever you send.</li>
 <li><b>Technical logs.</b> Like almost every website, the hosting provider (Vercel) automatically processes your IP address, browser type and the pages requested, to deliver the site and keep it secure.</li>
 </ul>

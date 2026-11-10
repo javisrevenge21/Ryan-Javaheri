@@ -34,12 +34,16 @@ summary{cursor:pointer;color:#86868b;font-size:14px}
 .t .user{background:#0b0b0d;color:#fff;align-self:flex-end}
 .t .assistant{background:#f5f5f7;align-self:flex-start}
 .empty{color:#86868b;padding:40px 0;text-align:center}
+.tabs{display:flex;gap:8px;margin-bottom:14px;flex-wrap:wrap}
+.tabs button{background:#fff;color:#1d1d1f;border:1px solid #d2d2d7}
+.tabs button.on{background:#0b0b0d;color:#fff;border-color:#0b0b0d}
+.lead.req{border-left:4px solid #bf5af2}
 </style>
 </head>
 <body>
 <div class="wrap">
 <h1>Leads inbox</h1>
-<p class="sub">Everyone who left details with your AI advisor, the free scan, or the contact form.</p>
+<p class="sub">Everyone who left details with your AI advisor, the free scan, or the contact form, plus product requests the advisor couldn't match to the catalog.</p>
 <div id="app">
 <form class="login" id="login">
 <input type="password" id="pw" placeholder="Inbox password" autocomplete="current-password" required>
@@ -57,14 +61,16 @@ function load(pw){
   .then(function(r){return r.json().then(function(d){if(!r.ok)throw new Error(d.error||'Error');return d})});
 }
 function show(leads){
-  var html='<div class="bar"><input id="q" placeholder="Search name, email, need…"><span class="count" id="count"></span><button id="refresh" type="button">Refresh</button></div><div id="list"></div>';
+  var tab='leads';
+  var html='<div class="tabs"><button type="button" data-tab="leads" class="on">Leads</button><button type="button" data-tab="requests">Product requests to build</button><button type="button" data-tab="all">All</button></div><div class="bar"><input id="q" placeholder="Search name, email, need…"><span class="count" id="count"></span><button id="refresh" type="button">Refresh</button></div><div id="list"></div>';
   app.innerHTML=html;
   var list=document.getElementById('list'),q=document.getElementById('q'),count=document.getElementById('count');
   function draw(){
     var term=q.value.toLowerCase();
-    var f=leads.filter(function(l){return !term||JSON.stringify(l).toLowerCase().indexOf(term)>-1});
-    count.textContent=f.length+' lead'+(f.length===1?'':'s');
-    if(!f.length){list.innerHTML='<p class="empty">No leads yet. When someone talks to your AI advisor and leaves their details, they show up here.</p>';return}
+    var f=leads.filter(function(l){var r=l.source==='unmet-request';return (tab==='all'||(tab==='requests')===r)&&(!term||JSON.stringify(l).toLowerCase().indexOf(term)>-1)});
+    var noun=tab==='requests'?'request':'item';if(tab==='leads')noun='lead';
+    count.textContent=f.length+' '+noun+(f.length===1?'':'s');
+    if(!f.length){list.innerHTML='<p class="empty">'+(tab==='requests'?'No product requests yet. When a visitor asks the AI advisor for something none of Siamak\'s products cover, it shows up here.':'No leads yet. When someone talks to your AI advisor and leaves their details, they show up here.')+'</p>';return}
     list.innerHTML=f.map(function(l){
       var d=new Date(l.createdAt);
       var c='';
@@ -72,12 +78,16 @@ function show(leads){
       if(l.phone)c+='<a href="tel:'+esc(l.phone.replace(/[^+\d]/g,''))+'">☎ '+esc(l.phone)+'</a>';
       var kv=[['Company',l.company],['Website',l.website],['Timeline',l.timeline],['Language',l.language],['Details',l.details],['Page',l.page]]
         .filter(function(p){return p[1]}).map(function(p){return '<p class="kv"><b>'+p[0]+':</b> '+esc(p[1])+'</p>'}).join('');
+      var prods=l.extra&&l.extra.products&&l.extra.products.length?'<p class="kv"><b>Interested in:</b> '+esc(l.extra.products.join(', '))+'</p>':'';
       var scan=l.extra&&l.extra.scan?'<p class="kv"><b>Scan score:</b> '+Math.round(l.extra.scan.score)+'/100</p>':'';
       var t=l.transcript&&l.transcript.length?'<details><summary>Conversation ('+l.transcript.length+' messages)</summary><div class="t">'+l.transcript.map(function(m){return '<div class="'+esc(m.role)+'">'+esc(m.content)+'</div>'}).join('')+'</div></details>':'';
-      return '<div class="lead"><div class="top"><span class="name">'+esc(l.name||'Unnamed visitor')+'<span class="tag">'+esc(l.source)+'</span></span><span class="meta">'+d.toLocaleString()+'</span></div><p class="need">'+esc(l.need)+'</p><div class="contact">'+c+'</div>'+kv+scan+t+'</div>';
+      var req=l.source==='unmet-request';
+      return '<div class="lead'+(req?' req':'')+'"><div class="top"><span class="name">'+esc(req?'Product request':(l.name||'Unnamed visitor'))+'<span class="tag">'+esc(req?'to build':l.source)+'</span></span><span class="meta">'+d.toLocaleString()+'</span></div><p class="need">'+esc(l.need)+'</p><div class="contact">'+c+'</div>'+kv+scan+t+'</div>';
     }).join('');
   }
-  q.oninput=draw;draw();
+  q.oninput=draw;
+  Array.prototype.forEach.call(document.querySelectorAll('.tabs button'),function(b){b.onclick=function(){tab=b.getAttribute('data-tab');Array.prototype.forEach.call(document.querySelectorAll('.tabs button'),function(x){x.classList.toggle('on',x===b)});draw()}});
+  draw();
   document.getElementById('refresh').onclick=function(){var pw=sessionStorage.getItem('rj-leads-pw');load(pw).then(function(d){leads=d.leads;draw()})};
 }
 var saved=null;try{saved=sessionStorage.getItem('rj-leads-pw')}catch(e){}
