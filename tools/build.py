@@ -33,6 +33,7 @@ for a in sub.ARTICLES:
     paths.append(write(a["path"], sub.page(a["path"], a["title"], a["desc"], a["h1"], a["intro"], a["body"],
                                            [sub.HOME, ("Insights", "/insights/"), (a["h1"], a["path"])], article=a["date"])))
 paths.append(write("/portfolio/", sub.portfolio_page()))
+paths.append(write("/experience/", sub.experience_page()))
 paths.append(write("/glossary/", sub.glossary()))
 paths.append(write("/privacy/", sub.privacy()))
 from pages import LANGS  # noqa: E402

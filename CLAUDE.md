@@ -39,7 +39,7 @@ and a "Get in touch" button. Everything else comes after it as you scroll. Keep 
 
 ## About Ryan
 Ryan's background (experience, education, About text) comes from his LinkedIn profile,
-linkedin.com/in/ryanjavaheri. It lives in `tools/me.py` (homepage Experience and Education)
+linkedin.com/in/ryanjavaheri. It lives in `tools/me.py` (Experience on its own page /experience/, Education on the homepage)
 and `lib/profile.js` (what the AI advisor knows). Keep both in sync with LinkedIn.
 ClassRoutes stays off the homepages (`home=False` in tools/portfolio.py) but is on /portfolio/.
 

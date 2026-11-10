@@ -331,3 +331,31 @@ def portfolio_page():
 </main>
 """
     return html + tail()
+
+
+def experience_page():
+    import me
+    schema = {"@context": "https://schema.org", "@graph": [PERSON, breadcrumb([HOME, ("Experience", "/experience/")])]}
+    html = head("Experience — Ryan Javaheri", "Ryan Javaheri's experience: AI business strategy, Equinox, content creation, Payman Fabric and Spandex Palace, Kol Torah Center and more.", "/experience/", schema=schema)
+    html += nav("en")
+    html += f"""<main id="main">
+<section id="experience">
+<div class="slideshow-track" id="slideshowTrack" style="height:{me.track_height()}">
+<div class="slideshow-sticky">
+<div class="slideshow-head">
+<p class="eyebrow">Experience</p>
+<h2>Experience.</h2>
+<p style="font-size:19px;color:#333;max-width:700px;">AI and web work, content creation, and years of real sales and small-business experience.</p>
+</div>
+<div class="slideshow-stage" id="slideshowStage">
+{me.slides()}
+</div>
+<div class="slide-dots" id="slideDots">{me.dots()}</div>
+<p class="slideshow-hint">Keep scrolling</p>
+</div>
+</div>
+</section>
+{cta_band("Want to work together?", "Ask my AI advisor or send a message. I reply personally.")}
+</main>
+"""
+    return html + tail()

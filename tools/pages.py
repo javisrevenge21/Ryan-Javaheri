@@ -60,6 +60,7 @@ def nav(lang="en", here=""):
 <div class="nav-links">
 <div class="dd"><button type="button" aria-expanded="false">Services</button><div class="dd-menu">{menu}<a href="/#method">The B.U.I.L.D. method<small>How every project runs</small></a></div></div>
 <a href="/portfolio/">Portfolio</a>
+<a href="/experience/">Experience</a>
 <div class="dd"><button type="button" aria-expanded="false">Learn</button><div class="dd-menu"><a href="/insights/">Insights<small>Articles on AI visibility</small></a><a href="/glossary/">Glossary<small>LLMO, GEO, AEO and more</small></a><a href="/#faq">FAQ<small>Quick answers</small></a></div></div>
 <a href="/#about">About</a>
 <a href="/#contact">Contact</a>
@@ -92,7 +93,7 @@ def footer(lang="en"):
 <div class="fcols">
 <div><h4>Ryan Javaheri</h4><p>AI consultant and website builder in Los Angeles. AI visibility, AI intake agents and AI-ready websites, plus recruiting and PR support for law firms.</p></div>
 <div><h4>Services</h4>{''.join(f'<a href="{u}">{t}</a>' for u, t, d in SERVICES)}<a href="/#scan">Free AI visibility scan</a></div>
-<div><h4>Work</h4><a href="/portfolio/">Portfolio</a><a href="/pr444/">Beyond the Spotlight</a><a href="/pr351a/">PR 351A</a><a href="/jour330/">Photojournalism</a></div>
+<div><h4>Work</h4><a href="/portfolio/">Portfolio</a><a href="/experience/">Experience</a><a href="/pr444/">Beyond the Spotlight</a><a href="/pr351a/">PR 351A</a><a href="/jour330/">Photojournalism</a></div>
 <div><h4>Learn</h4><a href="/insights/">Insights</a><a href="/glossary/">Glossary</a><a href="/#faq">FAQ</a><a href="/llms.txt">llms.txt</a></div>
 <div><h4>Contact</h4><a href="mailto:{EMAIL}">{EMAIL}</a><a href="https://www.linkedin.com/in/ryanjavaheri" target="_blank" rel="noopener">LinkedIn</a><a href="#" data-open-agent="">Talk to my AI advisor</a><a href="/#contact">Start a project</a></div>
 <div><h4>Languages</h4>{"".join(f'<a href="{"/" if c == "en" else "/" + c + "/"}" lang="{h}">{n}</a>' for c, h, n in LANGS)}</div>

@@ -217,22 +217,7 @@ def build():
 </div>
 </section>
 
-<section id="experience">
-<div class="slideshow-track" id="slideshowTrack" style="height:{me.track_height()}">
-<div class="slideshow-sticky">
-<div class="slideshow-head">
-<p class="eyebrow">Experience</p>
-<h2>Experience.</h2>
-<p style="font-size:19px;color:#333;max-width:700px;">AI and web work, content creation, and years of real sales and small-business experience.</p>
-</div>
-<div class="slideshow-stage" id="slideshowStage">
-{me.slides()}
-</div>
-<div class="slide-dots" id="slideDots">{me.dots()}</div>
-<p class="slideshow-hint">Keep scrolling</p>
-</div>
-</div>
-</section>
+
 
 <section class="block alt reveal" id="work">
 <div class="inner" id="portfolio">
