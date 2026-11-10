@@ -20,7 +20,7 @@ PORTFOLIO = [
          desc="The chat and voice agent on this site: answers questions 24/7 in any language and sends every lead to a private inbox.",
          url="#agent", label="Try it now ›"),
     dict(tag="Website · Live", name="ryanjavaheri.com", kind="Website", date="2026-11",
-         desc="This site: an AI consulting site with a free AI visibility scan, Spanish and Farsi pages, and full structured data for AI search.",
+         desc="This site: an AI consulting site with a free AI visibility scan and call booking, pages in 13 languages, and full structured data for AI search.",
          url="/", label="ryanjavaheri.com ›"),
     dict(tag="Relaunching soon", name="JAVISREVENGE", kind="Website", date="2026",
          desc="An independent web project, currently offline while a new version is finished.",

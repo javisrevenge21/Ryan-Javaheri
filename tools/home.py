@@ -2,6 +2,12 @@ import portfolio
 import me
 from me import LINKEDIN
 from pages import head, nav, tail, PERSON, SITE, EMAIL, faq_schema, faq_html
+from html import escape
+
+# Booking link for the 30-minute call offered after the free AI scan (e.g. a Calendly or
+# Google Calendar booking page). Leave empty to use the built-in request form instead:
+# visitors suggest times, it's saved as a 'call-request' lead, and Ryan confirms by email.
+BOOKING_URL = ""
 
 FAQ = [
     ("What is LLMO?",
@@ -251,7 +257,7 @@ def build():
 <p class="eyebrow">Free AI visibility scan</p>
 <h2>See what AI says about you.</h2>
 <p class="lede">Two minutes. You get a visibility score, what an AI model says about you today, the questions your customers ask, and quick wins. Leave your email and I'll follow up with a full audit across ChatGPT, Claude, Gemini and Perplexity.</p>
-<ol class="scan-list"><li>Run the scan</li><li>Get your score and quick wins</li><li>Optional: a full audit and 30-minute call with me</li></ol>
+<ol class="scan-list"><li>Run the scan</li><li>Get your score and quick wins</li><li>Book a 30-minute call with me, right from your results</li></ol>
 </div>
 <div class="formcard reveal">
 <form id="scanForm">
@@ -268,7 +274,7 @@ def build():
 <p class="f-msg"></p>
 <p class="f-note">Free. An AI model writes the result, so treat it as an estimate. Your details only go to Ryan. By running the scan you agree to the <a href="/terms/" style="color:#a1a1a6">Terms</a> and <a href="/privacy/" style="color:#a1a1a6">Privacy Policy</a>.</p>
 </form>
-<div class="result" id="scanResult" aria-live="polite"></div>
+<div class="result" id="scanResult" aria-live="polite" data-booking-url="{escape(BOOKING_URL)}"></div>
 </div>
 </div>
 </section>

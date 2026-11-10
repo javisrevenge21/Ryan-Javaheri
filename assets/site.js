@@ -48,6 +48,66 @@
     });
   });
 
+  /* Book the 30-minute call from the scan results.
+     If #scanResult has data-booking-url (set BOOKING_URL in tools/home.py), show a link to it.
+     Otherwise show a short form: the visitor suggests times and it's saved as a 'call-request' lead. */
+  var attr = function (t) { return String(t || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;'); };
+  function bookingBlock(data, score) {
+    var url = ($('#scanResult') || document.body).getAttribute('data-booking-url') || '';
+    var head = '<div class="book" id="book"><h4>Book your 30-minute call</h4>' +
+      '<p>Go through these results with me and get a plan to raise your score.</p>';
+    if (/^https:\/\//.test(url)) {
+      return head + '<a class="btn btn-light" href="' + attr(url) + '" target="_blank" rel="noopener" style="margin-top:10px">Pick a time ›</a></div>';
+    }
+    return head +
+      '<form class="book-form" novalidate>' +
+      '<div class="fgrid">' +
+      '<div><label class="f" for="b-n">Name *</label><input class="f-in" id="b-n" name="name" required maxlength="120" value="' + attr(data.name) + '"></div>' +
+      '<div><label class="f" for="b-e">Email *</label><input class="f-in" id="b-e" name="email" type="email" required maxlength="200" value="' + attr(data.email) + '"></div>' +
+      '<div class="full"><label class="f" for="b-t">Times that work for you *</label><input class="f-in" id="b-t" name="times" required maxlength="300" placeholder="e.g. Tue or Wed after 2pm, Fri morning"></div>' +
+      '</div>' +
+      '<div class="hp" aria-hidden="true"><input name="company_url_hp" tabindex="-1" autocomplete="off"></div>' +
+      '<button class="btn btn-light" type="submit" style="margin-top:14px;width:100%">Request my call</button>' +
+      '<p class="f-msg" aria-live="polite"></p>' +
+      '<p class="f-note">I’ll email you to confirm a time. Your details only go to Ryan. See the <a href="/terms/" style="color:#a1a1a6">Terms</a> and <a href="/privacy/" style="color:#a1a1a6">Privacy Policy</a>.</p>' +
+      '</form></div>';
+  }
+  function wireBooking(out, data, r, score) {
+    var form = $('.book-form', out);
+    if (!form) return;
+    var tz = '';
+    try { tz = Intl.DateTimeFormat().resolvedOptions().timeZone || ''; } catch (e) {}
+    form.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var msg = $('.f-msg', form), btn = $('button[type=submit]', form);
+      var f = {}; new FormData(form).forEach(function (v, k) { f[k] = String(v).trim(); });
+      if (!f.name || !f.email || !f.times) { msg.className = 'f-msg bad'; msg.textContent = 'Add your name, email and a few times that work.'; return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(f.email)) { msg.className = 'f-msg bad'; msg.textContent = 'Check your email address.'; return; }
+      btn.disabled = true; msg.className = 'f-msg'; msg.textContent = '…';
+      fetch('/api/lead', {
+        method: 'POST', headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          source: 'call-request',
+          company_url_hp: f.company_url_hp,
+          name: f.name, email: f.email,
+          company: data.business, website: data.website,
+          need: '30-minute call after the free AI scan (score ' + score + ')',
+          details: 'Times that work: ' + f.times + (tz ? ' (time zone: ' + tz + ')' : ''),
+          timeline: f.times,
+          page: '/#scan', language: document.documentElement.lang,
+          extra: { scan: r, city: data.city, category: data.category, timeZone: tz }
+        })
+      })
+        .then(function (res) { return res.json(); })
+        .then(function (d) {
+          if (d.ok) {
+            form.innerHTML = '<p class="f-msg ok">Thanks, ' + attr(f.name.split(' ')[0]) + '! I’ll email you at ' + attr(f.email) + ' to confirm a time.</p>';
+          } else { msg.className = 'f-msg bad'; msg.textContent = d.error || 'Something went wrong.'; btn.disabled = false; }
+        })
+        .catch(function () { msg.className = 'f-msg bad'; msg.textContent = 'Network error. Email ryanjavaheri21@gmail.com.'; btn.disabled = false; });
+    });
+  }
+
   /* Free AI visibility scan */
   var scan = $('#scanForm');
   if (scan) scan.addEventListener('submit', function (e) {
@@ -67,8 +127,10 @@
           '<h4>What an AI model says about you today</h4><p>' + esc(r.whatAiSays) + '</p>' +
           '<h4>Questions your customers ask AI</h4><ul>' + r.likelyQuestions.map(function (q) { return '<li>' + esc(q) + '</li>'; }).join('') + '</ul>' +
           '<h4>Quick wins</h4><ul>' + r.quickWins.map(function (q) { return '<li>' + esc(q) + '</li>'; }).join('') + '</ul>' +
-          '<p style="margin-top:16px;font-size:13px;color:#86868b!important">Snapshot from one AI model’s built-in knowledge. A full audit checks ChatGPT, Claude, Gemini and Perplexity with live search.</p>';
+          '<p style="margin-top:16px;font-size:13px;color:#86868b!important">Snapshot from one AI model’s built-in knowledge. A full audit checks ChatGPT, Claude, Gemini and Perplexity with live search.</p>' +
+          bookingBlock(data, s);
         out.classList.add('show');
+        wireBooking(out, data, r, s);
         if (data.email) { msg.className = 'f-msg ok'; msg.textContent = 'Ryan got your scan and will send a full audit.'; }
       })
       .catch(function () { msg.className = 'f-msg bad'; msg.textContent = 'Network error.'; })

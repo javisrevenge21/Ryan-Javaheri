@@ -391,3 +391,8 @@ section.reveal.visible ul.plus li:nth-child(6) { transition-delay: .6s; }
   .card::after { display: none; }
   html { scroll-behavior: auto; }
 }
+
+/* Book the call, under the scan result */
+.book { margin-top: 22px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.1); }
+.book h4 { margin-top: 0; }
+.book .fgrid { margin-top: 12px; }

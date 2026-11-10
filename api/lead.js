@@ -13,7 +13,7 @@ export async function POST(request) {
     return json({ ok: false, error: 'Please add your name, an email or phone, and what you need.' }, 400);
   }
   try {
-    await saveLead({ ...b, source: b.source === 'scan' ? 'scan' : 'contact-form' });
+    await saveLead({ ...b, source: ['scan', 'call-request'].includes(b.source) ? b.source : 'contact-form' });
     return json({ ok: true });
   } catch (e) {
     console.error('lead save failed', e?.message);
