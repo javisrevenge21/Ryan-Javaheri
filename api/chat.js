@@ -6,7 +6,7 @@ import { saveLead, saveRequest, json } from '../lib/leads.js';
 import { withModel } from '../lib/ai.js';
 import { PRODUCTS } from '../lib/catalog.js';
 
-const PRODUCT_LIST = PRODUCTS.map((p) => `- ${p.name} (${p.category}): ${p.summary.split('. ')[0]}.`).join('\n');
+const PRODUCT_LIST = PRODUCTS.map((p) => `- ${p.name} (${p.category}): ${p.summary.split('. ')[0]}. For: ${p.forWho}`).join('\n');
 
 const gapSchema = z.object({
   unmet: z.boolean().describe('true only if the latest visitor message asks for a product or service need that none of the products covers (fully or in part)'),
@@ -24,7 +24,7 @@ async function checkForGap(messages, reply) {
     output: Output.object({ schema: gapSchema }),
     maxOutputTokens: 300,
     system:
-      'You check a sales chat for needs that a fixed product list does not cover. Judge only the LATEST visitor message. Questions about the person Ryan, greetings, contact details, follow-ups about a product already recommended, and needs a product clearly covers are NOT unmet. A need only partly covered (e.g. wants phone answering but the product only does social media) IS unmet for the uncovered part.',
+      'You check a sales chat for needs that a fixed product list does not cover. Judge only the LATEST visitor message. Questions about the person Ryan, greetings, contact details, follow-ups about a product already recommended, and needs a product clearly covers are NOT unmet. A need only partly covered (e.g. wants phone answering but the product only does social media) IS unmet for the uncovered part. A product made for a different kind of user (e.g. a guide for tourists recommended to a business owner who wants more customers) does NOT cover the need, even if the advisor recommended it.',
     prompt: `PRODUCTS:\n${PRODUCT_LIST}\n\nCONVERSATION (latest last):\n${recent}\nAdvisor reply just sent: ${reply}`,
   }));
   return output;
