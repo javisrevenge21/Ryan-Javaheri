@@ -2,6 +2,7 @@ import { generateText, Output } from 'ai';
 import { z } from 'zod';
 import { saveLead, json } from '../lib/leads.js';
 import { withModel } from '../lib/ai.js';
+import { countEvent } from '../lib/analytics.js';
 
 const schema = z.object({
   recognized: z
@@ -67,6 +68,8 @@ export async function POST(request) {
         extra: { scan: output },
       }).catch((e) => console.error('scan lead save failed', e?.message));
     }
+
+    await countEvent('Scan', { withContact: Boolean(b.email || b.phone) }, request);
 
     return json({ result: output });
   } catch (e) {
