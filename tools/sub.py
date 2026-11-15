@@ -67,7 +67,7 @@ SERVICE_PAGES = {
 <p>SEO competes for a ranked list of links. AI assistants usually give one synthesized answer and name a handful of sources. That rewards clarity, consistency and trust more than keyword volume. Good LLMO usually improves SEO too, because both depend on clear, credible content.</p>
 <h2>Who it's for</h2>
 <p>Law firms, local service businesses, professional practices, e-commerce brands and personal brands that win when someone asks "who's the best ___ near me?"</p>
-<p>I learned this approach working with <a href="https://siamakconsulting.com/" target="_blank" rel="noopener">Siamak Consulting</a> and apply the same principles here, starting with the B.U.I.L.D. method: Baseline, Understand, Implement, Launch agents, Develop.</p>""",
+<p>Every project starts with the B.U.I.L.D. method: Baseline, Understand, Implement, Launch agents, Develop.</p>""",
         faqs=[
             ("How long does LLMO take to work?", "Some changes, like fixing structured data and site clarity, can show up as soon as AI tools re-read your site. Building trust signals and citations compounds over months. I re-check AI answers monthly so you can see progress."),
             ("Can you guarantee ChatGPT will recommend me?", "No one honestly can. AI answers vary by question, user and model. What I can do is remove the reasons AI skips you and build the signals models rely on, then measure the change."),

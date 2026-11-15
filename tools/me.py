@@ -8,7 +8,7 @@ HEADLINE = "USC Annenberg ’27 | PR & Pre-Law | Sales, Content Creation & Web D
 # Newest first.
 EXPERIENCE = [
     dict(title="AI Business Strategy Developer", org="Self-employed", when="Jun 2026 – Present · Remote",
-         desc="Creating and promoting AI products: AI-ready websites, AI intake agents and AI visibility work, including projects with Siamak Consulting while learning LLMO from Siamak Kalhor."),
+         desc="Creating and promoting AI products: AI-ready websites, AI intake agents and AI visibility work."),
     dict(title="Style Advisor", org="Equinox", when="Nov 2026 – Present · Los Angeles",
          desc="Part-time, on-site sales and client service, building relationships with members through communication and personal attention."),
     dict(title="Content Creator", org="Instagram & YouTube · Self-employed", when="Nov 2021 – Present",

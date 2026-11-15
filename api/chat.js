@@ -64,7 +64,7 @@ export async function POST(request) {
       details: z.string().optional().describe('Any other useful details, in English'),
       timeline: z.string().optional().describe('Timeline or urgency, if given'),
       language: z.string().optional().describe('Language the visitor is writing in'),
-      products: z.array(z.string()).optional().describe("Names of Siamak's catalog products they are interested in, if any"),
+      products: z.array(z.string()).optional().describe("Names of catalog products they are interested in, if any"),
     }),
     execute: async ({ products, ...input }) => {
       if (!input.email && !input.phone) {
@@ -85,7 +85,7 @@ export async function POST(request) {
   let requestReported = false;
   const report_unmet_request = tool({
     description:
-      "Report a need that no product in Siamak's catalog covers, so Ryan can consider building it. Call once per unmet need. Contact details are not required.",
+      "Report a need that no product in the catalog covers, so Ryan can consider building it. Call once per unmet need. Contact details are not required.",
     inputSchema: z.object({
       need: z.string().describe('What the visitor needs that no catalog product covers, in one or two sentences, in English'),
       industry: z.string().optional().describe('Their industry or type of business, if known'),

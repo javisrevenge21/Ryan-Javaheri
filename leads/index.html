@@ -70,7 +70,7 @@ function show(leads){
     var f=leads.filter(function(l){var r=l.source==='unmet-request';return (tab==='all'||(tab==='requests')===r)&&(!term||JSON.stringify(l).toLowerCase().indexOf(term)>-1)});
     var noun=tab==='requests'?'request':'item';if(tab==='leads')noun='lead';
     count.textContent=f.length+' '+noun+(f.length===1?'':'s');
-    if(!f.length){list.innerHTML='<p class="empty">'+(tab==='requests'?'No product requests yet. When a visitor asks the AI advisor for something none of Siamak\'s products cover, it shows up here.':'No leads yet. When someone talks to your AI advisor and leaves their details, they show up here.')+'</p>';return}
+    if(!f.length){list.innerHTML='<p class="empty">'+(tab==='requests'?'No product requests yet. When a visitor asks the AI advisor for something none of the catalog products cover, it shows up here.':'No leads yet. When someone talks to your AI advisor and leaves their details, they show up here.')+'</p>';return}
     list.innerHTML=f.map(function(l){
       var d=new Date(l.createdAt);
       var c='';

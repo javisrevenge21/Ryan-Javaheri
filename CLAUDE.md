@@ -34,6 +34,14 @@ For client work, check with Ryan before naming a client publicly.
 Pages that are part of this site itself (service pages, insights articles, glossary, translations)
 are not separate projects and don't get portfolio cards.
 
+## Standing rule: don't name the catalog partner (ALWAYS follow)
+
+Ryan said on 2026-11-15: "Don't name them" and "Yes, everywhere" about Siamak Consulting and Siamak Kalhor.
+Never name them anywhere on the site: pages, translations, structured data, llms.txt, the leads inbox,
+or anything the AI advisor says (lib/profile.js tells it never to name the partner). Call it "a partner"
+if needed. This overrides keeping the site in sync with LinkedIn. The product links in lib/catalog.js
+stay, because the advisor needs them to send visitors to each product.
+
 ## Standing rule: the homepage opening
 
 The first screen of the homepage is the original intro: "Ryan Javaheri" with "future lawyer."

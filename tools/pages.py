@@ -176,7 +176,6 @@ PERSON = {
     "knowsLanguage": ["English", "Persian"],
     "knowsAbout": ["Public relations", "Pre-law", "Business law", "Web development", "HTML", "CSS", "JavaScript", "Content creation", "Social media", "Sales", "Customer service", "Retail", "Shopify", "Large Language Model Optimization (LLMO)", "AI agents", "Structured data"],
     "worksFor": [
-        {"@type": "Organization", "name": "Siamak Consulting", "url": "https://siamakconsulting.com/"},
         {"@type": "Organization", "name": "Equinox"},
     ],
 }

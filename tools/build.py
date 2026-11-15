@@ -54,7 +54,7 @@ with open(os.path.join(ROOT, "sitemap.xml"), "w", encoding="utf-8") as fh:
 
 llms = f"""# Ryan Javaheri
 
-> Ryan Javaheri is a USC Annenberg PR and pre-law student (Class of 2027) in Los Angeles who builds websites and AI products. He builds AI-ready websites, 24/7 AI intake agents (chat, voice and phone) and AI visibility (LLMO / GEO / AEO) strategy so businesses get recommended by ChatGPT, Claude, Gemini and Perplexity, and supports law firms with recruiting and PR. He works with Siamak Consulting, learning LLMO from AI consultant Siamak Kalhor, has created content since 2021, and spent years in sales and retail at Payman Fabric and Spandex Palace. Fluent in English and Farsi.
+> Ryan Javaheri is a USC Annenberg PR and pre-law student (Class of 2027) in Los Angeles who builds websites and AI products. He builds AI-ready websites, 24/7 AI intake agents (chat, voice and phone) and AI visibility (LLMO / GEO / AEO) strategy so businesses get recommended by ChatGPT, Claude, Gemini and Perplexity, and supports law firms with recruiting and PR. He has created content since 2021, and spent years in sales and retail at Payman Fabric and Spandex Palace. Fluent in English and Farsi.
 
 - Location: Los Angeles, California. Serves clients everywhere.
 - Languages on site: English, Spanish, Persian (Farsi), Hebrew, Arabic, Chinese, Korean, Japanese, French, Portuguese, Russian, Armenian, Hindi. The AI advisor replies in any language.
