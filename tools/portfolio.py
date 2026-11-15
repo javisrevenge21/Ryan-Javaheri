@@ -13,12 +13,14 @@ Fields:
   kind  "Website", "AI agent", "App", "Course project", ...
   date  when it was built or launched (YYYY-MM or YYYY)
   home  optional; set home=False to list it only on /portfolio/ and not on the homepages
+  case  optional; path of its case study page (see CASE_STUDIES in sub.py). On /portfolio/ the card
+        links there; the homepage card keeps its normal link.
 """
 
 PORTFOLIO = [
     dict(tag="AI agent · Live", name="AI Intake Advisor", kind="AI agent", date="2026-11",
          desc="The chat and voice agent on this site: answers questions 24/7 in any language and sends every lead to a private inbox.",
-         url="#agent", label="Try it now ›"),
+         url="#agent", label="Try it now ›", case="/portfolio/ai-intake-advisor/"),
     dict(tag="Website · Live", name="ryanjavaheri.com", kind="Website", date="2026-11",
          desc="This site: an AI consulting site with a free AI visibility scan and call booking, pages in 13 languages, and full structured data for AI search.",
          url="/", label="ryanjavaheri.com ›"),
@@ -48,7 +50,9 @@ def site_count():
     return sum(1 for p in PORTFOLIO if p["kind"] != "AI agent")
 
 
-def card(p):
+def card(p, case=False):
+    if case and p.get("case"):
+        p = dict(p, url=p["case"], label="Read the case study ›")
     if p["url"] == "#agent":
         attrs = 'href="#" data-open-agent=""'
     elif p["url"].startswith("http"):
@@ -59,8 +63,8 @@ def card(p):
             f'<h3>{p["name"]}</h3>\n<p>{p["desc"]}</p>\n<span class="site-url">{p["label"]}</span>\n</a>')
 
 
-def cards(items=None):
-    return "\n".join(card(p) for p in (items or PORTFOLIO))
+def cards(items=None, case=False):
+    return "\n".join(card(p, case) for p in (items or PORTFOLIO))
 
 
 def schema_items(site):

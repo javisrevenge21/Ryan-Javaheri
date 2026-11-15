@@ -250,6 +250,58 @@ GLOSSARY = [
 ]
 
 
+# Case studies: one page per portfolio project, linked from its card on /portfolio/ (portfolio.py "case").
+# Use only facts from the code, the live site or Ryan. Mark anything unconfirmed with
+# <mark class="fill">…</mark> so it stands out on a preview, and remove every one before going live.
+CASE_STUDIES = [
+    dict(
+        path="/portfolio/ai-intake-advisor/",
+        date="2026-11-15",
+        title="Case Study: Building a 24/7 AI Intake Advisor | Ryan Javaheri",
+        desc="How Ryan Javaheri built a chat and voice AI intake agent that answers visitors in any language, recommends the right product and sends every lead to a private inbox.",
+        h1="Case study: a 24/7 AI intake advisor",
+        intro="The chat and voice agent on this site: what it had to do, how I built it, and what it does for every visitor.",
+        body="""<div class="tldr"><b>In short:</b> I built an AI advisor that answers visitors day and night in their own language, recommends the right product from Siamak Consulting's AI catalog, takes a proper intake, and saves every lead with its full conversation to a private inbox. It has been live on this site since November 2026. <a href="#" data-open-agent="">Try it now ›</a></div>
+<h2>The problem</h2>
+<p>A one-person business can't answer every visitor at midnight, or in Farsi, or the moment they're ready to talk. A contact form waits for a reply, and it only captures a name and an email, not what the person actually needs.</p>
+<p>I also sell a catalog of 15 AI products for very different customers, from law firms to fabric stores. Visitors needed help finding the one that fits them, without the advisor overselling or inventing features.</p>
+<h2>What I built</h2>
+<ul>
+<li><b>Chat and voice, in any language.</b> The widget speaks 13 languages, including right-to-left Farsi, Hebrew and Arabic, and replies in whatever language the visitor writes in. Visitors can also talk to it out loud in Chrome or Safari.</li>
+<li><b>Recommends from a real catalog.</b> It knows all 15 products in Siamak Kalhor's AI catalog, matches on who each product is made for, and only mentions features written in the product's own entry.</li>
+<li><b>A proper intake.</b> It asks for a name, an email or phone number, what they need and their timeline, then saves the lead with the whole conversation so I can follow up personally.</li>
+<li><b>Spots what's missing.</b> When a visitor needs something no product covers, it logs that as a product request. A second check runs after every reply so none slip through.</li>
+<li><b>Stays up.</b> If one AI model is unavailable it moves to the next on a list of seven, and if everything fails it points the visitor to my email instead of going silent.</li>
+<li><b>Honest by design.</b> It says it's an AI assistant, tells visitors their details go to me, and never gives legal, medical or financial advice or promises results.</li>
+</ul>
+<h2>How it was built</h2>
+<p>The advisor runs as a serverless function on Vercel, using the AI SDK through Vercel AI Gateway. Leads and product requests are stored in a private file store and read in a password-protected inbox. Voice uses the browser's own speech recognition and speech, so there's no extra service to pay for.</p>
+<ul>
+<li><b>November 9, 2026:</b> first version live with chat, voice and lead capture.</li>
+<li><b>November 10:</b> added the product catalog and product requests.</li>
+<li><b>November 11:</b> tightened matching after testing, then put it live.</li>
+</ul>
+<h2>Testing it like a customer</h2>
+<p>Before launch I ran it through the kinds of questions visitors ask. A plumber was pointed to Orchamind, a dentist to Agent Studio, and a gym owner's request, which nothing in the catalog covered, landed in my inbox as something to build.</p>
+<p>Testing also caught a bad match: it once suggested Napa Wino, a guide for wine-country visitors, to a winery owner who wanted more customers. I changed the rules so it checks who a product is for, not just shared words, and that match no longer happens.</p>
+<h2>Results</h2>
+<ul>
+<li><b>Always on:</b> answering visitors 24/7 since November 2026, in 13 languages.</li>
+<li><b>One inbox:</b> every lead and product request arrives with the full conversation attached.</li>
+<li><b>Conversations so far:</b> <mark class="fill">[Ryan to fill: number of conversations or leads since launch, or remove this line]</mark></li>
+<li><b>Outcome:</b> <mark class="fill">[Ryan to fill: a call booked or a sale that came from the advisor, or remove this line]</mark></li>
+</ul>
+<h2>Want one for your business?</h2>
+<p>I build the same kind of agent for other businesses, on your website or your phone line. See <a href="/ai-agents/">AI intake agents</a>, or ask the advisor above to see how it works.</p>""",
+    ),
+]
+
+
+def case_study(c):
+    return page(c["path"], c["title"], c["desc"], c["h1"], c["intro"], c["body"],
+                [HOME, ("Portfolio", "/portfolio/"), (c["h1"], c["path"])], article=c["date"])
+
+
 def insights_index():
     cards = "".join(
         f'<a class="card post-card" href="{a["path"]}"><div class="cover{" v" + str(i + 1) if i else ""}" data-k="{a["kicker"]}"></div><span class="date">{a["kicker"]} · {a["date"]}</span><h3>{a["h1"]}</h3><p>{a["intro"]}</p></a>'
@@ -318,7 +370,7 @@ def portfolio_page():
     groups = ""
     for k in kinds:
         items = [p for p in portfolio.PORTFOLIO if p["kind"] == k]
-        groups += f'<div class="reveal" style="margin-top:50px"><p class="eyebrow">{k}{"s" if not k.endswith("s") else ""}</p></div><div class="cards stagger" style="margin-top:10px">{portfolio.cards(items)}</div>'
+        groups += f'<div class="reveal" style="margin-top:50px"><p class="eyebrow">{k}{"s" if not k.endswith("s") else ""}</p></div><div class="cards stagger" style="margin-top:10px">{portfolio.cards(items, case=True)}</div>'
     html += f"""<main id="main">
 <header class="page-hero"><div class="inner"><p class="crumbs"><a href="/">Home</a> › Portfolio</p><h1>Everything I've built.</h1><p>{len(portfolio.PORTFOLIO)} websites, AI agents and projects, newest first. Every new build gets added here.</p></div></header>
 <section class="block alt" style="padding-top:40px"><div class="inner">{groups}</div></section>

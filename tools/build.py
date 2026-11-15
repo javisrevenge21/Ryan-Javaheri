@@ -33,6 +33,8 @@ for a in sub.ARTICLES:
     paths.append(write(a["path"], sub.page(a["path"], a["title"], a["desc"], a["h1"], a["intro"], a["body"],
                                            [sub.HOME, ("Insights", "/insights/"), (a["h1"], a["path"])], article=a["date"])))
 paths.append(write("/portfolio/", sub.portfolio_page()))
+for c in sub.CASE_STUDIES:
+    paths.append(write(c["path"], sub.case_study(c)))
 paths.append(write("/experience/", sub.experience_page()))
 paths.append(write("/glossary/", sub.glossary()))
 paths.append(write("/privacy/", sub.privacy()))
@@ -75,6 +77,7 @@ B.U.I.L.D.: Baseline, Understand, Implement, Launch agents, Develop.
 - [Glossary]({SITE}/glossary/)
 
 ## Work
+- [Case study: a 24/7 AI intake advisor]({SITE}/portfolio/ai-intake-advisor/): the chat and voice agent on this site.
 - ClassRoutes (classroutes.com): class-planning platform for students.
 - Beyond the Spotlight ({SITE}/pr444/), PR 351A portfolio ({SITE}/pr351a/), JOUR 330 photojournalism ({SITE}/jour330/).
 """

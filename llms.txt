@@ -23,5 +23,6 @@ B.U.I.L.D.: Baseline, Understand, Implement, Launch agents, Develop.
 - [Glossary](https://ryanjavaheri.com/glossary/)
 
 ## Work
+- [Case study: a 24/7 AI intake advisor](https://ryanjavaheri.com/portfolio/ai-intake-advisor/): the chat and voice agent on this site.
 - ClassRoutes (classroutes.com): class-planning platform for students.
 - Beyond the Spotlight (https://ryanjavaheri.com/pr444/), PR 351A portfolio (https://ryanjavaheri.com/pr351a/), JOUR 330 photojournalism (https://ryanjavaheri.com/jour330/).
