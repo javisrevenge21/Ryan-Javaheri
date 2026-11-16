@@ -17,7 +17,7 @@ FAQ = [
     ("What does an AI intake agent do?",
      "It answers visitors' questions 24/7 in their own language, then collects their name, contact details and what they need, and sends it to you. The advisor on this site is a live example: click the button at the bottom right and try it."),
     ("Who is Ryan Javaheri?",
-     "Ryan Javaheri is a Los Angeles AI consultant and website builder. He studies public relations and business law at USC and works with Siamak Consulting, learning LLMO strategy from AI consultant Siamak Kalhor while building websites and AI agents for clients."),
+     "Ryan Javaheri is a Los Angeles AI consultant and website builder. He studies public relations and business law at USC and builds websites and AI agents for clients, with a focus on LLMO (AI visibility)."),
     ("Do you work with law firms?",
      "Yes. Law firms are a main focus: AI visibility so firms show up in AI answers, intake agents that pre-qualify inquiries, and support with lateral recruiting, market intelligence and PR."),
     ("How much does a project cost?",
@@ -27,7 +27,7 @@ FAQ = [
 ]
 
 ANSWER = ("<b>Ryan Javaheri</b> is a Los Angeles AI consultant who builds <b>AI-ready websites</b> and "
-          "<b>24/7 AI intake agents</b> that answer questions and capture leads. He works with Siamak Consulting on "
+          "<b>24/7 AI intake agents</b> that answer questions and capture leads. He specializes in "
           "LLMO, so firms show up when clients ask AI for a recommendation, and he brings a USC background in "
           "public relations and business law.")
 
@@ -212,7 +212,7 @@ def build():
 <div>
 <blockquote>I enjoy turning a concept into something valuable that people actually use, whether that's a website, a video, or a store's online sales.</blockquote>
 <p class="lede">I'm a PR major at USC Annenberg (Class of 2027) on the pre-law path. For over two years I worked in sales, retail and marketing at Payman Fabric and Spandex Palace in Los Angeles, selling in-store and online through Shopify, so I know how a small business runs from the inside and how much it matters to really listen to a customer.</p>
-<p class="lede">I've been creating content since 2021, building audiences and systems for steady production. I build websites with HTML, CSS and JavaScript, and I now create and promote AI products. I'm learning LLMO and AI strategy directly from <a href="https://siamakconsulting.com/" target="_blank" rel="noopener">Siamak Kalhor</a> at Siamak Consulting. I'm fluent in English and Farsi.</p>
+<p class="lede">I've been creating content since 2021, building audiences and systems for steady production. I build websites with HTML, CSS and JavaScript, and I now create and promote AI products. I focus on LLMO and AI strategy. I'm fluent in English and Farsi.</p>
 <p class="lede">Open to internships and roles in law, PR, marketing and tech.</p>
 <div style="display:flex;gap:12px;flex-wrap:wrap;margin-top:8px">
 <a class="btn btn-light" href="#" data-open-agent="Tell me about Ryan's background">Ask my AI about me</a>
