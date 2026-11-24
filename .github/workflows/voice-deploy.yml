@@ -1,0 +1,99 @@
+# Deploys Ryan's voice advisor: the voice server (Modal) and the call agent (LiveKit Cloud).
+# Runs by hand (Actions tab > Deploy voice advisor > Run workflow), and on pushes to main
+# that change voice-agent/ or the advisor's catalog.
+#
+# Repository secrets it needs (Settings > Secrets and variables > Actions):
+#   MODAL_TOKEN_ID, MODAL_TOKEN_SECRET          from modal.com > Settings > API tokens
+#   LIVEKIT_URL, LIVEKIT_API_KEY, LIVEKIT_API_SECRET   from cloud.livekit.io > Settings > API keys
+#   DEEPGRAM_API_KEY                            from console.deepgram.com > API keys
+#   GROQ_API_KEY                                from console.groq.com > API keys
+#   TTS_TOKEN, VOICE_AGENT_SECRET               any long random strings (VOICE_AGENT_SECRET also goes in Vercel)
+#   VOICE_REFERENCE_B64                         the voice sample, base64 (kept out of the public repo)
+name: Deploy voice advisor
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths: ['voice-agent/**', 'lib/profile.js', 'lib/catalog.js', '.github/workflows/voice-deploy.yml']
+
+concurrency: voice-deploy
+
+jobs:
+  voice-server:
+    runs-on: ubuntu-latest
+    outputs:
+      speak_url: ${{ steps.urls.outputs.speak }}
+      warm_url: ${{ steps.urls.outputs.warm }}
+    env:
+      MODAL_TOKEN_ID: ${{ secrets.MODAL_TOKEN_ID }}
+      MODAL_TOKEN_SECRET: ${{ secrets.MODAL_TOKEN_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: '3.11' }
+      - run: pip install modal==1.6.4 'fastapi[standard]'
+      - name: Store the voice token
+        env: { TTS_TOKEN: '${{ secrets.TTS_TOKEN }}' }
+        run: modal secret create ryan-voice-tts TTS_TOKEN="$TTS_TOKEN" --force
+      - name: Put the voice sample in the private volume
+        env: { VOICE_REFERENCE_B64: '${{ secrets.VOICE_REFERENCE_B64 }}' }
+        run: |
+          sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg
+          echo "$VOICE_REFERENCE_B64" | base64 -d > "$RUNNER_TEMP/ref.ogg"
+          ffmpeg -loglevel error -y -i "$RUNNER_TEMP/ref.ogg" -ac 1 -ar 24000 "$RUNNER_TEMP/reference.wav"
+          modal volume create ryan-voice 2>/dev/null || true
+          modal volume put --force ryan-voice "$RUNNER_TEMP/reference.wav" /reference.wav
+          rm -f "$RUNNER_TEMP/ref.ogg" "$RUNNER_TEMP/reference.wav"
+      - name: Deploy the voice server
+        run: modal deploy voice-agent/tts_modal.py | tee "$RUNNER_TEMP/modal.log"
+      - id: urls
+        name: Read the endpoint addresses
+        run: |
+          echo "speak=$(grep -oE 'https://[^ ]*speak[^ ]*\.modal\.run' "$RUNNER_TEMP/modal.log" | head -1)" >> "$GITHUB_OUTPUT"
+          echo "warm=$(grep -oE 'https://[^ ]*warm[^ ]*\.modal\.run' "$RUNNER_TEMP/modal.log" | head -1)" >> "$GITHUB_OUTPUT"
+
+  call-agent:
+    needs: voice-server
+    runs-on: ubuntu-latest
+    env:
+      LIVEKIT_URL: ${{ secrets.LIVEKIT_URL }}
+      LIVEKIT_API_KEY: ${{ secrets.LIVEKIT_API_KEY }}
+      LIVEKIT_API_SECRET: ${{ secrets.LIVEKIT_API_SECRET }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: { node-version: '22' }
+      - run: npm ci --ignore-scripts && node voice-agent/export_prompt.mjs
+      - run: curl -sSL https://get.livekit.io/cli | bash
+      - name: Write the agent's secrets
+        env:
+          DEEPGRAM_API_KEY: ${{ secrets.DEEPGRAM_API_KEY }}
+          GROQ_API_KEY: ${{ secrets.GROQ_API_KEY }}
+          TTS_TOKEN: ${{ secrets.TTS_TOKEN }}
+          VOICE_AGENT_SECRET: ${{ secrets.VOICE_AGENT_SECRET }}
+          TTS_URL: ${{ needs.voice-server.outputs.speak_url }}
+          TTS_WARM_URL: ${{ needs.voice-server.outputs.warm_url }}
+        run: |
+          umask 077
+          {
+            echo "DEEPGRAM_API_KEY=$DEEPGRAM_API_KEY"
+            echo "GROQ_API_KEY=$GROQ_API_KEY"
+            echo "TTS_TOKEN=$TTS_TOKEN"
+            echo "VOICE_AGENT_SECRET=$VOICE_AGENT_SECRET"
+            echo "TTS_URL=$TTS_URL"
+            echo "TTS_WARM_URL=$TTS_WARM_URL"
+          } > "$RUNNER_TEMP/secrets.env"
+      - name: Create or update the agent on LiveKit Cloud
+        working-directory: voice-agent
+        run: |
+          AUTH="--url $LIVEKIT_URL --api-key $LIVEKIT_API_KEY --api-secret $LIVEKIT_API_SECRET"
+          if [ -f livekit.toml ]; then
+            lk agent deploy $AUTH --secrets-file "$RUNNER_TEMP/secrets.env" .
+          else
+            lk agent create $AUTH --region us-east --secrets-file "$RUNNER_TEMP/secrets.env" .
+            echo "::notice::Agent created. Commit voice-agent/livekit.toml (printed below) so later runs update it."
+            cat livekit.toml || true
+          fi
+      - if: always()
+        run: rm -f "$RUNNER_TEMP/secrets.env"

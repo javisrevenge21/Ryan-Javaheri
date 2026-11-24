@@ -6,7 +6,7 @@ in the same change, and bump UPDATED.
 """
 from pages import EMAIL
 
-UPDATED = "November 10, 2026"
+UPDATED = "November 24, 2026"
 MAIL = f'<a href="mailto:{EMAIL}">{EMAIL}</a>'
 
 TERMS = f"""<div class="tldr"><b>In short:</b> this is a personal and professional website. Use it lawfully, don't rely on it (or its AI tools) as legal or professional advice, and any paid work happens under a separate written agreement.</div>
@@ -33,7 +33,7 @@ TERMS = f"""<div class="tldr"><b>In short:</b> this is a personal and profession
 <li><b>The advisor can't make commitments.</b> Anything it says about pricing, availability, timing or scope is informational only until I confirm it in writing.</li>
 <li><b>Don't share sensitive information</b> in the chat or forms: no passwords, payment details, government ID numbers, health information, or confidential details about a legal matter.</li>
 </ul>
-<p>If you use voice in the AI advisor, your browser handles speech recognition and may send audio to your browser's provider. The Site itself receives only the resulting text.</p>
+<p>If you press Talk, you speak with the advisor in a live voice call. It is an AI, speaking in an AI voice modeled on mine, not me or any other person. Your speech is turned into text and its replies are turned back into speech by the service providers listed in the Privacy Policy. If the voice call isn't available, the advisor uses your browser's own speech recognition instead, which may send audio to your browser's provider.</p>
 
 <h2 id="use">5. Acceptable use</h2>
 <p>You agree not to:</p>
@@ -129,7 +129,8 @@ PRIVACY = f"""<div class="tldr"><b>In short:</b> no ads, no analytics trackers, 
 <li><b>Vercel</b> hosts the site, stores submitted leads in private storage, and routes AI requests through its AI Gateway.</li>
 <li><b>AI model providers</b> (such as Anthropic, OpenAI and Google, reached through Vercel AI Gateway) process AI advisor messages and scan details to generate replies.</li>
 <li><b>Resend</b> may be used to email me a notification when a new lead arrives (name, contact details and what you asked for).</li>
-<li><b>Your browser's provider</b>, only if you use voice in the AI advisor: speech recognition is done by your browser and may send audio to its provider (for example Google for Chrome or Apple for Safari). My site receives only the text.</li>
+<li><b>Voice call providers</b>, only if you press Talk in the AI advisor: LiveKit carries the call audio, Deepgram turns your speech into text, Groq runs the AI model that writes the replies, and Modal runs the voice model that speaks them. Audio is processed live to run the call; the site keeps the text of the conversation only if you give your details or ask for something to be passed on, as described above.</li>
+<li><b>Your browser's provider</b>, only if the voice call isn't available and the advisor falls back to your browser's speech recognition, which may send audio to its provider (for example Google for Chrome or Apple for Safari). My site receives only the text.</li>
 <li><b>Adobe and WordPress.com (Automattic)</b>, only if you allow embedded content, as described above.</li>
 </ul>
 <p>These providers are in the United States or may process data there. I may also disclose information if the law requires it or to protect someone's safety or rights.</p>

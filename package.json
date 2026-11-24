@@ -9,6 +9,7 @@
     "@vercel/blob": "^2.9.0",
     "@vercel/functions": "^3.0.0",
     "ai": "^7.0.0",
+    "livekit-server-sdk": "^2.20.1",
     "zod": "^4.0.0"
   }
 }

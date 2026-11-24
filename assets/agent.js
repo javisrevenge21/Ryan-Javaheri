@@ -167,31 +167,95 @@
       state.messages.push({ role: 'assistant', content: d.reply || '…' });
       if (d.leadSaved) state.messages.push({ role: 'system', content: '✓ ' + L.saved });
       persist(); render();
-      if (voiceOn) speak(d.reply);
+      if (voiceOn && !call) speak(d.reply);
     }).catch(function () {
       state.messages.push({ role: 'assistant', content: 'Connection problem. Email ryanjavaheri21@gmail.com and Ryan will reply.' });
       persist(); render();
     }).then(function () { busy = false; });
   }
 
-  /* ---- Voice conversation: browser speech recognition + speech synthesis ---- */
+  /* ---- Voice: a live call with the advisor in Ryan's AI voice (LiveKit), or the browser's own voice as a fallback ---- */
   var SR = window.SpeechRecognition || window.webkitSpeechRecognition;
-  var rec = null, voiceOn = false;
+  var rec = null, voiceOn = false, call = null, callTimer = null;
   var SPEECH = { es: 'es-ES', fa: 'fa-IR', he: 'he-IL', ar: 'ar-SA', zh: 'zh-CN', ko: 'ko-KR', ja: 'ja-JP', fr: 'fr-FR', pt: 'pt-BR', ru: 'ru-RU', hy: 'hy-AM', hi: 'hi-IN' };
   function speechLang() { return SPEECH[lang.slice(0, 2)] || navigator.language || 'en-US'; }
   function toggleVoice() { voiceOn ? stopVoice() : startVoice(); }
+  function setMicOn() { mic.classList.add('on'); mic.textContent = '■ ' + L.stop; }
   function startVoice() {
-    if (!SR || !window.speechSynthesis) { state.messages.push({ role: 'system', content: L.voiceOff }); render(); return; }
     voiceOn = true;
-    mic.classList.add('on'); mic.textContent = '■ ' + L.stop;
+    setMicOn();
+    input.placeholder = L.listening;
+    startCall().catch(function () {
+      call = null;
+      if (voiceOn) startBrowserVoice();
+    });
+  }
+  function startBrowserVoice() {
+    if (!SR || !window.speechSynthesis) { stopVoice(); state.messages.push({ role: 'system', content: L.voiceOff }); render(); return; }
     listen();
   }
   function stopVoice() {
     voiceOn = false;
+    if (callTimer) { clearTimeout(callTimer); callTimer = null; }
+    if (call) { var r = call; call = null; try { r.disconnect(); } catch (e) {} }
+    document.querySelectorAll('audio[data-rja]').forEach(function (a) { a.remove(); });
     if (rec) { try { rec.abort(); } catch (e) {} rec = null; }
     if (window.speechSynthesis) window.speechSynthesis.cancel();
     if (mic) { mic.classList.remove('on'); mic.textContent = '🎙 ' + L.talk; }
     if (input) input.placeholder = L.ph;
+  }
+  // The call library is hosted on this site and only loaded when someone presses Talk.
+  var lkLoading = null;
+  function loadLiveKit() {
+    if (window.LivekitClient) return Promise.resolve(window.LivekitClient);
+    if (lkLoading) return lkLoading;
+    lkLoading = new Promise(function (ok, fail) {
+      var sc = document.createElement('script');
+      sc.src = '/assets/vendor/livekit-client.umd.js';
+      sc.onload = function () { window.LivekitClient ? ok(window.LivekitClient) : fail(); };
+      sc.onerror = function () { lkLoading = null; fail(); };
+      document.head.appendChild(sc);
+    });
+    return lkLoading;
+  }
+  function startCall() {
+    return fetch('/api/voice-token', {
+      method: 'POST', headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ page: location.pathname })
+    }).then(function (r) { if (!r.ok) throw new Error('no-call'); return r.json(); }).then(function (d) {
+      return loadLiveKit().then(function (LK) {
+        if (!voiceOn) return;
+        var room = new LK.Room({ adaptiveStream: true, dynacast: true });
+        call = room;
+        var bubbles = {};
+        room.on(LK.RoomEvent.TrackSubscribed, function (track) {
+          if (track.kind !== 'audio') return;
+          var a = track.attach(); a.setAttribute('data-rja', '1'); a.style.display = 'none';
+          document.body.appendChild(a);
+        });
+        room.on(LK.RoomEvent.Disconnected, function () { if (call === room) stopVoice(); });
+        // Live captions of both sides, as the agent publishes them.
+        room.registerTextStreamHandler('lk.transcription', function (reader, who) {
+          var attrs = (reader.info && reader.info.attributes) || {};
+          var seg = attrs['lk.segment_id'] || reader.info.id;
+          var role = who && who.identity === room.localParticipant.identity ? 'user' : 'assistant';
+          reader.readAll().then(function (text) {
+            text = (text || '').trim();
+            if (!text) return;
+            if (bubbles[seg] != null) state.messages[bubbles[seg]].content = text;
+            else { bubbles[seg] = state.messages.length; state.messages.push({ role: role, content: text }); }
+            persist(); render();
+          });
+        });
+        return room.connect(d.url, d.token).then(function () {
+          return room.startAudio();
+        }).then(function () {
+          return room.localParticipant.setMicrophoneEnabled(true);
+        }).then(function () {
+          callTimer = setTimeout(stopVoice, 15 * 60 * 1000); // calls end after 15 minutes
+        });
+      });
+    });
   }
   function listen() {
     if (!voiceOn) return;

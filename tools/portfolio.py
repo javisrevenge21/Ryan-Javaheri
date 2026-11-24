@@ -17,7 +17,7 @@ Fields:
 
 PORTFOLIO = [
     dict(tag="AI agent · Live", name="AI Intake Advisor", kind="AI agent", date="2026-11",
-         desc="The chat and voice agent on this site: answers questions 24/7 in any language and sends every lead to a private inbox.",
+         desc="The chat and voice agent on this site: answers questions 24/7 in any language, takes live voice calls in an AI voice modeled on mine, and sends every lead to a private inbox.",
          url="#agent", label="Try it now ›"),
     dict(tag="Website · Live", name="ryanjavaheri.com", kind="Website", date="2026-11",
          desc="This site: an AI consulting site with a free AI visibility scan and call booking, pages in 13 languages, and full structured data for AI search.",
